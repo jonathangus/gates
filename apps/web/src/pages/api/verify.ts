@@ -57,6 +57,9 @@ const handler: NextApiHandler = async (req, res) => {
   try {
     const success = await verifier.verify({
       wallet: address,
+      userData: {
+        githubToken: 'gho_XYZ', // TODO: insert from ceramic
+      },
     });
     res.setHeader('Cache-Control', 'max-age=10, s-maxage=10');
     res.status(200).send({ success });

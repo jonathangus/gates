@@ -9,16 +9,16 @@ export const WrongNetworkButton = ({ isMobile, onClick }) => {
         root: {
           backgroundColor: 'white',
           border: 0,
-          height: 50,
+          // height: 50,
           paddingLeft: isMobile ? 5 : 20,
           paddingRight: isMobile ? 5 : 20,
           width: isMobile ? '100%' : null,
-          fontSize: isMobile ? 15 : 25,
+          fontSize: isMobile ? 15 : 18,
           '&:hover': {
-            // backgroundColor: theme.fn.darken(colors.white, 0.06),
-            color: '#AB275B',
+            backgroundColor: '#F7F7F7',
+            color: 'black',
           },
-          color: '#AB275B',
+          color: 'black',
         },
       })}
     >
