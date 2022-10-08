@@ -1,4 +1,3 @@
-import { Counter__factory } from 'web3-config';
 import { useContractRead } from 'wagmi-lfg';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { AppShell, Navbar, Header, Center } from '@mantine/core';
