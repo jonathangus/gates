@@ -5,10 +5,6 @@ import { NotificationsProvider } from 'reapop';
 import NotificationHandler from '../components/NotificationHandler';
 import { SessionProvider } from 'next-auth/react';
 
-<<<<<<< HEAD
-function MyApp({ Component, pageProps }: AppProps) {
-  return null;
-=======
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <NotificationsProvider>
@@ -20,7 +16,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
       </SessionProvider>
     </NotificationsProvider>
   );
->>>>>>> bbaebd593fa69ddb70267841153f1cb850d5cf4b
 }
 
 export default MyApp;
