@@ -10,10 +10,13 @@ export const source: Source = {
     {
       name: 'User need to follow account',
       key: 'twitter.follow',
+      description:
+        'Modernipsum dolor sit amet art nouveau avant-garde precisionism performance art superstroke avant-garde, video game art historicism.',
       fields: [
         {
           type: 'string',
           name: 'account',
+          title: 'Account name (ex: @ETHGlobal)',
         },
       ],
       method: userFollow,
@@ -21,10 +24,13 @@ export const source: Source = {
     {
       name: 'User need to retweet post',
       key: 'twitter.retweet',
+      description:
+        'Modernipsum dolor sit amet art nouveau avant-garde precisionism performance art superstroke avant-garde, video game art historicism.',
       fields: [
         {
           type: 'string',
           name: 'postId',
+          title: 'Post Id (ex: https://twitter.com/ETHGlobal/status/{postId}',
         },
       ],
       method: userRetweet,

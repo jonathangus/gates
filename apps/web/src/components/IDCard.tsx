@@ -11,6 +11,26 @@ const credentials = [
   { name: 'Lens', key: 'lens' },
 ];
 
+export const MinusIcon = () => {
+  return (
+    <div style={{ display: 'flex', paddingBottom: 10, cursor: 'pointer' }}>
+      <svg
+        width="24"
+        height="25"
+        viewBox="0 0 24 25"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect y="0.5" width="24" height="24" rx="12" fill="#FFDFDF" />
+        <path
+          d="M7.75488 13.5703H16.2451V12.1465H7.75488V13.5703Z"
+          fill="#FF3F3F"
+        />
+      </svg>
+    </div>
+  );
+};
+
 export const PlusIcon = () => {
   return (
     <div style={{ display: 'flex', paddingBottom: 10, cursor: 'pointer' }}>
