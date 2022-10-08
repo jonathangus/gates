@@ -9,7 +9,7 @@ export const source: Source = {
   conditions: [
     {
       name: 'Query on the graph',
-      key: 'the-graph.query',
+      key: 'query',
       fields: [
         {
           type: 'string',

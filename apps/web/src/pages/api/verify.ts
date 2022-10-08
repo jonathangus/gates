@@ -31,15 +31,19 @@ const handler: NextApiHandler = async (req, res) => {
     provider
   );
   const data = await contract.conditions(gateId);
+  console.log(data);
+  console.log(ethers.utils.toUtf8String(data));
   const conditions = JSON.parse(ethers.utils.toUtf8String(data));
 
   if (typeof signature === 'string') {
     const verified = await contract.verify(address, gateId, signature);
 
-    console.log(verified);
+    if (!verified) {
+      return res
+        .status(500)
+        .send(`User have not signed approval for gateId ${gateId}`);
+    }
   }
-
-  // TODO verify signer
 
   const verifier = new ConditionVerifier({ address, conditions });
 

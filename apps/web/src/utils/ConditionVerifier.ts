@@ -20,6 +20,7 @@ class ConditionVerifier {
       .replace(`${type}:${conditionKey}`, '')
       .replace(':', '');
 
+    console.log(condition);
     if (!sources[type]) {
       throw new Error(`type ${type} does not exist`);
     }

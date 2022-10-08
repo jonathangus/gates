@@ -12,7 +12,7 @@ export const queryTheGraph = async (
   ctx: CommandContext
 ): Promise<boolean> => {
   try {
-    const { data } = await request(endpoint, query);
+    const data = await request(endpoint, query);
 
     return get(data, selector) == result;
   } catch (e) {
