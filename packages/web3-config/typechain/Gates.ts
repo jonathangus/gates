@@ -23,6 +23,7 @@ export interface GatesInterface extends utils.Interface {
     "add(bytes)": FunctionFragment;
     "conditions(uint256)": FunctionFragment;
     "getMessageHash(uint256)": FunctionFragment;
+    "verify(address,uint256,bytes)": FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: "add", values: [BytesLike]): string;
@@ -34,6 +35,10 @@ export interface GatesInterface extends utils.Interface {
     functionFragment: "getMessageHash",
     values: [BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "verify",
+    values: [string, BigNumberish, BytesLike]
+  ): string;
 
   decodeFunctionResult(functionFragment: "add", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "conditions", data: BytesLike): Result;
@@ -41,15 +46,19 @@ export interface GatesInterface extends utils.Interface {
     functionFragment: "getMessageHash",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "verify", data: BytesLike): Result;
 
   events: {
-    "Created(uint256)": EventFragment;
+    "Created(uint256,address)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Created"): EventFragment;
 }
 
-export type CreatedEvent = TypedEvent<[BigNumber], { requestId: BigNumber }>;
+export type CreatedEvent = TypedEvent<
+  [BigNumber, string],
+  { gateId: BigNumber; creator: string }
+>;
 
 export type CreatedEventFilter = TypedEventFilter<CreatedEvent>;
 
@@ -102,14 +111,28 @@ export interface Gates extends BaseContract {
     ): Promise<[string]>;
 
     getMessageHash(
-      requestId: BigNumberish,
+      gateId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
     "getMessageHash(uint256)"(
-      requestId: BigNumberish,
+      gateId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[string]>;
+
+    verify(
+      _signer: string,
+      gateId: BigNumberish,
+      signature: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
+    "verify(address,uint256,bytes)"(
+      _signer: string,
+      gateId: BigNumberish,
+      signature: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
   };
 
   add(
@@ -130,14 +153,28 @@ export interface Gates extends BaseContract {
   ): Promise<string>;
 
   getMessageHash(
-    requestId: BigNumberish,
+    gateId: BigNumberish,
     overrides?: CallOverrides
   ): Promise<string>;
 
   "getMessageHash(uint256)"(
-    requestId: BigNumberish,
+    gateId: BigNumberish,
     overrides?: CallOverrides
   ): Promise<string>;
+
+  verify(
+    _signer: string,
+    gateId: BigNumberish,
+    signature: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
+  "verify(address,uint256,bytes)"(
+    _signer: string,
+    gateId: BigNumberish,
+    signature: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   callStatic: {
     add(_conditions: BytesLike, overrides?: CallOverrides): Promise<void>;
@@ -155,19 +192,36 @@ export interface Gates extends BaseContract {
     ): Promise<string>;
 
     getMessageHash(
-      requestId: BigNumberish,
+      gateId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
 
     "getMessageHash(uint256)"(
-      requestId: BigNumberish,
+      gateId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
+
+    verify(
+      _signer: string,
+      gateId: BigNumberish,
+      signature: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    "verify(address,uint256,bytes)"(
+      _signer: string,
+      gateId: BigNumberish,
+      signature: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
   };
 
   filters: {
-    "Created(uint256)"(requestId?: null): CreatedEventFilter;
-    Created(requestId?: null): CreatedEventFilter;
+    "Created(uint256,address)"(
+      gateId?: null,
+      creator?: null
+    ): CreatedEventFilter;
+    Created(gateId?: null, creator?: null): CreatedEventFilter;
   };
 
   estimateGas: {
@@ -192,12 +246,26 @@ export interface Gates extends BaseContract {
     ): Promise<BigNumber>;
 
     getMessageHash(
-      requestId: BigNumberish,
+      gateId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     "getMessageHash(uint256)"(
-      requestId: BigNumberish,
+      gateId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    verify(
+      _signer: string,
+      gateId: BigNumberish,
+      signature: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "verify(address,uint256,bytes)"(
+      _signer: string,
+      gateId: BigNumberish,
+      signature: BytesLike,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
@@ -224,12 +292,26 @@ export interface Gates extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     getMessageHash(
-      requestId: BigNumberish,
+      gateId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "getMessageHash(uint256)"(
-      requestId: BigNumberish,
+      gateId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    verify(
+      _signer: string,
+      gateId: BigNumberish,
+      signature: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "verify(address,uint256,bytes)"(
+      _signer: string,
+      gateId: BigNumberish,
+      signature: BytesLike,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

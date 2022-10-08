@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/Gates.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.14;\n\ncontract Gates {\n    uint256 count = 0;\n    mapping(uint256 => bytes) public conditions;\n\n    event Created(uint256 gateId, address creator);\n\n    function add(bytes calldata _conditions) public {\n        conditions[count] = _conditions;\n        emit Created(count, msg.sender);\n        count++;\n    }\n\n    function getMessageHash(uint256 gateId) public pure returns (bytes32) {\n        return keccak256(abi.encodePacked(gateId));\n    }\n\n    function getEthSignedMessageHash(bytes32 _messageHash)\n        internal\n        pure\n        returns (bytes32)\n    {\n        /*\n        Signature is produced by signing a keccak256 hash with the following format:\n        \"\\x19Ethereum Signed Message\\n\" + len(msg) + msg\n        */\n        return\n            keccak256(\n                abi.encodePacked(\n                    '\\x19Ethereum Signed Message:\\n32',\n                    _messageHash\n                )\n            );\n    }\n\n    function verify(\n        address _signer,\n        uint256 gateId,\n        bytes memory signature\n    ) external pure returns (bool) {\n        bytes32 messageHash = getMessageHash(gateId);\n        bytes32 ethSignedMessageHash = getEthSignedMessageHash(messageHash);\n\n        return recoverSigner(ethSignedMessageHash, signature) == _signer;\n    }\n\n    function recoverSigner(\n        bytes32 _ethSignedMessageHash,\n        bytes memory _signature\n    ) internal pure returns (address) {\n        (bytes32 r, bytes32 s, uint8 v) = splitSignature(_signature);\n\n        return ecrecover(_ethSignedMessageHash, v, r, s);\n    }\n\n    function splitSignature(bytes memory sig)\n        internal\n        pure\n        returns (\n            bytes32 r,\n            bytes32 s,\n            uint8 v\n        )\n    {\n        require(sig.length == 65, 'invalid signature length');\n\n        assembly {\n            /*\n            First 32 bytes stores the length of the signature\n\n            add(sig, 32) = pointer of sig + 32\n            effectively, skips first 32 bytes of signature\n\n            mload(p) loads next 32 bytes starting at the memory address p into memory\n            */\n\n            // first 32 bytes, after the length prefix\n            r := mload(add(sig, 32))\n            // second 32 bytes\n            s := mload(add(sig, 64))\n            // final byte (first byte of the next 32 bytes)\n            v := byte(0, mload(add(sig, 96)))\n        }\n\n        // implicitly return (r, s, v)\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}
