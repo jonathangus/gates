@@ -1,4 +1,4 @@
-export type CommandContext = any;
+export type CommandContext = { wallet: string };
 
 export type SourceMetadata = {
   logo: string;

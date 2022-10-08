@@ -4,6 +4,7 @@ import { useAccount } from 'wagmi';
 import { useContractWrite } from 'wagmi-lfg';
 import { Gates__factory } from 'web3-config';
 import useEvent from '../hooks/useEvent';
+import { hasMinTokenBalance } from '../sources/quicknode/commands';
 
 type Props = {};
 
@@ -40,6 +41,13 @@ const CreateConditions = ({}: Props) => {
   const items = JSON.stringify([
     // `api:get:${JSON.stringify(apiData)}`,
     `the-graph:query:${JSON.stringify(theGraph)}`,
+    `quicknode:ownsNFT:${JSON.stringify({
+      contractAddress: '0xED5AF388653567Af2F388E6224dC7C4b3241C544', // azuki
+    })}`,
+    `quicknode:hasMinTokenBalance:${JSON.stringify({
+      contractAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // usdc
+      minAmount: 100 * Math.pow(10, 6),
+    })}`,
     // `twitter:twitter.follow:${JSON.stringify(twitterData)}`,
   ]);
 
