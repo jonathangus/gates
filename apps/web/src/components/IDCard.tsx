@@ -11,8 +11,7 @@ const credentials = [
   { name: 'Lens', key: 'lens' },
 ];
 
-const Credential = (props) => {
-  const { item } = props;
+export const PlusIcon = () => {
   return (
     <div style={{ display: 'flex', paddingBottom: 10, cursor: 'pointer' }}>
       <svg
@@ -28,6 +27,15 @@ const Credential = (props) => {
           fill="#38C953"
         />
       </svg>
+    </div>
+  );
+};
+
+const Credential = (props) => {
+  const { item } = props;
+  return (
+    <div style={{ display: 'flex', paddingBottom: 10 }}>
+      <PlusIcon />
       <Space w={10} />
       <Text weight={300}>{item.name}</Text>
     </div>
