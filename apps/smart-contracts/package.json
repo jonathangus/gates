@@ -1,0 +1,40 @@
+{
+  "name": "smart-contracts",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "test": "hardhat test",
+    "deploy": "hardhat --network localhost deploy"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.5",
+    "@nomiclabs/hardhat-etherscan": "^3.0.3",
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "@typechain/ethers-v5": "^9.0.0",
+    "@typechain/hardhat": "^5.0.0",
+    "@types/chai": "^4.3.0",
+    "@types/mocha": "^9.1.0",
+    "@types/node": "^17.0.21",
+    "@typescript-eslint/eslint-plugin": "^5.14.0",
+    "@typescript-eslint/parser": "^5.14.0",
+    "chai": "^4.3.6",
+    "chalk": "^5.0.1",
+    "dotenv": "^16.0.0",
+    "ethereum-waffle": "^3.4.0",
+    "hardhat": "^2.9.1",
+    "hardhat-abi-exporter": "^2.8.0",
+    "hardhat-deploy": "^0.10.6",
+    "hardhat-gas-reporter": "^1.0.8",
+    "solhint": "^3.3.7",
+    "ts-node": "^10.7.0",
+    "typechain": "7.0.1",
+    "typescript": "^4.6.2",
+    "web3-config": "*"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.5.0",
+    "@typechain/ethers-v5": "^9.0.0",
+    "@typechain/hardhat": "^5.0.0",
+    "hardhat-deploy-ethers": "^0.3.0-beta.13"
+  }
+}

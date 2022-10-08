@@ -1,0 +1,3 @@
+{
+  "prettier.configPath": "./packages/lint/prettier.config.js"
+}

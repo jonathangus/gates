@@ -1,0 +1,107 @@
+{
+  "address": "0x998abeb3E57409262aE5b751f60747921B33613E",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "currentTimestamp",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "getCount",
+      "outputs": [
+        {
+          "internalType": "int256",
+          "name": "",
+          "type": "int256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "incrementCounter",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x68e3e69db86ea59fd6bf746898b28ffe51911c55fa8c71947f8a7bbe46f4e6fb",
+  "receipt": {
+    "to": null,
+    "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "contractAddress": "0x998abeb3E57409262aE5b751f60747921B33613E",
+    "transactionIndex": 0,
+    "gasUsed": "228224",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xde79646ca99686445aa3c210ae81722efe74e988cc426a05f5e1ce23cd31fd43",
+    "transactionHash": "0x68e3e69db86ea59fd6bf746898b28ffe51911c55fa8c71947f8a7bbe46f4e6fb",
+    "logs": [],
+    "blockNumber": 32820,
+    "cumulativeGasUsed": "228224",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 2,
+  "solcInputHash": "8f7b423f0566f63330bc98b66fa6cc40",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.4+commit.c7e474f2\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"currentTimestamp\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"getCount\",\"outputs\":[{\"internalType\":\"int256\",\"name\":\"\",\"type\":\"int256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"incrementCounter\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Counter.sol\":\"Counter\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/Counter.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.4;\\n\\ncontract Counter {\\n    mapping(address => int256) count;\\n\\n    function incrementCounter() public {\\n        count[msg.sender] += 1;\\n    }\\n\\n    function getCount(address user) public view returns (int256) {\\n        return count[user];\\n    }\\n\\n    function currentTimestamp() public view returns (uint256) {\\n        return block.timestamp;\\n    }\\n}\\n\",\"keccak256\":\"0x59e8ed206a5f1e1841dc04fe27b03073bea5a0e924bc31d7ccf2470e8a6a9c87\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061032e806100206000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c80631e2ff94f146100465780634f0cd27b146100645780635b34b96614610094575b600080fd5b61004e61009e565b60405161005b91906101bd565b60405180910390f35b61007e6004803603810190610079919061015b565b6100a6565b60405161008b91906101a2565b60405180910390f35b61009c6100ee565b005b600042905090565b60008060008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020549050919050565b60016000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825461013d91906101d8565b92505081905550565b600081359050610155816102e1565b92915050565b60006020828403121561016d57600080fd5b600061017b84828501610146565b91505092915050565b61018d8161027e565b82525050565b61019c816102a8565b82525050565b60006020820190506101b76000830184610184565b92915050565b60006020820190506101d26000830184610193565b92915050565b60006101e38261027e565b91506101ee8361027e565b9250817f7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff03831360008312151615610229576102286102b2565b5b817f8000000000000000000000000000000000000000000000000000000000000000038312600083121615610261576102606102b2565b5b828201905092915050565b600061027782610288565b9050919050565b6000819050919050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6000819050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b6102ea8161026c565b81146102f557600080fd5b5056fea2646970667358221220dc5af71bfda45663779be47c9b62dca82cdd411451441f14b66856fadb0071a364736f6c63430008040033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100415760003560e01c80631e2ff94f146100465780634f0cd27b146100645780635b34b96614610094575b600080fd5b61004e61009e565b60405161005b91906101bd565b60405180910390f35b61007e6004803603810190610079919061015b565b6100a6565b60405161008b91906101a2565b60405180910390f35b61009c6100ee565b005b600042905090565b60008060008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020549050919050565b60016000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825461013d91906101d8565b92505081905550565b600081359050610155816102e1565b92915050565b60006020828403121561016d57600080fd5b600061017b84828501610146565b91505092915050565b61018d8161027e565b82525050565b61019c816102a8565b82525050565b60006020820190506101b76000830184610184565b92915050565b60006020820190506101d26000830184610193565b92915050565b60006101e38261027e565b91506101ee8361027e565b9250817f7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff03831360008312151615610229576102286102b2565b5b817f8000000000000000000000000000000000000000000000000000000000000000038312600083121615610261576102606102b2565b5b828201905092915050565b600061027782610288565b9050919050565b6000819050919050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6000819050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b6102ea8161026c565b81146102f557600080fd5b5056fea2646970667358221220dc5af71bfda45663779be47c9b62dca82cdd411451441f14b66856fadb0071a364736f6c63430008040033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 5,
+        "contract": "contracts/Counter.sol:Counter",
+        "label": "count",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_mapping(t_address,t_int256)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_int256": {
+        "encoding": "inplace",
+        "label": "int256",
+        "numberOfBytes": "32"
+      },
+      "t_mapping(t_address,t_int256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => int256)",
+        "numberOfBytes": "32",
+        "value": "t_int256"
+      }
+    }
+  }
+}

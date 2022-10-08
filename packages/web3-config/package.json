@@ -1,0 +1,8 @@
+{
+    "name": "web3-config",
+    "version": "0.0.0",
+    "main": "./index.ts",
+    "types": "./index.ts",
+    "license": "MIT",
+    "devDependencies": {}
+}
