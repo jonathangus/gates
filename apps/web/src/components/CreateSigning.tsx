@@ -24,11 +24,11 @@ const CreateSigning = ({}: Props) => {
     },
   });
 
-  //   const { data: response } = useContractRead(Gates__factory, 'verify', {
-  //     args: [address, requestId, sig],
-  //   });
+  const { data: response } = useContractRead(Gates__factory, 'verify', {
+    args: [address, requestId, sig],
+  });
 
-  //   console.log({ response });
+  console.log({ response });
   return <button onClick={() => signMessage()}>Create signing</button>;
 };
 

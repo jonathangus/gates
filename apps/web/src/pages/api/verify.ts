@@ -5,10 +5,10 @@ import { Gates__factory, getAddress } from 'web3-config';
 import ConditionVerifier from '../../utils/ConditionVerifier';
 
 const handler: NextApiHandler = async (req, res) => {
-  const { requestId, address } = req.query;
+  const { gateId, address, signature } = req.query;
 
-  if (typeof requestId !== 'string') {
-    return res.status(500).send('missing requestId');
+  if (typeof gateId !== 'string') {
+    return res.status(500).send('missing gateId');
   }
 
   if (typeof address !== 'string') {
@@ -30,8 +30,14 @@ const handler: NextApiHandler = async (req, res) => {
     getAddress(chain.optimismGoerli.id, 'Gates'),
     provider
   );
-  const data = await contract.conditions(requestId);
+  const data = await contract.conditions(gateId);
   const conditions = JSON.parse(ethers.utils.toUtf8String(data));
+
+  if (typeof signature === 'string') {
+    const verified = await contract.verify(address, gateId, signature);
+
+    console.log(verified);
+  }
 
   // TODO verify signer
 
