@@ -43,7 +43,7 @@ class ConditionVerifier {
   verify = async (ctx: CommandContext): Promise<boolean> => {
     try {
       for (let condition of this.conditions) {
-        let success = this.createRequest(condition, ctx);
+        let success = await this.createRequest(condition, ctx);
 
         if (!success) {
           return false;
