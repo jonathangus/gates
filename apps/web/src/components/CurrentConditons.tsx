@@ -122,9 +122,9 @@ const CurrentConditons = (props) => {
   console.log({ admin });
   return (
     <div>
-      <Text style={{ margin: 10, marginLeft: 25 }}>
+      {/* <Text style={{ margin: 10, marginLeft: 25 }}>
         Your active gated conditions
-      </Text>
+      </Text> */}
       <div style={{ display: 'flex' }}>
         {admin.conditions.map((condition, i) => {
           return <ConditionCard key={'condition' + i} condition={condition} />;

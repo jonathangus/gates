@@ -4,28 +4,34 @@ import { queryTheGraph } from './commands';
 export const source: Source = {
   id: 'the-graph',
   metadata: {
-    logo: '...',
+    logo: 'https://cryptologos.cc/logos/the-graph-grt-logo.png?v=023',
   },
   conditions: [
     {
       name: 'Query on the graph',
       key: 'query',
+      description:
+        'Modernipsum dolor sit amet art nouveau avant-garde precisionism performance art superstroke avant-garde, video game art historicism.',
       fields: [
         {
           type: 'string',
           name: 'endpoint', // https://api.thegraph.com/subgraphs/name/ensdomains/ens
+          title: '',
         },
         {
           type: 'string',
           name: 'query',
+          title: '',
         },
         {
           type: 'string',
           name: 'selector', // data.domain.name
+          title: '',
         },
         {
           type: 'string',
           name: 'result', // jont.eth
+          title: '',
         },
       ],
       method: queryTheGraph,

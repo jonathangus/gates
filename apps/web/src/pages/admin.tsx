@@ -94,7 +94,8 @@ const Page = () => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 marginLeft: 25,
-                marginRight: 20,
+                marginRight: 25,
+                paddingBottom: 20,
               }}
             >
               <Text size="xl">{`Welcome, ${admin.name}`}</Text>

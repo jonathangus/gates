@@ -28,9 +28,21 @@ const coinbaseProvider = jsonRpcProvider({
   }),
 });
 
+const poktProvider = jsonRpcProvider({
+  rpc: (chain) => ({
+    http:
+      chain == allChains.mainnet
+        ? `https://eth-mainnet.gateway.pokt.network/v1/lb/e82b7a00898269c1b047c2e8`
+        : chain == allChains.optimism
+        ? `https://optimism-mainnet.gateway.pokt.network/v1/lb/e82b7a00898269c1b047c2e8`
+        : '',
+  }),
+});
+
 const { chains, provider } = configureChains(config.defaultChains, [
+  coinbaseProvider,
+  poktProvider,
   alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY }),
-  // coinbaseProvider,
   publicProvider(),
 ]);
 
