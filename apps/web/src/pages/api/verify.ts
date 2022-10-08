@@ -3,7 +3,6 @@ import { NextApiHandler } from 'next';
 import { chain } from 'wagmi';
 import { Gates__factory, getAddress } from 'web3-config';
 import ConditionVerifier from '../../utils/ConditionVerifier';
-import { ENDPOINTS } from '../../utils/endpoints';
 
 const handler: NextApiHandler = async (req, res) => {
   const { gateId, address, signature } = req.query;
@@ -58,6 +57,9 @@ const handler: NextApiHandler = async (req, res) => {
   try {
     const success = await verifier.verify({
       wallet: address,
+      userData: {
+        githubToken: 'gho_XYZ', // TODO: insert from ceramic
+      },
     });
     res.setHeader('Cache-Control', 'max-age=10, s-maxage=10');
     res.status(200).send({ success });

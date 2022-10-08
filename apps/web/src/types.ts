@@ -1,4 +1,4 @@
-export type CommandContext = { wallet: string };
+export type CommandContext = { wallet: string; userData: UserData };
 
 export type SourceMetadata = {
   logo: string;
@@ -21,4 +21,8 @@ export type Source = {
   id: string;
   metadata: SourceMetadata;
   conditions: Condition[];
+};
+
+export type UserData = {
+  githubToken: string;
 };

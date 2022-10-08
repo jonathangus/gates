@@ -6,7 +6,7 @@ import { formatAddressToShort } from './../utils/formatter';
 import { signIn, signOut, useSession } from 'next-auth/react';
 
 const credentials = [
-  { name: 'Github', key: 'github' },
+  { name: 'Github', key: 'github2' },
   { name: 'Twitter', key: 'twitter' },
   { name: 'Lens', key: 'lens' },
 ];
@@ -88,7 +88,16 @@ const IDCard = () => {
 
         <div style={{ padding: 30 }}>
           {credentials.map((item) => (
-            <div onClick={() => signIn(item.key)}>
+            <div
+              key={item.key}
+              onClick={async () => {
+                if (session) {
+                  await signOut();
+                } else {
+                  await signIn(item.key);
+                }
+              }}
+            >
               <Credential item={item} />
             </div>
           ))}
