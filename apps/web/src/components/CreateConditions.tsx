@@ -41,6 +41,9 @@ const CreateConditions = ({}: Props) => {
   const items = JSON.stringify([
     `api:get:${JSON.stringify(apiData)}`,
     `the-graph:query:${JSON.stringify(theGraph)}`,
+    `the-graph:minENSs:${JSON.stringify({
+      minNumber: 2,
+    })}`,
     `quicknode:ownsNFT:${JSON.stringify({
       contractAddress: '0xED5AF388653567Af2F388E6224dC7C4b3241C544', // azuki
     })}`,

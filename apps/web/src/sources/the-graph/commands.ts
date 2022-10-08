@@ -20,6 +20,26 @@ export const queryTheGraph = async (
   }
 };
 
-export const commands = {
-  queryTheGraph,
+export const minENSs = async (
+  { minNumber }: { minNumber: number },
+  ctx: CommandContext
+): Promise<boolean> => {
+  try {
+    const data = await request(
+      'https://api.thegraph.com/subgraphs/name/ensdomains/ens/graphql',
+      `
+      {
+  domains(where: {id: ${ctx.wallet}) {
+    id
+    name
+    labelName
+    labelhash
+  }
+}
+      `
+    );
+    return data.length >= minENSs;
+  } catch (e) {
+    return false;
+  }
 };
