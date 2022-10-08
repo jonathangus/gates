@@ -115,7 +115,20 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@ceramicnetwork/blockchain-utils-linking@^2.1.0":
+"@ceramicnetwork/3id-did-resolver@^2.1.3":
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/@ceramicnetwork/3id-did-resolver/-/3id-did-resolver-2.1.9.tgz#8a146e1e7e1522cf3df5c965143c621dc01dbf5c"
+  integrity sha512-U2OeY8Eg7roSpKsBwOo5q4f6vcGsXdhqoRHNQNO5lEN/wThWAr11PK7sfvBMZ4qnLcL/EYZijeF/moJE+SpDew==
+  dependencies:
+    "@ceramicnetwork/common" "^2.8.0"
+    "@ceramicnetwork/stream-tile" "^2.4.5"
+    "@ceramicnetwork/streamid" "^2.3.5"
+    cross-fetch "^3.1.4"
+    lru_map "^0.4.1"
+    multiformats "^9.5.8"
+    uint8arrays "^3.0.0"
+
+"@ceramicnetwork/blockchain-utils-linking@^2.0.12", "@ceramicnetwork/blockchain-utils-linking@^2.0.7":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@ceramicnetwork/blockchain-utils-linking/-/blockchain-utils-linking-2.1.0.tgz#4571b577f50a8983633ef37b371a353396e28c6f"
   integrity sha512-T6jUnn1VzjG5U9B/W2clyDRtgydClw/3NIg3/JMLAajyMryrr6U767yuvLIZSV68mjw7tMvHTRy8OG5VtnIg1w==
@@ -5105,19 +5118,20 @@ did-resolver@^4.0.0:
   resolved "https://registry.yarnpkg.com/did-resolver/-/did-resolver-4.0.0.tgz#fc8f657b4cd7f44c2921051fb046599fbe7d4b31"
   integrity sha512-/roxrDr9EnAmLs+s9T+8+gcpilMo+IkeytcsGO7dcxvTmVJ+0Rt60HtV8o0UXHhGBo0Q+paMH/0ffXz1rqGFYg==
 
-did-session@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/did-session/-/did-session-1.0.0.tgz#df9be8be3ad56410ee122d4ced9cc565b1cef505"
-  integrity sha512-hLKlfPGoEp9T6malsuNyF1bCrU0AcECZJ1SP2lvbHiic7ko2PdiZPmmVipVId+ZqmshU4AlLLEozZc9Iu1X1UA==
+did-session@^0.1.1:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/did-session/-/did-session-0.1.4.tgz#f4d8f63de9dd7d972b9ccd9b906ea67afa78b96e"
+  integrity sha512-2p8weTH4RXBEEMSikQ8CZiHLeJSFZ88spJQjw5iCYDhcsK4+khXrKS3VKSuI3rcSmWQcu0m/ERS89v96n3SJWA==
   dependencies:
+    "@ceramicnetwork/blockchain-utils-linking" "^2.0.12"
     "@ceramicnetwork/stream-tile" "^2.4.4"
     "@stablelib/random" "^1.0.1"
-    dids "^3.2.0"
+    dids "^3.3.1"
     key-did-provider-ed25519 "^2.0.1"
-    key-did-resolver "^2.0.6"
+    key-did-resolver "^2.1.2"
     uint8arrays "^3.0.0"
 
-dids@^3.2.0, dids@^3.4.0:
+dids@^3.3.1, dids@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/dids/-/dids-3.4.0.tgz#ac37c914c8d862bb7619515a5deb11ef19c988a3"
   integrity sha512-hXHkOTL9E5R4rbQwDVOktiiEq57Y6yWOEYjev1ojOpMr2Rkx9g8bw0v6BQIsbPB94aaYxUCtaejNl2FrublfiA==
@@ -8403,7 +8417,7 @@ key-did-provider-ed25519@^2.0.1:
     rpc-utils "^0.6.2"
     uint8arrays "^3.0.0"
 
-key-did-resolver@^2.0.6:
+key-did-resolver@^2.1.2:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/key-did-resolver/-/key-did-resolver-2.1.3.tgz#b6ac92db7959b61639eac9abfd07d2683be3a148"
   integrity sha512-zEDHuM9mictWyj8lKO72uqjvsgz7Eu2hioI4gvAEA4IbB9ojBiBcshMt0ptOmFKV6WqBnxW2gTH4eO5Zj4LUMQ==
@@ -8847,6 +8861,11 @@ lru_map@^0.3.3:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/lru_map/-/lru_map-0.3.3.tgz#b5c8351b9464cbd750335a79650a0ec0e56118dd"
   integrity sha512-Pn9cox5CsMYngeDbmChANltQl+5pi6XmTrraMSzhPmMBbmgcxmqWry0U3PGapCU1yB4/LqCcom7qhHZiF/jGfQ==
+
+lru_map@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/lru_map/-/lru_map-0.4.1.tgz#f7b4046283c79fb7370c36f8fca6aee4324b0a98"
+  integrity sha512-I+lBvqMMFfqaV8CJCISjI3wbjmwVu/VyOoU7+qtu9d7ioW5klMgsTTiUOUp+DJvfTTzKXoPbyC6YfgkNcyPSOg==
 
 ltgt@^2.1.2, ltgt@~2.2.0:
   version "2.2.1"
@@ -10108,6 +10127,13 @@ pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
   integrity sha512-MnUuEycAemtSaeFSjXKW/aroV7akBbY+Sv+RkyqFjgAe73F+MR0TBWKBRDkmfWq/HiFmdavfZ1G7h4SPZXaCSg==
+
+pkh-did-resolver@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/pkh-did-resolver/-/pkh-did-resolver-1.0.10.tgz#f0144aaaf88af4d573ac23b050d77d8edaa879e8"
+  integrity sha512-GYfZxFQXFfuVUcztZJuf73tjr3L9nRvzvnoAtKIGREHkpEzj801WQ41OJ7PmsTyIDakaHfXyI3WyX33DUsenTw==
+  dependencies:
+    caip "~1.1.0"
 
 pngjs@^3.3.0:
   version "3.4.0"

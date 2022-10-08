@@ -2,10 +2,11 @@ import { ethers } from 'ethers';
 import { NextApiHandler } from 'next';
 import { chain } from 'wagmi';
 import { Gates__factory, getAddress } from 'web3-config';
+import { readPersonalData } from '../../utils/ceramic-api';
 import ConditionVerifier from '../../utils/ConditionVerifier';
 
 const handler: NextApiHandler = async (req, res) => {
-  const { gateId, address, signature } = req.query;
+  const { gateId, address } = req.query;
 
   if (typeof gateId !== 'string') {
     return res.status(500).send('missing gateId');
@@ -21,45 +22,23 @@ const handler: NextApiHandler = async (req, res) => {
     return res.status(500).send('invalid wallet address');
   }
 
-  // TODO fetch user data from address
-  // const userData = await getCeramic(address)
   const provider = new ethers.providers.JsonRpcBatchProvider(
     `https://opt-goerli.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
   );
-
-  // const provider = new ethers.providers.JsonRpcProvider({
-  //   url: ENDPOINTS.COINBASE_GOERLI_NODE,
-  //   user: ENDPOINTS.COINBASE_GOERLI_USERNAME,
-  //   password: ENDPOINTS.COINBASE_GOERLI_PASSWORD,
-  // });
 
   const contract = Gates__factory.connect(
     getAddress(chain.optimismGoerli.id, 'Gates'),
     provider
   );
   const data = await contract.conditions(gateId);
-  console.log(data);
-  console.log(ethers.utils.toUtf8String(data));
   const conditions = JSON.parse(ethers.utils.toUtf8String(data));
-
-  if (typeof signature === 'string') {
-    const verified = await contract.verify(address, gateId, signature);
-
-    if (!verified) {
-      return res
-        .status(500)
-        .send(`User have not signed approval for gateId ${gateId}`);
-    }
-  }
-
   const verifier = new ConditionVerifier({ address, conditions });
 
   try {
+    const userData = await readPersonalData(address);
     const success = await verifier.verify({
       wallet: address,
-      userData: {
-        githubToken: 'gho_XYZ', // TODO: insert from ceramic
-      },
+      userData,
     });
     res.setHeader('Cache-Control', 'max-age=10, s-maxage=10');
     res.status(200).send({ success });
