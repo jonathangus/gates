@@ -1,14 +1,13 @@
 import { gql } from 'graphql-request';
 import { UserData } from '../types';
 import { compose } from './compose';
-import { decryptWithAES, encryptWithAES } from './encryption';
 import { DIDSession } from 'did-session';
 import { DID } from 'dids';
 import * as PKHDiDresolver from 'pkh-did-resolver';
 import { Ed25519Provider } from 'key-did-provider-ed25519';
-import { getResolver } from 'key-did-resolver';
 import { fromString } from 'uint8arrays/from-string';
 import { Resolver } from 'did-resolver';
+import { decryptWithAES, encryptWithAES } from './encryption';
 
 export const savePersonalInfo = async (
   wallet: string,
@@ -23,6 +22,7 @@ export const savePersonalInfo = async (
     result[key] = encryptWithAES(value);
   });
 
+  console;
   const res = await compose.executeQuery(
     gql`
       mutation ($content: PersonalInfoInput!) {
@@ -30,6 +30,7 @@ export const savePersonalInfo = async (
           document {
             walletAddress
             id
+            githubToken
           }
         }
       }
@@ -39,7 +40,7 @@ export const savePersonalInfo = async (
     }
   );
 
-  console.log(JSON.stringify(res));
+  console.log('RESPONSE', JSON.stringify(res));
 };
 
 export const readPersonalData = async (wallet: string) => {
@@ -48,22 +49,21 @@ export const readPersonalData = async (wallet: string) => {
     'hex'
   );
 
-  const resolver = new Resolver({ ...PKHDiDresolver.getResolver() });
-  const did = await resolver.resolve(`did:pkh:eip155:420:${wallet}`);
+  const provider = new Ed25519Provider(privateKey);
+  const resolver = new Resolver({
+    ...PKHDiDresolver.getResolver(),
+  });
+  const did = new DID({ provider, resolver });
 
-  console.log({ did });
-  compose.setDID(did);
-
-  console.log('SETTING DID::::');
-
-  const { data } = await compose.executeQuery<any>(
+  const { data, ...something } = await compose.executeQuery<any>(
     gql`
       {
-        personalInfoIndex(first: 1, last: 1000) {
+        personalInfoIndex(first: 1000) {
           edges {
             node {
               walletAddress
-              githubId
+              githubToken
+              twitterToken
             }
           }
         }
@@ -71,7 +71,8 @@ export const readPersonalData = async (wallet: string) => {
     `
   );
 
-  console.log(JSON.stringify(data));
+  console.log(something, JSON.stringify(data));
+
   const match = data.personalInfoIndex.edges.find(
     (edge) => edge.node.walletAddress.toLowerCase() === wallet.toLowerCase()
   );
@@ -88,6 +89,8 @@ export const readPersonalData = async (wallet: string) => {
   Object.entries(rest).forEach(([key, value]) => {
     result[key] = decryptWithAES(value as string);
   });
+
+  console.log('RESULT', result);
 
   return result;
 };

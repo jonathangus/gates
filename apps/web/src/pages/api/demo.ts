@@ -1,7 +1,4 @@
-import { ethers } from 'ethers';
 import { NextApiHandler } from 'next';
-import { chain } from 'wagmi';
-import { Gates__factory, getAddress } from 'web3-config';
 import { readPersonalData } from '../../utils/ceramic-api';
 
 const handler: NextApiHandler = async (req, res) => {

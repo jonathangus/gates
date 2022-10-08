@@ -5,7 +5,7 @@ import { compose } from '../utils/compose';
 import { EthereumAuthProvider } from '@ceramicnetwork/blockchain-utils-linking';
 import { useAccount } from 'wagmi';
 
-const loadSession = async (authMethod: AuthMethod): Promise<DIDSession> => {
+const useSession = async (authMethod: AuthMethod): Promise<DIDSession> => {
   const { address } = useAccount();
   const authProvider = new EthereumAuthProvider(window.ethereum, address);
   const session = await DIDSession.authorize(authProvider, {

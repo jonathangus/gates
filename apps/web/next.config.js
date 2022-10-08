@@ -2,6 +2,7 @@ const withTM = require('next-transpile-modules')([
   'ui',
   'ceramic',
   'web3-config',
+  'gates.wtf',
 ]);
 
 module.exports = withTM({
