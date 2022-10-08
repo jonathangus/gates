@@ -48,7 +48,7 @@ const conditions = [
 const ConditionCriteriaCard = (props) => {
   const { condition, logo, id } = props;
 
-  console.log('criteria card', { condition }, id);
+  //   console.log('criteria card', { condition }, id);
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -91,8 +91,14 @@ const ConditionCriteriaCard = (props) => {
               <Image
                 src={logo}
                 alt=""
-                width={id === 'api' ? 29 : 22}
-                height={id === 'the-graph' || id === 'quicknode' ? 22 : 18}
+                width={id === 'api' ? 29 : id === 'github' ? 26 : 22}
+                height={
+                  id === 'the-graph' || id === 'quicknode'
+                    ? 22
+                    : id === 'github'
+                    ? 26
+                    : 18
+                }
                 radius={5}
               />
             </div>
@@ -104,9 +110,6 @@ const ConditionCriteriaCard = (props) => {
           <div
             style={{
               backgroundColor: '#EFEFEF',
-              //   height:
-              //     (condition.fields.length > 2 ? 2.5 : condition.fields.length) *
-              //     70,
               padding: 10,
               marginTop: 20,
               paddingBottom: 10,
@@ -204,10 +207,79 @@ const EmptyConditionCard = (props) => {
   );
 };
 
+export const ConditionCard = (props) => {
+  const { condition } = props;
+
+  const glowStylesGreen = {
+    color: '#38C953',
+    filter: 'blur(10px)',
+    fontFamily: 'Source Code Pro',
+  };
+  const glowStylesWhite = { color: 'white' };
+
+  console.log({ condition });
+  return (
+    <div
+      style={{
+        margin: 10,
+        position: 'relative',
+      }}
+    >
+      <CondiditonFrame size={250} />
+      <div style={{ position: 'absolute', top: 70, left: 30 }}>
+        <Text style={glowStylesWhite}>Gated Conditions</Text>
+        {condition?.scope?.map((scope) => {
+          return (
+            <div>
+              <Text size="xs" style={glowStylesWhite}>
+                {scope.header}:{' '}
+              </Text>
+              <div style={{ paddingBottom: 8 }}>
+                {scope.criteria.map((item) => (
+                  <Text size="xs" style={glowStylesWhite}>
+                    {item}
+                  </Text>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div style={{ position: 'absolute', top: 70, left: 30 }}>
+        <Text style={glowStylesGreen}>Gated Conditions</Text>
+        {condition?.scope?.map((scope) => {
+          return (
+            <div>
+              <Text size="xs" style={glowStylesGreen}>
+                {scope.header}:{' '}
+              </Text>
+              <div style={{ paddingBottom: 8 }}>
+                {scope.criteria.map((item) => (
+                  <Text size="xs" style={glowStylesGreen}>
+                    {item}
+                  </Text>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div style={{ position: 'absolute', bottom: 20, left: 30, right: 20 }}>
+        <Button
+          style={{ backgroundColor: '#38C953', width: '100%', height: 30 }}
+        >
+          Get query
+        </Button>
+      </div>
+    </div>
+  );
+};
+
 const Source = (props) => {
   const { source } = props;
 
-  //   console.log('criteria card', { source });
+  console.log('criteria card', { source });
   const [expanded, setExpanded] = useState(false);
   return (
     <>
@@ -230,15 +302,35 @@ const Source = (props) => {
 };
 
 const CreateNewCondition = (props) => {
-  const { admin } = props;
+  const { admin, setCreateNew } = props;
   console.log({ admin });
+  const [gatedCondition, setGatedCondition] = useState();
 
   const sourcesList = Object.values(sources);
   console.log({ sourcesList });
 
   return (
     <div style={{ position: 'relative' }}>
+      <div style={{ position: 'absolute', left: 10, top: 0 }}>
+        <UnstyledButton onClick={() => setCreateNew(false)}>
+          <Text style={{ fontSize: 28 }}>←</Text>
+        </UnstyledButton>
+      </div>
+
       <div style={{}}>
+        <Center>
+          <Text
+            style={{
+              fontSize: 22,
+              width: 542,
+              color: '#959595',
+              fontWeight: 650,
+            }}
+          >
+            Conditions
+          </Text>
+        </Center>
+        <Space h={10} />
         {sourcesList.map((source, i) => {
           return (
             <div>
@@ -246,18 +338,6 @@ const CreateNewCondition = (props) => {
             </div>
           );
         })}
-        {/* {conditions.map((condition, i) => {
-          return (
-            <div>
-              <Center>
-                <ConditionCriteriaCard
-                  i={'condition' + i}
-                  condition={condition}
-                />
-              </Center>
-            </div>
-          );
-        })} */}
       </div>
       <div style={{ position: 'absolute', right: 10, top: 120 }}>
         <EmptyConditionCard />

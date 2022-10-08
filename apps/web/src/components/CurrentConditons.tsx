@@ -48,7 +48,7 @@ const admin__ = {
   ],
 };
 
-const ConditionCard = (props) => {
+export const ConditionCard = (props) => {
   const { condition } = props;
 
   const glowStylesGreen = {

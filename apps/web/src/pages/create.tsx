@@ -86,7 +86,7 @@ const Page = () => {
         })}
       >
         {createNew ? (
-          <CreateNewCondition admin={admin} />
+          <CreateNewCondition admin={admin} setCreateNew={setCreateNew} />
         ) : (
           <>
             <div
@@ -98,7 +98,14 @@ const Page = () => {
                 paddingBottom: 20,
               }}
             >
-              <Text size="xl">{`Welcome, ${admin.name}`}</Text>
+              <Text
+                style={{
+                  fontSize: 22,
+                  width: 542,
+                  color: '#959595',
+                  fontWeight: 650,
+                }}
+              >{`Recent gates`}</Text>
               <UnstyledButton
                 onClick={() => setCreateNew(true)}
                 style={{
