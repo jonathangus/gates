@@ -1,6 +1,7 @@
 import { Counter__factory } from 'web3-config';
 import { useContractRead } from 'wagmi-lfg';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import Home from './Home';
 
 const Page = () => {
   const { data: currentTimestamp = null } = useContractRead(
@@ -10,9 +11,7 @@ const Page = () => {
 
   return (
     <div style={{ display: 'grid', gap: 20 }}>
-      <div>
-        <ConnectButton />
-      </div>
+      <Home />
     </div>
   );
 };

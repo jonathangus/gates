@@ -1,0 +1,114 @@
+
+import { Button, Image, Text } from '@mantine/core';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+
+export const WrongNetworkButton = ({ isMobile, onClick }) => {
+  return (
+    <Button
+      onClick={onClick}
+      styles={(theme) => ({
+        root: {
+          backgroundColor: "white",
+          border: 0,
+          height: 50,
+          paddingLeft: isMobile ? 5 : 20,
+          paddingRight: isMobile ? 5 : 20,
+          width: isMobile ? "100%" : null,
+          fontSize: isMobile ? 15 : 25,
+          "&:hover": {
+            // backgroundColor: theme.fn.darken(colors.white, 0.06),
+            color: "#AB275B",
+          },
+          color: "#AB275B",
+        },
+      })}
+    >
+      Wrong network
+    </Button>
+  );
+};
+
+export const ConnectedWalletInfo = (props) => {
+  const { setAuthenticated, isMobile, authenticated } = props;
+  return (
+    <ConnectButton.Custom>
+      {({
+        account,
+        chain,
+        openAccountModal,
+        openChainModal,
+        openConnectModal,
+        mounted,
+      }) => {
+        return (
+          <div>
+            {(() => {
+              if (!mounted || !account || !chain) {
+                return <></>;
+              }
+
+              if (chain.unsupported) {
+                return (
+                  <WrongNetworkButton
+                    onClick={openChainModal}
+                    isMobile={isMobile}
+                  />
+                );
+              }
+
+              return (
+                <>
+                  <div
+                    style={{
+                      display: isMobile ? null : "flex",
+                      gap: isMobile ? 0 : 0,
+                      alignItems: "center",
+                      position: isMobile ? "relative" : null,
+                      height: isMobile ? null : 40,
+                    }}
+                  >
+                    <Button
+                      onClick={openAccountModal}
+                      type="button"
+                      styles={(theme) => ({
+                        root: {
+                          backgroundColor: "white" ,
+                          border: 0,
+                          paddingLeft: isMobile ? null : 6,
+                          color: 'black',
+                          // paddingRight: 8,
+                          "&:hover": {
+                            backgroundColor: "#F7F7F7",
+                          },
+                          height: isMobile ? 20 : 30,
+                          position: isMobile ? "absolute" : null,
+                          right: isMobile ? 0 : null,
+                          top: isMobile ? 0 : null,
+                        },
+                      })}
+                    >
+                      {/* <Image src="img/purple-circle.png" width={17} atl="" /> */}
+                      {account.displayName}
+                    </Button>
+                  </div>
+                </>
+              );
+            })()}
+          </div>
+        );
+      }}
+    </ConnectButton.Custom>
+  );
+};
+
+const LogoHeader = () => {
+  const isMobile = false;
+  return (
+    <div style={{padding: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 0, paddingBottom: 20}}>
+      <Text weight={500}>gate.xyz</Text>
+      <ConnectedWalletInfo isMobile={isMobile}/>
+    </div>
+  );
+};
+
+export default LogoHeader;
