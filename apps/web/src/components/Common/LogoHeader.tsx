@@ -1,4 +1,3 @@
-
 import { Button, Image, Text } from '@mantine/core';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
@@ -8,18 +7,18 @@ export const WrongNetworkButton = ({ isMobile, onClick }) => {
       onClick={onClick}
       styles={(theme) => ({
         root: {
-          backgroundColor: "white",
+          backgroundColor: 'white',
           border: 0,
           height: 50,
           paddingLeft: isMobile ? 5 : 20,
           paddingRight: isMobile ? 5 : 20,
-          width: isMobile ? "100%" : null,
+          width: isMobile ? '100%' : null,
           fontSize: isMobile ? 15 : 25,
-          "&:hover": {
+          '&:hover': {
             // backgroundColor: theme.fn.darken(colors.white, 0.06),
-            color: "#AB275B",
+            color: '#AB275B',
           },
-          color: "#AB275B",
+          color: '#AB275B',
         },
       })}
     >
@@ -44,7 +43,17 @@ export const ConnectedWalletInfo = (props) => {
           <div>
             {(() => {
               if (!mounted || !account || !chain) {
-                return <></>;
+                return (
+                  <>
+                    <Button
+                      onClick={openConnectModal}
+                      style={{ backgroundColor: 'black' }}
+                      radius={7}
+                    >
+                      Connect
+                    </Button>
+                  </>
+                );
               }
 
               if (chain.unsupported) {
@@ -60,10 +69,10 @@ export const ConnectedWalletInfo = (props) => {
                 <>
                   <div
                     style={{
-                      display: isMobile ? null : "flex",
+                      display: isMobile ? null : 'flex',
                       gap: isMobile ? 0 : 0,
-                      alignItems: "center",
-                      position: isMobile ? "relative" : null,
+                      alignItems: 'center',
+                      position: isMobile ? 'relative' : null,
                       height: isMobile ? null : 40,
                     }}
                   >
@@ -72,16 +81,16 @@ export const ConnectedWalletInfo = (props) => {
                       type="button"
                       styles={(theme) => ({
                         root: {
-                          backgroundColor: "white" ,
+                          backgroundColor: 'white',
                           border: 0,
                           paddingLeft: isMobile ? null : 6,
                           color: 'black',
                           // paddingRight: 8,
-                          "&:hover": {
-                            backgroundColor: "#F7F7F7",
+                          '&:hover': {
+                            backgroundColor: '#F7F7F7',
                           },
                           height: isMobile ? 20 : 30,
-                          position: isMobile ? "absolute" : null,
+                          position: isMobile ? 'absolute' : null,
                           right: isMobile ? 0 : null,
                           top: isMobile ? 0 : null,
                         },
@@ -104,9 +113,18 @@ export const ConnectedWalletInfo = (props) => {
 const LogoHeader = () => {
   const isMobile = false;
   return (
-    <div style={{padding: 10, display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 0, paddingBottom: 20}}>
+    <div
+      style={{
+        padding: 10,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingTop: 0,
+        paddingBottom: 20,
+      }}
+    >
       <Text weight={500}>gate.xyz</Text>
-      <ConnectedWalletInfo isMobile={isMobile}/>
+      <ConnectedWalletInfo isMobile={isMobile} />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Home from './Home';
 
 const Page = () => {
+  // const [address, setAddress] =
   const { data: currentTimestamp = null } = useContractRead(
     Counter__factory,
     'currentTimestamp'
