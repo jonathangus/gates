@@ -3,13 +3,18 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useEnsName, useAccount } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { formatAddressToShort } from './../utils/formatter';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
-const credentals = [{ name: 'Github' }, { name: 'Twitter' }, { name: 'Lens' }];
+const credentials = [
+  { name: 'Github', key: 'github' },
+  { name: 'Twitter', key: 'twitter' },
+  { name: 'Lens', key: 'lens' },
+];
 
 const Credential = (props) => {
   const { item } = props;
   return (
-    <div style={{ display: 'flex', paddingBottom: 10 }}>
+    <div style={{ display: 'flex', paddingBottom: 10, cursor: 'pointer' }}>
       <svg
         width="24"
         height="24"
@@ -37,6 +42,9 @@ const IDCard = () => {
     address: account.address,
     chainId: 1,
   });
+
+  const { data: session } = useSession();
+  console.log('session', session);
 
   console.log({ data });
 
@@ -71,8 +79,10 @@ const IDCard = () => {
         </div>
 
         <div style={{ padding: 30 }}>
-          {credentals.map((item) => (
-            <Credential item={item} />
+          {credentials.map((item) => (
+            <div onClick={() => signIn(item.key)}>
+              <Credential item={item} />
+            </div>
           ))}
         </div>
       </div>
