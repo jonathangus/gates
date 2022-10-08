@@ -29,8 +29,8 @@ const coinbaseProvider = jsonRpcProvider({
 });
 
 const { chains, provider } = configureChains(config.defaultChains, [
-  coinbaseProvider,
   alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY }),
+  // coinbaseProvider,
   publicProvider(),
 ]);
 

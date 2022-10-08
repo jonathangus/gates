@@ -22,3 +22,8 @@ export type Source = {
   metadata: SourceMetadata;
   conditions: Condition[];
 };
+
+export type UserData = {
+  wallet: string;
+  githubId?: string;
+};

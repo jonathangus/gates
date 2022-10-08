@@ -5,14 +5,7 @@ import { NotificationsProvider } from 'reapop';
 import NotificationHandler from '../components/NotificationHandler';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <NotificationsProvider>
-      <Web3Provider>
-        <Component {...pageProps} />
-        <NotificationHandler />
-      </Web3Provider>
-    </NotificationsProvider>
-  );
+  return null;
 }
 
 export default MyApp;

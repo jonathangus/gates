@@ -1,0 +1,23 @@
+{
+    "name": "ceramic",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "main": "./__generated__/definition.ts",
+    "scripts": {
+        "definitions": "composedb composite:compile gates-composite.json __generated__/definition.ts -c http://0.0.0.0:7007",
+        "all": "yarn schema && yarn deploy && yarn compile && yarn server",
+        "schema": "composedb composite:create gates.graphql --output=gates-composite.json --did-private-key=b71f9960231e9484ed1657d1267b9906eef63d2bc6004c32905475ffb8464921 -c http://0.0.0.0:7007",
+        "deploy": "composedb composite:deploy gates-composite.json --did-private-key=b71f9960231e9484ed1657d1267b9906eef63d2bc6004c32905475ffb8464921 -c http://0.0.0.0:7007",
+        "compile": "composedb composite:compile gates-composite.json runtime-composite.json --did-private-key=b71f9960231e9484ed1657d1267b9906eef63d2bc6004c32905475ffb8464921 -c http://0.0.0.0:7007",
+        "server": "composedb graphql:server --graphiql --port=5001 runtime-composite.json --did-private-key=b71f9960231e9484ed1657d1267b9906eef63d2bc6004c32905475ffb8464921 -c http://0.0.0.0:7007"
+    },
+    "devDependencies": {
+        "@composedb/devtools": "^0.3.0",
+        "@composedb/devtools-node": "^0.3.0",
+        "@composedb/types": "^0.3.0"
+    },
+    "dependencies": {
+        "@composedb/client": "^0.3.0"
+    }
+}

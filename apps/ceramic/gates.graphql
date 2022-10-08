@@ -1,0 +1,5 @@
+type PersonalInfo @createModel(accountRelation: SINGLE, description: "Data connected to a user") {
+  walletAddress: String! @string(minLength: 41, maxLength: 43)
+  githubId: String @string(minLength: 3, maxLength: 525)
+}
+

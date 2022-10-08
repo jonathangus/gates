@@ -3,7 +3,6 @@ import { NextApiHandler } from 'next';
 import { chain } from 'wagmi';
 import { Gates__factory, getAddress } from 'web3-config';
 import ConditionVerifier from '../../utils/ConditionVerifier';
-import { ENDPOINTS } from '../../utils/endpoints';
 
 const handler: NextApiHandler = async (req, res) => {
   const { gateId, address, signature } = req.query;
