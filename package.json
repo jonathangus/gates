@@ -1,0 +1,30 @@
+{
+  "name": "web3-fullstack-starter",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "contracts:test": "turbo run test --scope=*smart-contracts*"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1",
+    "turbo": "latest"
+  },
+  "engines": {
+    "npm": ">=7.0.0",
+    "node": ">=14.0.0"
+  },
+  "packageManager": "yarn@1.22.17",
+  "dependencies": {
+    "eslint": "^8.23.0",
+    "ethers": "^5.7.0",
+    "wagmi": "^0.6.4"
+  }
+}

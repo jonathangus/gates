@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/Counter.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.4;\n\ncontract Counter {\n    mapping(address => int256) count;\n\n    function incrementCounter() public {\n        count[msg.sender] += 1;\n    }\n\n    function getCount(address user) public view returns (int256) {\n        return count[user];\n    }\n\n    function currentTimestamp() public view returns (uint256) {\n        return block.timestamp;\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}
