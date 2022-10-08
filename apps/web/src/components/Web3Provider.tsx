@@ -17,13 +17,12 @@ import { Status } from 'reapop';
 
 const { chains, provider } = configureChains(config.defaultChains, [
   alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY }),
-  infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_KEY }),
   publicProvider(),
 ]);
 
 const { connectors } = getDefaultWallets({
   chains,
-  appName: 'WIP',
+  appName: 'Gates',
 });
 
 const wagmiClient = createClient({

@@ -1,4 +1,4 @@
-import { commands } from '../sources/commands';
+import { sources } from '../sources';
 
 type ConstructorArgs = {
   address: string;
@@ -15,19 +15,19 @@ class ConditionVerifier {
   }
 
   createRequest = async (condition: string): Promise<boolean> => {
-    const [type, conditionKey, ...args] = condition.split(':');
+    const [type, conditionKey, args] = condition.split(':');
 
-    if (!commands[type]) {
+    if (!sources[type]) {
       throw new Error(`type ${type} does not exist`);
     }
 
-    if (!commands[type][conditionKey]) {
-      throw new Error(`command ${commands[type][conditionKey]} does not exist`);
+    if (!sources[type][conditionKey]) {
+      throw new Error(`command ${[conditionKey]} does not exist`);
     }
 
-    const command = commands[type][conditionKey];
+    const command = sources[type][conditionKey];
     // TODO parse string to obj
-    return await command(args);
+    return await command(args, JSON.parse(args));
   };
 
   verify = async (): Promise<boolean> => {

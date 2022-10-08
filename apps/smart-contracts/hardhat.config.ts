@@ -22,7 +22,7 @@ task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
   }
 });
 
-const INFURA_KEY = process.env.INFURA_ID;
+const ALCHEMY_KEY = process.env.ALCHEMY_KEY;
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
 
 const config: HardhatUserConfig = {
@@ -37,9 +37,10 @@ const config: HardhatUserConfig = {
         interval: 5000,
       },
     },
-    rinkeby: {
-      url: `https://rinkeby.infura.io/v3/${INFURA_KEY}`,
-      accounts: [`${PRIVATE_KEY}`],
+    optimismGoerli: {
+      chainId: 420,
+      url: `https://opt-goerli.g.alchemy.com/v2/${ALCHEMY_KEY}`,
+      accounts: [`0x${PRIVATE_KEY}`],
     },
     localhost: {
       url: 'http://127.0.0.1:8545',

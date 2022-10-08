@@ -1,10 +1,10 @@
 export type CommandContext = any;
 
-export type FieldMetadata = {
+export type SourceMetadata = {
   logo: string;
 };
 
-export type FieldFormField = {
+export type Field = {
   type: 'string' | 'int';
   name: string;
   description?: string;
@@ -13,11 +13,12 @@ export type FieldFormField = {
 export type Condition = {
   name: string;
   key: string;
-  fields: FieldFormField[];
+  fields: Field[];
+  method: (args: any, ctx: CommandContext) => Promise<boolean>;
 };
 
-export type Fields = {
+export type Source = {
   id: string;
-  metadata: FieldMetadata;
-  conditions: Record<string, Condition>;
+  metadata: SourceMetadata;
+  conditions: Condition[];
 };

@@ -3,18 +3,15 @@ import React from 'react';
 import Web3Provider from '../components/Web3Provider';
 import { NotificationsProvider } from 'reapop';
 import NotificationHandler from '../components/NotificationHandler';
-import { MantineProvider } from '@mantine/core';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <MantineProvider>
-      <NotificationsProvider>
-        <Web3Provider>
-          <Component {...pageProps} />
-          <NotificationHandler />
-        </Web3Provider>
-      </NotificationsProvider>
-    </MantineProvider>
+    <NotificationsProvider>
+      <Web3Provider>
+        <Component {...pageProps} />
+        <NotificationHandler />
+      </Web3Provider>
+    </NotificationsProvider>
   );
 }
 

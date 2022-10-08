@@ -1,5 +1,7 @@
 import { ethers } from 'ethers';
 import { NextApiHandler } from 'next';
+import { chain } from 'wagmi';
+import { Gates__factory, getAddress } from 'web3-config';
 import ConditionVerifier from '../../utils/ConditionVerifier';
 
 const handler: NextApiHandler = async (req, res) => {
@@ -20,6 +22,17 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   // TODO fetch conditions from requestId
+  const provider = new ethers.providers.JsonRpcBatchProvider(
+    `https://opt-goerli.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
+  );
+  const contract = Gates__factory.connect(
+    getAddress(chain.optimismGoerli.id, 'Gates'),
+    provider
+  );
+  const data = await contract.conditions(0);
+  console.log({ data });
+  const parsed = JSON.parse(ethers.utils.toUtf8String(data));
+  console.log({ parsed });
   // TODO verify signer
   const verifier = new ConditionVerifier({ address, conditions: [] });
 
