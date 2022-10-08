@@ -1,22 +1,18 @@
 import axios from 'axios';
 import { CommandContext } from '../../types';
+import get from 'lodash/get';
 
 export const getRequest = async (
-  {
-    endpoint,
-    selector,
-    result,
-  }: { endpoint: string; selector: string; result: string },
+  args: { endpoint: string; selector: string; result: string },
   ctx: CommandContext
 ): Promise<boolean> => {
   try {
-    const { data } = axios.get(endpoint);
-    return _.get(data, selector) == result;
+    const { endpoint, selector, result } = args;
+    const { data } = await axios.get(endpoint);
+    return get(data, selector) == result;
   } catch (e) {
     return false;
   }
-
-  return Promise.resolve(true);
 };
 
 export const commands = {

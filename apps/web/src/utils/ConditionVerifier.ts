@@ -15,19 +15,26 @@ class ConditionVerifier {
   }
 
   createRequest = async (condition: string): Promise<boolean> => {
-    const [type, conditionKey, args] = condition.split(':');
+    const [type, conditionKey, ...args] = condition.split(':');
+    const restArgs = args.join(':');
+
+    const rest = condition
+      .replace(`${type}:${conditionKey}`, '')
+      .replace(':', '');
 
     if (!sources[type]) {
       throw new Error(`type ${type} does not exist`);
     }
 
-    if (!sources[type][conditionKey]) {
+    const match = sources[type].conditions.find(
+      (condition) => condition.key === conditionKey
+    );
+
+    if (!match) {
       throw new Error(`command ${[conditionKey]} does not exist`);
     }
 
-    const command = sources[type][conditionKey];
-    // TODO parse string to obj
-    return await command(args, JSON.parse(args));
+    return await match.method(JSON.parse(rest), {});
   };
 
   verify = async (): Promise<boolean> => {

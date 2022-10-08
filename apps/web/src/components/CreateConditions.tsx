@@ -10,9 +10,12 @@ const CreateConditions = ({}: Props) => {
     selector: 'title',
     result: 'delectus aut autem',
   };
+
   const twitterData = { account: '0xjont' };
   const items = JSON.stringify([
     `api:api.get:${JSON.stringify(apiData)}`,
+    // `the-graph:the-graph.query:${JSON.stringify(theGraphData)}`,
+
     // `twitter:twitter.follow:${JSON.stringify(twitterData)}`,
   ]);
   const condition = ethers.utils.toUtf8Bytes(items);

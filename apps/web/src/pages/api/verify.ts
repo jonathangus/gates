@@ -21,7 +21,8 @@ const handler: NextApiHandler = async (req, res) => {
     return res.status(500).send('invalid wallet address');
   }
 
-  // TODO fetch conditions from requestId
+  // TODO fetch user data from address
+  // const userData = await getCeramic(address)
   const provider = new ethers.providers.JsonRpcBatchProvider(
     `https://opt-goerli.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
   );
@@ -29,12 +30,12 @@ const handler: NextApiHandler = async (req, res) => {
     getAddress(chain.optimismGoerli.id, 'Gates'),
     provider
   );
-  const data = await contract.conditions(0);
-  console.log({ data });
-  const parsed = JSON.parse(ethers.utils.toUtf8String(data));
-  console.log({ parsed });
+  const data = await contract.conditions(requestId);
+  const conditions = JSON.parse(ethers.utils.toUtf8String(data));
+
   // TODO verify signer
-  const verifier = new ConditionVerifier({ address, conditions: [] });
+
+  const verifier = new ConditionVerifier({ address, conditions });
 
   try {
     const success = await verifier.verify();
