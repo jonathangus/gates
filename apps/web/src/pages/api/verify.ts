@@ -56,7 +56,9 @@ const handler: NextApiHandler = async (req, res) => {
   const verifier = new ConditionVerifier({ address, conditions });
 
   try {
-    const success = await verifier.verify();
+    const success = await verifier.verify({
+      wallet: address,
+    });
     res.setHeader('Cache-Control', 'max-age=10, s-maxage=10');
     res.status(200).send({ success });
   } catch (e) {

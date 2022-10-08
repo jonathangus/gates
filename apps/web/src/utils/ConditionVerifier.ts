@@ -1,4 +1,5 @@
 import { sources } from '../sources';
+import { CommandContext } from '../types';
 
 type ConstructorArgs = {
   address: string;
@@ -14,7 +15,10 @@ class ConditionVerifier {
     this.conditions = conditions;
   }
 
-  createRequest = async (condition: string): Promise<boolean> => {
+  createRequest = async (
+    condition: string,
+    ctx: CommandContext
+  ): Promise<boolean> => {
     const [type, conditionKey] = condition.split(':');
     const rest = condition
       .replace(`${type}:${conditionKey}`, '')
@@ -33,13 +37,13 @@ class ConditionVerifier {
       throw new Error(`command ${[conditionKey]} does not exist`);
     }
 
-    return await match.method(JSON.parse(rest), {});
+    return await match.method(JSON.parse(rest), ctx);
   };
 
-  verify = async (): Promise<boolean> => {
+  verify = async (ctx: CommandContext): Promise<boolean> => {
     try {
       for (let condition of this.conditions) {
-        let success = this.createRequest(condition);
+        let success = this.createRequest(condition, ctx);
 
         if (!success) {
           return false;

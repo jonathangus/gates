@@ -10,9 +10,8 @@ export const ownsNFT = async (
     ENDPOINTS.QUICKNODE_MAINNET
   );
 
-  const fakeWallet = '0x5FA57d882D55CFcCF91f1C375EC4a89b118d85DA'; // use ctx.wallet when it's implemented
   const nfts = await provider.send('qn_fetchNFTs', {
-    wallet: fakeWallet,
+    wallet: ctx.wallet,
     omitFields: ['provenance', 'traits'],
     page: 1,
     perPage: 10,
@@ -33,13 +32,12 @@ export const hasMinTokenBalance = async (
     wallet: ctx.wallet,
     contracts: [args.contractAddress],
   });
-  const fakeWallet = '0x7fE9F445d18D8CE55fbC08BB0EE98E69094D0d69'; // use ctx.wallet when it's implemented
   const tokens = await provider.send('qn_getWalletTokenBalance', {
-    wallet: fakeWallet,
+    wallet: ctx.wallet,
     contracts: [args.contractAddress],
   });
   if (tokens.assets.length == 0) {
     return false;
   }
-  return tokens.assets[0].amount > 1000000000000000000; //args.minAmount;
+  return tokens.assets[0].amount > args.minAmount;
 };
