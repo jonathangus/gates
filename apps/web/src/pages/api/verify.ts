@@ -24,15 +24,15 @@ const handler: NextApiHandler = async (req, res) => {
 
   // TODO fetch user data from address
   // const userData = await getCeramic(address)
-  // const provider = new ethers.providers.JsonRpcBatchProvider(
-  //   `https://opt-goerli.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
-  // );
+  const provider = new ethers.providers.JsonRpcBatchProvider(
+    `https://opt-goerli.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
+  );
 
-  const provider = new ethers.providers.JsonRpcProvider({
-    url: ENDPOINTS.COINBASE_GOERLI_NODE,
-    user: ENDPOINTS.COINBASE_GOERLI_USERNAME,
-    password: ENDPOINTS.COINBASE_GOERLI_PASSWORD,
-  });
+  // const provider = new ethers.providers.JsonRpcProvider({
+  //   url: ENDPOINTS.COINBASE_GOERLI_NODE,
+  //   user: ENDPOINTS.COINBASE_GOERLI_USERNAME,
+  //   password: ENDPOINTS.COINBASE_GOERLI_PASSWORD,
+  // });
 
   const contract = Gates__factory.connect(
     getAddress(chain.optimismGoerli.id, 'Gates'),
