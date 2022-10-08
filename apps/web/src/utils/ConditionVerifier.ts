@@ -15,9 +15,7 @@ class ConditionVerifier {
   }
 
   createRequest = async (condition: string): Promise<boolean> => {
-    const [type, conditionKey, ...args] = condition.split(':');
-    const restArgs = args.join(':');
-
+    const [type, conditionKey] = condition.split(':');
     const rest = condition
       .replace(`${type}:${conditionKey}`, '')
       .replace(':', '');

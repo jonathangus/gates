@@ -5,16 +5,16 @@ contract Gates {
     uint256 count = 0;
     mapping(uint256 => bytes) public conditions;
 
-    event Created(uint256 requestId);
+    event Created(uint256 gateId, address creator);
 
     function add(bytes calldata _conditions) public {
         conditions[count] = _conditions;
-        emit Created(count);
+        emit Created(count, msg.sender);
         count++;
     }
 
-    function getMessageHash(uint256 requestId) public pure returns (bytes32) {
-        return keccak256(abi.encodePacked(requestId));
+    function getMessageHash(uint256 gateId) public pure returns (bytes32) {
+        return keccak256(abi.encodePacked(gateId));
     }
 
     function getEthSignedMessageHash(bytes32 _messageHash)
@@ -37,10 +37,10 @@ contract Gates {
 
     function verify(
         address _signer,
-        uint256 requestId,
+        uint256 gateId,
         bytes memory signature
-    ) internal pure returns (bool) {
-        bytes32 messageHash = getMessageHash(requestId);
+    ) external pure returns (bool) {
+        bytes32 messageHash = getMessageHash(gateId);
         bytes32 ethSignedMessageHash = getEthSignedMessageHash(messageHash);
 
         return recoverSigner(ethSignedMessageHash, signature) == _signer;

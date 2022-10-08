@@ -1,5 +1,6 @@
-import axios from 'axios';
 import { CommandContext } from '../../types';
+import { request } from 'graphql-request';
+import get from 'lodash/get';
 
 export const queryTheGraph = async (
   {
@@ -11,17 +12,14 @@ export const queryTheGraph = async (
   ctx: CommandContext
 ): Promise<boolean> => {
   try {
-    request(endpoint, query);
-    console.log({ endpoint, selector, result });
-    const { data } = axios.get(endpoint);
-    return _.get(data, selector) == result;
+    const { data } = await request(endpoint, query);
+
+    return get(data, selector) == result;
   } catch (e) {
     return false;
   }
-
-  return Promise.resolve(true);
 };
 
 export const commands = {
-  getRequest,
+  queryTheGraph,
 };

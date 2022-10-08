@@ -9,7 +9,7 @@ export const source: Source = {
   conditions: [
     {
       name: 'Api GET request',
-      key: 'api.get',
+      key: 'get',
       fields: [
         {
           type: 'string',
