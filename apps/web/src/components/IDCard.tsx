@@ -1,4 +1,4 @@
-import { Button, Image, Text, Space } from '@mantine/core';
+import { Button, Image, Text, Space, Center } from '@mantine/core';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useEnsName, useAccount, useEnsAvatar } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
@@ -54,14 +54,10 @@ export const PlusIcon = () => {
 };
 
 const Credential = (props) => {
-  const { item, githubOk } = props;
-  const showgithubok = item.name == 'Github' && githubOk;
+  const { item } = props;
   return (
     <div style={{ display: 'flex', paddingBottom: 10 }}>
-      {showgithubok && '👍'}
-      {!showgithubok && (
-        <div>{item.enabled ? <PlusIcon /> : <MinusIcon />}</div>
-      )}
+      {item.enabled ? <PlusIcon /> : <MinusIcon />}
       <Space w={10} />
       <Text weight={300}>{item.name}</Text>
     </div>
@@ -131,25 +127,34 @@ const IDCard = () => {
           </Text>
         </div>
 
-        <div style={{ padding: 30 }}>
-          {credentials.map((item) => (
-            <div
-              key={item.key}
-              onClick={async () => {
-                if (!item.enabled) {
-                  return;
-                }
-                if (session) {
-                  await signOut();
-                } else {
-                  await signIn(item.key);
-                }
-              }}
-            >
-              <Credential item={item} githubOk={Boolean(session?.user?.name)} />
-            </div>
-          ))}
-        </div>
+        {account && account.address ? (
+          <div style={{ padding: 30 }}>
+            {credentials.map((item) => (
+              <div
+                key={item.key}
+                onClick={async () => {
+                  if (!item.enabled) {
+                    return;
+                  }
+                  if (session) {
+                    await signOut();
+                  } else {
+                    await signIn(item.key);
+                  }
+                }}
+              >
+                <Credential
+                  item={item}
+                  githubOk={Boolean(session?.user?.name)}
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div style={{ padding: 20, paddingRight: 200 }}>
+            <Text>Welcome to gate</Text>
+          </div>
+        )}
       </div>
       <div
         style={{
