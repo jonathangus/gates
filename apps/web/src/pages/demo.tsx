@@ -2,7 +2,7 @@ import { Gated } from 'gates.wtf';
 
 const demo = () => {
   return (
-    <Gated gateId="11">
+    <Gated gateId="15">
       <iframe
         width="560"
         height="315"
