@@ -64,7 +64,8 @@ const Credential = (props) => {
   );
 };
 
-const IDCard = () => {
+const IDCard = (props) => {
+  const { text } = props;
   const setGithubAuth = useUserStore((state) => state.setGithubAuth);
   const account = useAccount();
   const { data, isError, isLoading } = useEnsName({
@@ -151,8 +152,13 @@ const IDCard = () => {
             ))}
           </div>
         ) : (
-          <div style={{ padding: 20, paddingRight: 200 }}>
-            <Text>Welcome to gate</Text>
+          <div
+            style={{
+              padding: 20,
+              paddingRight: text ? 110 : 200,
+            }}
+          >
+            <Text>{text || 'Welcome to gate'}</Text>
           </div>
         )}
       </div>

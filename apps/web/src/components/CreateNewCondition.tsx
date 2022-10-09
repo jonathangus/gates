@@ -173,12 +173,22 @@ const ConditionCriteriaCard = (props) => {
               <Image
                 src={logo}
                 alt=""
-                width={id === 'api' ? 29 : id === 'github' ? 26 : 22}
+                width={
+                  id === 'api'
+                    ? 29
+                    : id === 'github'
+                    ? 26
+                    : id === 'poap'
+                    ? 22
+                    : 22
+                }
                 height={
                   id === 'the-graph' || id === 'quicknode'
                     ? 22
                     : id === 'github'
                     ? 26
+                    : id === 'poap'
+                    ? 28
                     : 18
                 }
                 radius={5}

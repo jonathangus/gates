@@ -25,13 +25,6 @@ const Home = () => {
   const [image, setImage] = useState('click');
 
   const controls = useAnimationControls();
-
-  // const x = useSpring(0);
-
-  // useEffect(() => {
-  //   x.set(target);
-  // }, [target]);
-
   async function animateFrame() {
     await controls.start({ x: 450 });
     setImage('complete');
