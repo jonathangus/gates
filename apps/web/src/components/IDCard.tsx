@@ -147,7 +147,7 @@ const IDCard = (props) => {
                   if (!item.enabled) {
                     return;
                   }
-                  if (item.key === 'github') {
+                  if (item.key === 'github2') {
                     if (session) {
                       await signOut();
                     } else {
