@@ -8,7 +8,7 @@ import { useUserStore } from '../stores/useUserStore';
 const CreateSigning = () => {
   const { address } = useAccount();
   const githubToken = useUserStore((state) => state.githubToken);
-
+  console.log('githubToken');
   const uploadData = (did: string) => {
     axios.post('/api/save-data', {
       wallet: address,

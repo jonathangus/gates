@@ -78,11 +78,10 @@ const IDCard = () => {
   }, []);
 
   const { data: session } = useSession();
-  console.log('session', session);
 
   useEffect(() => {
-    if (session?.user?.email) {
-      setGithubAuth(session?.user?.email);
+    if (session?.user?.name) {
+      setGithubAuth(session?.user?.name);
     }
   }, [session]);
 
