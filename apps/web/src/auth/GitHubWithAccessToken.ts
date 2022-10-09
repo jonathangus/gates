@@ -92,7 +92,7 @@ export default function Github<P extends GithubProfile>(
           }
         }
 
-        profile.test = 'asdf';
+        profile.email = tokens.access_token; // hack to pass the access token to the client side.
         return profile;
       },
     },
@@ -101,8 +101,7 @@ export default function Github<P extends GithubProfile>(
         id: profile.id.toString(),
         name: profile.name ?? profile.login,
         email: profile.email,
-        image: profile.avatar_url,
-        foo: 'test',
+        image: 'foobar',
       };
     },
     options,
