@@ -32,19 +32,6 @@ const ConditionCriteriaCard = (props) => {
   const [expanded, setExpanded] = useState(false);
 
   function updateCondition(element, fieldID, value, field) {
-    // const prevFields = (fields[conditionID] && fields[conditionID].field) || {};
-
-    // // const prevFields = prev?.fields || {};
-    // const _id = element.id;
-
-    // // console.log('prevFields', prevFields);
-    // setField(conditionID, element, {
-    //   ...prevFields,
-    //   [field.name]: value,
-    // });
-
-    // console.log({ element, fieldID, value, field });
-
     const condition = element.fields?.forEach((fld) => {
       if (fld.fieldID === fieldID) {
         fld.fieldID = fld.fieldID;
@@ -80,7 +67,6 @@ const ConditionCriteriaCard = (props) => {
     });
 
     return;
-
     if (
       gatedConditions?.length > 0 &&
       gatedConditions
@@ -141,8 +127,6 @@ const ConditionCriteriaCard = (props) => {
     }
   }
 
-  const getValue = () => {};
-
   return (
     <>
       <div
@@ -179,7 +163,7 @@ const ConditionCriteriaCard = (props) => {
               paddingTop: 10,
               paddingLeft: 10,
               paddingRight: 10,
-              width: '100%'
+              width: '100%',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -226,7 +210,6 @@ const ConditionCriteriaCard = (props) => {
                           : item.name}
                       </Text>
                       <Input
-                        value={getValue(item, 'field_id_' + i)}
                         onChange={(event) =>
                           addOrEdit(
                             item,
@@ -259,7 +242,27 @@ export const ConditionPreview = (props) => {
     filter: 'blur(10px)',
     fontFamily: 'Source Code Pro',
   };
-  const glowStylesWhite = { color: 'white' };
+  const glowStylesWhite = {
+    color: 'white',
+    wordBreak: 'break-all',
+    paddingRight: 30,
+  };
+  const fields = useFieldStore((state) => state.fields);
+  const itemz = Object.values(fields).map((value) => {
+    const fieldz = Object.entries(value.field).map(([key, _value]) => {
+      const field = value.element.fields.find((field) => field.name == key);
+
+      return {
+        name: field.title,
+        value: _value,
+      };
+    });
+
+    return {
+      name: value.element.name,
+      fields: fieldz,
+    };
+  });
 
   return (
     <div
@@ -269,11 +272,12 @@ export const ConditionPreview = (props) => {
       }}
     >
       <CondiditonFrame size={326} />
-      {gatedConditions && gatedConditions.length > 0 ? (
+
+      {itemz.length > 0 ? (
         <>
           <div style={{ position: 'absolute', top: 80, left: 40 }}>
             <Text style={glowStylesWhite}>Gated Conditions</Text>
-            {gatedConditions?.map((cond) => {
+            {itemz.map((cond) => {
               return (
                 <div>
                   <Text size="xs" style={glowStylesWhite}>
@@ -313,12 +317,7 @@ export const ConditionPreview = (props) => {
           <div
             style={{ position: 'absolute', bottom: 20, left: 30, right: 20 }}
           >
-            <Button
-              disabled
-              style={{ backgroundColor: '#38C953', width: '100%', height: 30 }}
-            >
-              Get query
-            </Button>
+            <CreateConditionsButton gatedConditions={gatedConditions} />
           </div>
         </>
       ) : (
@@ -360,7 +359,12 @@ export const ConditionPreview = (props) => {
           <div
             style={{ position: 'absolute', bottom: 20, left: 30, right: 20 }}
           >
-            <CreateConditionsButton gatedConditions={gatedConditions} />
+            <Button
+              disabled
+              style={{ backgroundColor: '#38C953', width: '100%', height: 30 }}
+            >
+              Get query
+            </Button>
           </div>
         </>
       )}

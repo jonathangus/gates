@@ -1,6 +1,6 @@
 import { Button, Image, Text, Space } from '@mantine/core';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useEnsName, useAccount } from 'wagmi';
+import { useEnsName, useAccount, useEnsAvatar } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { formatAddressToShort } from './../utils/formatter';
 import { signIn, signOut, useSession } from 'next-auth/react';
@@ -69,6 +69,11 @@ const IDCard = () => {
   const account = useAccount();
   const { data, isError, isLoading } = useEnsName({
     address: account.address,
+    chainId: 1,
+  });
+
+  const { data: avatar } = useEnsAvatar({
+    addressOrName: account.address,
     chainId: 1,
   });
 

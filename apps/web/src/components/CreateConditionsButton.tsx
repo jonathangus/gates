@@ -48,7 +48,6 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
     },
   });
 
-  console.log(itemz);
   const items = JSON.stringify(itemz);
   // const items = JSON.stringify([
   //   // `api:get:${JSON.stringify(apiData)}`,
@@ -81,6 +80,7 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
   });
 
   const create = () => {
+    console.log(itemz);
     console.log('GOOGO');
     write({ args: [condition] });
   };
@@ -100,7 +100,6 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
       </Button>
     );
   }
-
   return (
     <Button
       disabled={!address}
