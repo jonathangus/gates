@@ -1,4 +1,11 @@
-import { Button } from '@mantine/core';
+import {
+  Button,
+  CopyButton,
+  Popover,
+  Space,
+  Text,
+  UnstyledButton,
+} from '@mantine/core';
 import { BigNumber, ethers } from 'ethers';
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
@@ -7,6 +14,7 @@ import { Gates__factory } from 'web3-config';
 import useEvent from '../hooks/useEvent';
 import { hasMinTokenBalance } from '../sources/quicknode/commands';
 import { useFieldStore } from '../stores/useFieldStore';
+import { CopyIcon } from './CurrentConditons';
 
 type Props = { gatedConditions: any[] };
 
@@ -87,17 +95,52 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
 
   if (gateId) {
     return (
-      <Button
-        disabled
-        style={{
-          backgroundColor: '#38C953',
-          color: 'white',
-          width: '100%',
-          height: 30,
-        }}
-      >
-        Created gateId: {gateId.toString()}
-      </Button>
+      <Popover width={450} position="bottom" shadow="md">
+        <Popover.Target>
+          <Button
+            disabled
+            style={{
+              backgroundColor: '#38C953',
+              color: 'white',
+              width: '100%',
+              height: 30,
+            }}
+          >
+            Created gateId: {gateId.toString()}
+          </Button>
+        </Popover.Target>
+        <Popover.Dropdown
+          color="black"
+          style={{
+            width: 600,
+            backgroundColor: '#424A54',
+            color: '#FA9999',
+            borderColor: '#424A54',
+          }}
+        >
+          <Text size="sm" style={{ display: 'flex' }}>
+            <div style={{ paddingTop: 1 }}>
+              <CopyButton
+                value={
+                  'https://gates.wtf/api/verify?address=${address}&gateId=' +
+                  gateId.toString()
+                }
+              >
+                {({ copied, copy }) => (
+                  <UnstyledButton onClick={copy}>
+                    <CopyIcon color={copied ? '#37C853' : 'white'} />
+                  </UnstyledButton>
+                )}
+              </CopyButton>
+            </div>
+            <Space w={10} />
+            <Text style={{ color: 'white' }}>GET </Text>
+            <Space w={5} />
+            {'https://gates.wtf/api/verify?address=${address}&gateId=' +
+              gateId.toString()}
+          </Text>
+        </Popover.Dropdown>
+      </Popover>
     );
   }
   return (

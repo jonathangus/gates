@@ -315,14 +315,14 @@ export const ConditionPreview = (props) => {
           </div>
 
           <div
-            style={{ position: 'absolute', bottom: 20, left: 30, right: 20 }}
+            style={{ position: 'absolute', bottom: 35, left: 30, right: 20 }}
           >
             <CreateConditionsButton gatedConditions={gatedConditions} />
           </div>
         </>
       ) : (
         <>
-          <div style={{ position: 'absolute', top: 180, left: 10, width: 300 }}>
+          <div style={{ position: 'absolute', top: 180, left: 10, width: 350 }}>
             <Center style={{ textAlign: 'center', fontSize: 20 }}>
               <Text style={glowStylesWhite}>
                 {`Zero conditions`}
@@ -338,7 +338,7 @@ export const ConditionPreview = (props) => {
               </Text>
             </Center>
           </div>
-          <div style={{ position: 'absolute', top: 180, left: 10, width: 300 }}>
+          <div style={{ position: 'absolute', top: 180, left: 5, width: 350 }}>
             <Center style={{ textAlign: 'center', fontSize: 20 }}>
               <Text style={glowStylesGreen}>
                 {`Zero conditions`}
@@ -357,11 +357,16 @@ export const ConditionPreview = (props) => {
           </div>
 
           <div
-            style={{ position: 'absolute', bottom: 20, left: 30, right: 20 }}
+            style={{ position: 'absolute', bottom: 35, left: 30, right: 20 }}
           >
             <Button
               disabled
-              style={{ backgroundColor: '#38C953', width: '100%', height: 30 }}
+              style={{
+                backgroundColor: '#38C953',
+                width: '100%',
+                height: 30,
+                color: 'white',
+              }}
             >
               Get query
             </Button>
