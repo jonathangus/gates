@@ -38,6 +38,26 @@ Then run the dev script.
 yarn dev
 ```
 
+### Apps and Packages
+
+- `web`: another [Next.js](https://nextjs.org) app
+- `smart-contracts`: smart contracts with hardhat
+- `web3-config`: deployments, generated types from contract and common web3 config
+- `ui`: a stub React component library shared by both `web` and `docs` applications
+- `config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+
+Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+
+### Utilities
+
+This turborepo has some additional tools already setup for you:
+
+- [TypeScript](https://www.typescriptlang.org/) for static type checking
+- [ESLint](https://eslint.org/) for code linting
+- [Prettier](https://prettier.io) for code formatting
+
+
 ## Contributions
 
 Lorem ipsum.
