@@ -30,6 +30,11 @@ const Home = () => {
     setImage('complete');
   }
 
+  async function animateUp() {
+    await controls.start({ y: 200 });
+    // await controls.stop({ y: 1000 });
+  }
+
   console.log({ image });
 
   return (
@@ -56,10 +61,12 @@ const Home = () => {
               style={{
                 position: 'absolute',
                 top: 320,
-                right: 118,
+                right: 125,
               }}
             >
-              <BackFrame size={320} />
+              <motion.div animate={{ y: 0 }} transition={{ duration: 0.1 }}>
+                <BackFrame size={320} />
+              </motion.div>
             </div>
           )}
           <motion.div animate={controls} transition={{ duration: 0.5 }}>
@@ -69,9 +76,11 @@ const Home = () => {
           </motion.div>
 
           {account && account.address && (
-            <div style={{}}>
-              <CreateSigning image={image} animateFrame={animateFrame} />
-            </div>
+            <motion.div animate={{ y: 400 }} transition={{ duration: 0.5 }}>
+              <div>
+                <CreateSigning image={image} animateFrame={animateFrame} />
+              </div>
+            </motion.div>
           )}
         </div>
       </AppShell>
