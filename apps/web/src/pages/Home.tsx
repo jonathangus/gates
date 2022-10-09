@@ -16,6 +16,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useSpring, useAnimationControls } from 'framer-motion';
 import { useAccount } from 'wagmi';
+import Link from 'next/link';
 
 const SigningFrame = () => {};
 
@@ -38,52 +39,68 @@ const Home = () => {
   console.log({ image });
 
   return (
-    <div style={{ display: 'grid', gap: 20 }}>
-      <AppShell
-        padding="md"
-        header={
-          <Header height={60} p="xs">
-            <LogoHeader />
-          </Header>
-        }
-        styles={(theme) => ({
-          main: {
-            backgroundColor:
-              theme.colorScheme === 'dark'
-                ? theme.colors.dark[8]
-                : theme.colors.gray[0],
-          },
-        })}
-      >
-        <div style={{ margin: 'auto', marginTop: '5%', height: '100vh' }}>
-          {account && account.address && (
-            <div
-              style={{
-                position: 'absolute',
-                top: 320,
-                right: 125,
-              }}
-            >
-              <motion.div animate={{ y: 0 }} transition={{ duration: 0.1 }}>
-                <BackFrame size={320} />
-              </motion.div>
-            </div>
-          )}
-          <motion.div animate={controls} transition={{ duration: 0.5 }}>
-            <div style={{ paddingLeft: '29%' }}>
-              <IDCard text="" />
-            </div>
-          </motion.div>
-
-          {account && account.address && (
-            <motion.div animate={{ y: 400 }} transition={{ duration: 0.5 }}>
-              <div>
-                <CreateSigning image={image} animateFrame={animateFrame} />
+    <div style={{ height: '100vh', overflow: 'hidden' }}>
+      <div style={{ display: 'grid', gap: 20 }}>
+        <AppShell
+          padding="md"
+          header={
+            <Header height={60} p="xs">
+              <LogoHeader />
+            </Header>
+          }
+          styles={(theme) => ({
+            main: {
+              backgroundColor:
+                theme.colorScheme === 'dark'
+                  ? theme.colors.dark[8]
+                  : theme.colors.gray[0],
+            },
+          })}
+        >
+          <div style={{ margin: 'auto', marginTop: '5%', height: '100vh' }}>
+            {account && account.address && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 320,
+                  right: 125,
+                }}
+              >
+                <motion.div animate={{ y: 0 }} transition={{ duration: 0.1 }}>
+                  <BackFrame size={320} />
+                </motion.div>
+              </div>
+            )}
+            <motion.div animate={controls} transition={{ duration: 0.5 }}>
+              <div style={{ paddingLeft: '29%' }}>
+                <IDCard text="" />
               </div>
             </motion.div>
-          )}
-        </div>
-      </AppShell>
+
+            {account && account.address && (
+              <motion.div animate={{ y: 400 }} transition={{ duration: 0.5 }}>
+                <div>
+                  <CreateSigning image={image} animateFrame={animateFrame} />
+                </div>
+              </motion.div>
+            )}
+          </div>
+          <div
+            style={{
+              position: 'fixed',
+              left: '50%',
+              bottom: 20,
+              color: 'lightgray',
+              cursor: 'pointer',
+              transform: 'translateX(-50%)',
+            }}
+          >
+            <Link href="/create">
+              <Text weight={500}>Create</Text>
+            </Link>
+          </div>
+        </AppShell>
+      </div>{' '}
     </div>
   );
 };
