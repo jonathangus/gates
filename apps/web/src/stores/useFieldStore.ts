@@ -2,13 +2,14 @@ import create from 'zustand';
 
 export const useFieldStore = create((set) => ({
   fields: {},
-  setField: (id, element, field) =>
+  setField: (conditionID, element, id, field) =>
     set((state) => ({
       fields: {
         ...state.fields,
-        [id]: {
+        [conditionID]: {
           field,
           element,
+          id,
         },
       },
     })),

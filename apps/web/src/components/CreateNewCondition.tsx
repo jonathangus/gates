@@ -29,20 +29,19 @@ const ConditionCriteriaCard = (props) => {
 
   const fields = useFieldStore((state) => state.fields);
   const setField = useFieldStore((state) => state.setField);
-
   const [expanded, setExpanded] = useState(false);
 
   function updateCondition(element, fieldID, value, field) {
-    const prevFields = (fields[conditionID] && fields[conditionID].field) || {};
+    // const prevFields = (fields[conditionID] && fields[conditionID].field) || {};
 
-    // const prevFields = prev?.fields || {};
-    const _id = element.id;
+    // // const prevFields = prev?.fields || {};
+    // const _id = element.id;
 
-    // console.log('prevFields', prevFields);
-    setField(conditionID, element, {
-      ...prevFields,
-      [field.name]: value,
-    });
+    // // console.log('prevFields', prevFields);
+    // setField(conditionID, element, {
+    //   ...prevFields,
+    //   [field.name]: value,
+    // });
 
     // console.log({ element, fieldID, value, field });
 
@@ -71,7 +70,17 @@ const ConditionCriteriaCard = (props) => {
     return condition;
   }
 
-  function addOrEdit(field, value, fieldID, remove) {
+  function addOrEdit(field, value, fieldID, elem) {
+    const prevFields = (fields[conditionID] && fields[conditionID].field) || {};
+
+    // console.log('prevFields', prevFields);
+    setField(conditionID, elem, id, {
+      ...prevFields,
+      [field.name]: value,
+    });
+
+    return;
+
     if (
       gatedConditions?.length > 0 &&
       gatedConditions
@@ -131,6 +140,8 @@ const ConditionCriteriaCard = (props) => {
       setGatedConditions(tmpGatedConditions);
     }
   }
+
+  const getValue = () => {};
 
   return (
     <>
@@ -214,12 +225,13 @@ const ConditionCriteriaCard = (props) => {
                           : item.name}
                       </Text>
                       <Input
+                        value={getValue(item, 'field_id_' + i)}
                         onChange={(event) =>
                           addOrEdit(
                             item,
                             event.currentTarget.value,
                             'field_id_' + i,
-                            false
+                            condition
                           )
                         }
                       />

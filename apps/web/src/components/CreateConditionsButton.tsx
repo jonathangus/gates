@@ -11,16 +11,11 @@ import { useFieldStore } from '../stores/useFieldStore';
 type Props = { gatedConditions: any[] };
 
 const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
-  const fields = useFieldStore((state) => state);
+  const fields = useFieldStore((state) => state.fields);
 
-  console.log(fields);
-  const itemz = gatedConditions.map((cond) => {
-    const data = {};
-    cond.fields.forEach((field) => {
-      data[field.name] = field.value;
-    });
-
-    return cond.id + ':' + cond.key + ':' + JSON.stringify(data);
+  const itemz = Object.values(fields).map((value) => {
+    const data = value.field;
+    return value.id + ':' + value.element.key + ':' + JSON.stringify(data);
   });
 
   const { address } = useAccount();
@@ -53,30 +48,31 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
     },
   });
 
-  // const items = JSON.stringify(itemz);
-  const items = JSON.stringify([
-    // `api:get:${JSON.stringify(apiData)}`,
-    // `the-graph:query:${JSON.stringify(theGraph)}`,
-    // `the-graph:minENSs:${JSON.stringify({
-    //   minNumber: 2,
-    // })}`,
-    `quicknode:ownsNFT:${JSON.stringify({
-      contractAddress: '0x745fc083f4336a4151c76de9f598e0f67991c3fa', // mems
-    })}`,
-    // `api:get:${JSON.stringify(apiData)}`,
-    // `the-graph:query:${JSON.stringify(theGraph)}`,
-    // `quicknode:ownsNFT:${JSON.stringify({
-    //   contractAddress: '0xED5AF388653567Af2F388E6224dC7C4b3241C544', // azuki
-    // })}`,
-    // `quicknode:hasMinTokenBalance:${JSON.stringify({
-    //   contractAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // usdc
-    //   minAmount: 100 * Math.pow(10, 6),
-    // })}`,
-    // `github:repoAccess:${JSON.stringify({
-    //   repoPath: 'jonathangus/gates',
-    // })}`,
-    // `twitter:twitter.follow:${JSON.stringify(twitterData)}`,
-  ]);
+  console.log(itemz);
+  const items = JSON.stringify(itemz);
+  // const items = JSON.stringify([
+  //   // `api:get:${JSON.stringify(apiData)}`,
+  //   // `the-graph:query:${JSON.stringify(theGraph)}`,
+  //   // `the-graph:minENSs:${JSON.stringify({
+  //   //   minNumber: 2,
+  //   // })}`,
+  //   `quicknode:ownsNFT:${JSON.stringify({
+  //     contractAddress: '0x745fc083f4336a4151c76de9f598e0f67991c3fa', // mems
+  //   })}`,
+  //   // `api:get:${JSON.stringify(apiData)}`,
+  //   // `the-graph:query:${JSON.stringify(theGraph)}`,
+  //   // `quicknode:ownsNFT:${JSON.stringify({
+  //   //   contractAddress: '0xED5AF388653567Af2F388E6224dC7C4b3241C544', // azuki
+  //   // })}`,
+  //   // `quicknode:hasMinTokenBalance:${JSON.stringify({
+  //   //   contractAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // usdc
+  //   //   minAmount: 100 * Math.pow(10, 6),
+  //   // })}`,
+  //   // `github:repoAccess:${JSON.stringify({
+  //   //   repoPath: 'jonathangus/gates',
+  //   // })}`,
+  //   // `twitter:twitter.follow:${JSON.stringify(twitterData)}`,
+  // ]);
 
   const condition = ethers.utils.toUtf8Bytes(items);
 
