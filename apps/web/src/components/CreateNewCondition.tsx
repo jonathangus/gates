@@ -26,29 +26,27 @@ const ConditionCriteriaCard = (props) => {
 
   const [expanded, setExpanded] = useState(false);
 
-  function updateCondition(element, fieldID, value) {
+  function updateCondition(element, fieldID, value, field) {
     const condition = element.fields?.forEach((fld) => {
       if (fld.fieldID === fieldID) {
-        console.log('found', fld.fieldID, fieldID, fld);
         fld.fieldID = fld.fieldID;
         fld.name = fld.name;
         fld.type = fld.type;
         fld.value = value;
-      } else {
-        if (
-          element.fields
-            .filter((i) => i)
-            .map((item) => item.fieldID)
-            .indexOf(fieldID) === -1
-        ) {
-          element.fields.push({
-            fieldID: fieldID,
-            name: fld.name,
-            type: fld.type,
-            title: fld.title,
-            value: value,
-          });
-        }
+      }
+      if (
+        element.fields
+          .filter((i) => i)
+          .map((item) => item.fieldID)
+          .indexOf(fieldID) === -1
+      ) {
+        element.fields.push({
+          fieldID: fieldID,
+          name: field.name,
+          type: field.type,
+          title: field.title,
+          value: value,
+        });
       }
     });
     return condition;
@@ -66,7 +64,7 @@ const ConditionCriteriaCard = (props) => {
 
       tmpGatedConditions.map((element) => {
         if (element.uniqueID === conditionID) {
-          element = updateCondition(element, fieldID, value);
+          element = updateCondition(element, fieldID, value, field);
         } else return;
       });
       setGatedConditions(tmpGatedConditions);
