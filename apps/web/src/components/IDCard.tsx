@@ -54,10 +54,14 @@ export const PlusIcon = () => {
 };
 
 const Credential = (props) => {
-  const { item } = props;
+  const { item, githubOk } = props;
+  const showgithubok = item.name == 'Github' && githubOk;
   return (
     <div style={{ display: 'flex', paddingBottom: 10 }}>
-      {item.enabled ? <PlusIcon /> : <MinusIcon />}
+      {showgithubok && '👍'}
+      {!showgithubok && (
+        <div>{item.enabled ? <PlusIcon /> : <MinusIcon />}</div>
+      )}
       <Space w={10} />
       <Text weight={300}>{item.name}</Text>
     </div>
@@ -135,7 +139,7 @@ const IDCard = () => {
                 }
               }}
             >
-              <Credential item={item} />
+              <Credential item={item} githubOk={Boolean(session?.user?.name)} />
             </div>
           ))}
         </div>
