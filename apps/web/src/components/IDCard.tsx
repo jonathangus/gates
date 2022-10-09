@@ -1,14 +1,14 @@
-import { Button, Image, Text, Space, Center } from '@mantine/core';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useEnsName, useAccount, useEnsAvatar } from 'wagmi';
-import { InjectedConnector } from 'wagmi/connectors/injected';
+import { Space, Text } from '@mantine/core';
+import { useAccount, useEnsAvatar, useEnsName } from 'wagmi';
 import { formatAddressToShort } from './../utils/formatter';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { useUserStore } from '../stores/useUserStore';
+import { useRouter } from 'next/router';
 
 const credentials = [
   { name: 'Github', key: 'github2', enabled: true },
+  { name: 'Worldcoin', key: 'worldcoin', enabled: true },
   { name: 'Twitter', key: 'twitter', enabled: false },
   { name: 'Lens', key: 'lens', enabled: false },
 ];
@@ -66,6 +66,16 @@ const Credential = (props) => {
 
 const IDCard = (props) => {
   const { text } = props;
+
+  // Deal with worldcoin auth
+  const router = useRouter();
+  const worldcoinJwt = router.query.verification_jwt;
+
+  const setWorldcoinJwt = useUserStore((state) => state.setWorldcoinJwt);
+  useEffect(() => {
+    setWorldcoinJwt(worldcoinJwt);
+  }, [worldcoinJwt]);
+
   const setGithubAuth = useUserStore((state) => state.setGithubAuth);
   const account = useAccount();
   const { data, isError, isLoading } = useEnsName({
@@ -137,10 +147,15 @@ const IDCard = (props) => {
                   if (!item.enabled) {
                     return;
                   }
-                  if (session) {
-                    await signOut();
-                  } else {
-                    await signIn(item.key);
+                  if (item.key === 'github') {
+                    if (session) {
+                      await signOut();
+                    } else {
+                      await signIn(item.key);
+                    }
+                  } else if (item.key == 'worldcoin') {
+                    window.location.href =
+                      'https://developer.worldcoin.org/hosted/wid_6748c93f169c5d6459f698a44124e010?signal=login';
                   }
                 }}
               >
