@@ -42,5 +42,5 @@ export const hasMinTokenBalance = async (
     return false;
   }
 
-  return tokens.assets[0].amount > args.minAmount;
+  return tokens.assets[0].amount >= args.minAmount;
 };
