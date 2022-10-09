@@ -179,6 +179,7 @@ const ConditionCriteriaCard = (props) => {
               paddingTop: 10,
               paddingLeft: 10,
               paddingRight: 10,
+              width: '100%'
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>

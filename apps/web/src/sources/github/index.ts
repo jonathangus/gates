@@ -8,15 +8,14 @@ export const source: Source = {
   },
   conditions: [
     {
-      name: 'User needs to have access to repo',
+      name: 'GitHub repository access',
       key: 'repoAccess',
-      description:
-        'Modernipsum dolor sit amet art nouveau avant-garde precisionism performance art superstroke avant-garde, video game art historicism.',
+      description: 'User is required to have the specified repository access.',
       fields: [
         {
           type: 'string',
           name: 'repoPath',
-          title: 'Path to repo',
+          title: 'Repository path',
         },
       ],
       method: repoAccess,

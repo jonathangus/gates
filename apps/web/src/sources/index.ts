@@ -7,9 +7,8 @@ import { source as githubSource } from './github';
 export const sources = {
   [quickNodeSource.id]: quickNodeSource,
   [githubSource.id]: githubSource,
+  [theGraphSource.id]: theGraphSource,
   [twitterSource.id]: twitterSource,
   [apiSource.id]: apiSource,
-  [theGraphSource.id]: theGraphSource,
-  [quickNodeSource.id]: quickNodeSource,
   [githubSource.id]: githubSource,
 };

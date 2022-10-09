@@ -117,6 +117,8 @@ const Page = () => {
                   border: '1px solid #000000',
                   boxShadow: '2px 4px 16px rgba(0, 0, 0, 0.25)',
                   borderRadius: 32,
+                  paddingRight: 20,
+                  paddingLeft: 20,
                 }}
               >
                 <Center>Create new condition</Center>

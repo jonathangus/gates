@@ -8,41 +8,43 @@ export const source: Source = {
   },
   conditions: [
     {
-      name: 'Query on the graph',
+      name: 'The Graph query',
       key: 'query',
       description:
-        'Modernipsum dolor sit amet art nouveau avant-garde precisionism performance art superstroke avant-garde, video game art historicism.',
+        'Retrieved response from the triggered endpoint matches the inputted result.',
       fields: [
         {
           type: 'string',
-          name: 'endpoint', // https://api.thegraph.com/subgraphs/name/ensdomains/ens
+          name: 'Endpoint', // https://api.thegraph.com/subgraphs/name/ensdomains/ens
           title: '',
         },
         {
           type: 'string',
-          name: 'query',
+          name: 'Query',
           title: '',
         },
         {
           type: 'string',
-          name: 'selector', // data.domain.name
+          name: 'GraphQL selector', // data.domain.name
           title: '',
         },
         {
           type: 'string',
-          name: 'result', // jont.eth
+          name: 'Expected response', // jont.eth
           title: '',
         },
       ],
       method: queryTheGraph,
     },
     {
-      name: 'Minimum ENSs names hold',
+      name: 'ENS holder',
       key: 'minENSs',
+      description:
+        'User is required to hold the minimum balance of ENS tokens.',
       fields: [
         {
           type: 'int',
-          name: 'minNumber',
+          name: 'Minimum ENS token balance',
         },
       ],
       method: minENSs,
