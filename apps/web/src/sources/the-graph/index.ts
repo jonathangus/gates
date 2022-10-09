@@ -44,7 +44,7 @@ export const source: Source = {
       fields: [
         {
           type: 'int',
-          name: 'minNumber',
+          name: 'Minimum ENS token balance',
         },
       ],
       method: minENSs,
