@@ -40,9 +40,9 @@ const poktProvider = jsonRpcProvider({
 });
 
 const { chains, provider } = configureChains(config.defaultChains, [
+  alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY }),
   coinbaseProvider,
   poktProvider,
-  alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY }),
   publicProvider(),
 ]);
 

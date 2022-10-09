@@ -5,6 +5,7 @@ import { InjectedConnector } from 'wagmi/connectors/injected';
 import { formatAddressToShort } from './../utils/formatter';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import { useUserStore } from '../stores/useUserStore';
 
 const credentials = [
   { name: 'Github', key: 'github2' },
@@ -64,9 +65,8 @@ const Credential = (props) => {
 };
 
 const IDCard = () => {
-  const isMobile = false;
+  const setGithubAuth = useUserStore((state) => state.setGithubAuth);
   const account = useAccount();
-  console.log({ account }, account.address);
   const { data, isError, isLoading } = useEnsName({
     address: account.address,
     chainId: 1,
@@ -78,6 +78,12 @@ const IDCard = () => {
   }, []);
 
   const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session?.user?.email) {
+      setGithubAuth(session?.user?.email);
+    }
+  }, [session]);
 
   return (
     <div

@@ -1,5 +1,6 @@
 import { Button, Image, Text } from '@mantine/core';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import Link from 'next/link';
 
 export const WrongNetworkButton = ({ isMobile, onClick }) => {
   return (
@@ -123,7 +124,12 @@ const LogoHeader = () => {
         paddingBottom: 20,
       }}
     >
-      <Text weight={500}>gate.xyz</Text>
+      <Text weight={500}>
+        <Link href="/">gate.xyz</Link>
+      </Text>
+      <Text weight={500}>
+        <Link href="/create">create</Link>
+      </Text>
       <ConnectedWalletInfo isMobile={isMobile} />
     </div>
   );

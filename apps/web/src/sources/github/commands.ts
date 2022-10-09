@@ -6,6 +6,7 @@ export const repoAccess = async (
   { repoPath }: { repoPath: string },
   ctx: CommandContext
 ): Promise<boolean> => {
+  console.log('github', ctx.userData);
   const { data } = await axios.get('https://api.github.com/user/repos', {
     headers: {
       Authorization: 'token ' + ctx.userData.githubToken,
