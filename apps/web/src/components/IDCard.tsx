@@ -78,6 +78,7 @@ const IDCard = () => {
   }, []);
 
   const { data: session } = useSession();
+  console.log('session', session);
 
   useEffect(() => {
     if (session?.user?.email) {

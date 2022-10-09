@@ -5,8 +5,8 @@ import GitHubWithAccessToken from '../../../auth/GitHubWithAccessToken';
 export default NextAuth({
   providers: [
     GitHubWithAccessToken({
-      clientId: '4509c42af2104db32589',
-      clientSecret: '8a6c8c856b80366773f1a1682d60393f3b58136d',
+      clientId: '30fab8d12e8772999137',
+      clientSecret: '79aac33a220e915bd8853b0ed7d6b08d6fbf67dd',
       authorization: {
         params: { scope: 'repo' },
       },

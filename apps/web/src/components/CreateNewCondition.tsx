@@ -8,48 +8,112 @@ import {
   Text,
   UnstyledButton,
 } from '@mantine/core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAccount, useEnsName } from 'wagmi';
 import { sources } from '../sources';
 import { CondiditonFrame } from './Icons/ConditionFrame';
 import { MinusIcon, PlusIcon } from './IDCard';
 
-const conditions = [
-  {
-    metadata: {
-      title: 'Token balance (ERC-20)',
-      description:
-        'Modernipsum dolor sit amet art nouveau avant-garde precisionism performance art superstroke avant-garde, video game art historicism.',
-    },
-  },
-  {
-    metadata: {
-      title: 'Token balance (ERC-20)',
-      description:
-        'Modernipsum dolor sit amet art nouveau avant-garde precisionism performance art superstroke avant-garde, video game art historicism.',
-    },
-  },
-  {
-    metadata: {
-      title: 'Token balance (ERC-20)',
-      description:
-        'Modernipsum dolor sit amet art nouveau avant-garde precisionism performance art superstroke avant-garde, video game art historicism.',
-    },
-  },
-  {
-    metadata: {
-      title: 'Token balance (ERC-20)',
-      description:
-        'Modernipsum dolor sit amet art nouveau avant-garde precisionism performance art superstroke avant-garde, video game art historicism.',
-    },
-  },
-];
-
 const ConditionCriteriaCard = (props) => {
-  const { condition, logo, id } = props;
+  const {
+    condition,
+    logo,
+    id,
+    setGatedConditions,
+    gatedConditions,
+    conditionID,
+  } = props;
 
-  console.log('criteria card', { condition }, id);
   const [expanded, setExpanded] = useState(false);
+
+  function updateCondition(element, fieldID, value) {
+    const condition = element.fields?.forEach((fld) => {
+      if (fld.fieldID === fieldID) {
+        console.log('found', fld.fieldID, fieldID, fld);
+        fld.fieldID = fld.fieldID;
+        fld.name = fld.name;
+        fld.type = fld.type;
+        fld.value = value;
+      } else {
+        if (
+          element.fields
+            .filter((i) => i)
+            .map((item) => item.fieldID)
+            .indexOf(fieldID) === -1
+        ) {
+          element.fields.push({
+            fieldID: fieldID,
+            name: fld.name,
+            type: fld.type,
+            title: fld.title,
+            value: value,
+          });
+        }
+      }
+    });
+    return condition;
+  }
+
+  function addOrEdit(field, value, fieldID, remove) {
+    if (
+      gatedConditions?.length > 0 &&
+      gatedConditions
+        .filter((i) => i)
+        .map((item) => item.uniqueID)
+        .indexOf(conditionID) > -1
+    ) {
+      const tmpGatedConditions = [...gatedConditions];
+
+      tmpGatedConditions.map((element) => {
+        if (element.uniqueID === conditionID) {
+          element = updateCondition(element, fieldID, value);
+        } else return;
+      });
+      setGatedConditions(tmpGatedConditions);
+    } else {
+      const tmpGatedConditions =
+        gatedConditions && gatedConditions.length > 0
+          ? [...gatedConditions]
+          : [];
+
+      const gatedCondition = {
+        uniqueID: conditionID,
+        id: id,
+        key: condition.key,
+        name: condition.name,
+        fields: [
+          {
+            fieldID: fieldID,
+            name: field.name,
+            type: field.type,
+            title: field.title,
+            value: value,
+          },
+        ],
+      };
+      tmpGatedConditions.push(gatedCondition);
+      setGatedConditions(tmpGatedConditions);
+    }
+  }
+
+  function removeCondition() {
+    if (gatedConditions?.length > 0) {
+      let tmpGatedConditions = [...gatedConditions];
+      console.log('removed ', tmpGatedConditions, tmpGatedConditions.length);
+
+      tmpGatedConditions = tmpGatedConditions.filter((element) => {
+        console.log(
+          element.uniqueID,
+          conditionID,
+          element.uniqueID != conditionID
+        );
+        return element.uniqueID != conditionID;
+      });
+
+      console.log(tmpGatedConditions.length);
+      setGatedConditions(tmpGatedConditions);
+    }
+  }
 
   return (
     <>
@@ -73,7 +137,12 @@ const ConditionCriteriaCard = (props) => {
         >
           <UnstyledButton
             style={{ paddingTop: 30, paddingLeft: 20 }}
-            onClick={() => setExpanded(!expanded)}
+            onClick={() => {
+              if (expanded) {
+                removeCondition();
+              }
+              return setExpanded(!expanded);
+            }}
           >
             {expanded ? <MinusIcon /> : <PlusIcon />}
           </UnstyledButton>
@@ -91,8 +160,14 @@ const ConditionCriteriaCard = (props) => {
               <Image
                 src={logo}
                 alt=""
-                width={id === 'api' ? 29 : 22}
-                height={id === 'the-graph' || id === 'quicknode' ? 22 : 18}
+                width={id === 'api' ? 29 : id === 'github' ? 26 : 22}
+                height={
+                  id === 'the-graph' || id === 'quicknode'
+                    ? 22
+                    : id === 'github'
+                    ? 26
+                    : 18
+                }
                 radius={5}
               />
             </div>
@@ -104,9 +179,6 @@ const ConditionCriteriaCard = (props) => {
           <div
             style={{
               backgroundColor: '#EFEFEF',
-              //   height:
-              //     (condition.fields.length > 2 ? 2.5 : condition.fields.length) *
-              //     70,
               padding: 10,
               marginTop: 20,
               paddingBottom: 10,
@@ -116,7 +188,7 @@ const ConditionCriteriaCard = (props) => {
           >
             {condition.fields && condition.fields.length ? (
               <>
-                {condition.fields.map((item) => {
+                {condition.fields.map((item, i) => {
                   return (
                     <>
                       <Text style={{ fontSize: 14 }}>
@@ -124,19 +196,23 @@ const ConditionCriteriaCard = (props) => {
                           ? item.title
                           : item.name}
                       </Text>
-                      <Input />
+                      <Input
+                        onChange={(event) =>
+                          addOrEdit(
+                            item,
+                            event.currentTarget.value,
+                            'field_id_' + i,
+                            false
+                          )
+                        }
+                      />
                       <Space h={5} />
                     </>
                   );
                 })}
               </>
             ) : (
-              <>
-                <Text style={{ fontSize: 14 }}>Contract address</Text>
-                <Input />
-                <Text style={{ fontSize: 14 }}>Minimum token balance</Text>
-                <Input />
-              </>
+              <></>
             )}
           </div>
         )}
@@ -145,7 +221,9 @@ const ConditionCriteriaCard = (props) => {
   );
 };
 
-const EmptyConditionCard = (props) => {
+export const ConditionPreview = (props) => {
+  const { condition, gatedConditions } = props;
+
   const glowStylesGreen = {
     color: '#38C953',
     filter: 'blur(10px)',
@@ -161,54 +239,111 @@ const EmptyConditionCard = (props) => {
       }}
     >
       <CondiditonFrame size={326} />
-      <div style={{ position: 'absolute', top: 180, left: 10, width: 300 }}>
-        <Center style={{ textAlign: 'center', fontSize: 20 }}>
-          <Text style={glowStylesWhite}>
-            {`Zero conditions`}
-            <br />
-            {`configured`}
-          </Text>
-        </Center>
-        <Space h={15} />
-        <Center style={{ textAlign: 'center', fontSize: 16 }}>
-          <Text style={glowStylesWhite}>
-            {`Get started by clicking`} <br /> {`on a condition and`} <br />
-            {`setting up its parameters`}
-          </Text>
-        </Center>
-      </div>
-      <div style={{ position: 'absolute', top: 180, left: 10, width: 300 }}>
-        <Center style={{ textAlign: 'center', fontSize: 20 }}>
-          <Text style={glowStylesGreen}>
-            {`Zero conditions`}
-            <br />
-            {`configured`}
-          </Text>
-        </Center>
-        <Space h={15} />
+      {gatedConditions && gatedConditions.length > 0 ? (
+        <>
+          <div style={{ position: 'absolute', top: 80, left: 40 }}>
+            <Text style={glowStylesWhite}>Gated Conditions</Text>
+            {gatedConditions?.map((cond) => {
+              return (
+                <div>
+                  <Text size="xs" style={glowStylesWhite}>
+                    {cond.name}
+                  </Text>
+                  <div style={{ paddingBottom: 8 }}>
+                    {cond.fields.map((item) => (
+                      <Text size="xs" style={glowStylesWhite}>
+                        {item.title || item.name}: {item.value}
+                      </Text>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div style={{ position: 'absolute', top: 70, left: 30 }}>
+            <Text style={glowStylesGreen}>Gated Conditions</Text>
+            {gatedConditions?.map((cond) => {
+              return (
+                <div>
+                  <Text size="xs" style={glowStylesGreen}>
+                    {cond.name}
+                  </Text>
+                  <div style={{ paddingBottom: 8 }}>
+                    {cond.fields.map((item) => (
+                      <Text size="xs" style={glowStylesGreen}>
+                        {item.title}:{item.value}
+                      </Text>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
 
-        <Center style={{ textAlign: 'center', fontSize: 16 }}>
-          <Text style={glowStylesGreen}>
-            {`Get started by clicking`} <br /> {`on a condition and`} <br />
-            {`setting up its parameters`}
-          </Text>
-        </Center>
-      </div>
+          <div
+            style={{ position: 'absolute', bottom: 20, left: 30, right: 20 }}
+          >
+            <Button
+              style={{ backgroundColor: '#38C953', width: '100%', height: 30 }}
+            >
+              Get query
+            </Button>
+          </div>
+        </>
+      ) : (
+        <>
+          <div style={{ position: 'absolute', top: 180, left: 10, width: 300 }}>
+            <Center style={{ textAlign: 'center', fontSize: 20 }}>
+              <Text style={glowStylesWhite}>
+                {`Zero conditions`}
+                <br />
+                {`configured`}
+              </Text>
+            </Center>
+            <Space h={15} />
+            <Center style={{ textAlign: 'center', fontSize: 16 }}>
+              <Text style={glowStylesWhite}>
+                {`Get started by clicking`} <br /> {`on a condition and`} <br />
+                {`setting up its parameters`}
+              </Text>
+            </Center>
+          </div>
+          <div style={{ position: 'absolute', top: 180, left: 10, width: 300 }}>
+            <Center style={{ textAlign: 'center', fontSize: 20 }}>
+              <Text style={glowStylesGreen}>
+                {`Zero conditions`}
+                <br />
+                {`configured`}
+              </Text>
+            </Center>
+            <Space h={15} />
 
-      <div style={{ position: 'absolute', bottom: 20, left: 30, right: 20 }}>
-        <Button
-          style={{ backgroundColor: '#38C953', width: '100%', height: 30 }}
-        ></Button>
-      </div>
+            <Center style={{ textAlign: 'center', fontSize: 16 }}>
+              <Text style={glowStylesGreen}>
+                {`Get started by clicking`} <br /> {`on a condition and`} <br />
+                {`setting up its parameters`}
+              </Text>
+            </Center>
+          </div>
+
+          <div
+            style={{ position: 'absolute', bottom: 20, left: 30, right: 20 }}
+          >
+            <Button
+              style={{ backgroundColor: '#38C953', width: '100%', height: 30 }}
+            ></Button>
+          </div>
+        </>
+      )}
     </div>
   );
 };
 
 const Source = (props) => {
-  const { source } = props;
+  const { source, gatedConditions, setGatedConditions, sourceId } = props;
 
-  //   console.log('criteria card', { source });
-  const [expanded, setExpanded] = useState(false);
+  const [sourceCondition, setSourceCondition] = useState(gatedConditions);
+
   return (
     <>
       {source.conditions.map((condition, i) => {
@@ -216,10 +351,14 @@ const Source = (props) => {
           <div>
             <Center>
               <ConditionCriteriaCard
-                i={'condition' + i}
+                conditionID={sourceId + '_condition_id_' + i}
                 condition={condition}
                 logo={source?.metadata?.logo}
                 id={source?.id}
+                gatedConditions={gatedConditions}
+                setGatedConditions={setGatedConditions}
+                sourceCondition={sourceCondition}
+                setSourceCondition={setSourceCondition}
               />
             </Center>
           </div>
@@ -230,37 +369,61 @@ const Source = (props) => {
 };
 
 const CreateNewCondition = (props) => {
-  const { admin } = props;
-  console.log({ admin });
+  const { admin, setCreateNew } = props;
+  const [gatedConditions, setGatedConditions] = useState([]);
 
   const sourcesList = Object.values(sources);
-  console.log({ sourcesList });
+
+  //   const gated = {
+  //     uniqueID: 'source_0_condition_0',
+  //     id: 'api',
+  //     key: 'get',
+  //     fields: [
+  //       {
+  //         fieldID: 'field_0',
+  //         name: 'selector',
+  //         value: '',
+  //       },
+  //     ],
+  //   };
 
   return (
     <div style={{ position: 'relative' }}>
+      <div style={{ position: 'absolute', left: 10, top: 0 }}>
+        <UnstyledButton onClick={() => setCreateNew(false)}>
+          <Text style={{ fontSize: 28 }}>←</Text>
+        </UnstyledButton>
+      </div>
+
       <div style={{}}>
+        <Center>
+          <Text
+            style={{
+              fontSize: 22,
+              width: 542,
+              color: '#959595',
+              fontWeight: 650,
+            }}
+          >
+            Conditions
+          </Text>
+        </Center>
+        <Space h={10} />
         {sourcesList.map((source, i) => {
           return (
             <div>
-              <Source source={source} />
+              <Source
+                sourceId={'source_id_' + i}
+                source={source}
+                setGatedConditions={setGatedConditions}
+                gatedConditions={gatedConditions}
+              />
             </div>
           );
         })}
-        {/* {conditions.map((condition, i) => {
-          return (
-            <div>
-              <Center>
-                <ConditionCriteriaCard
-                  i={'condition' + i}
-                  condition={condition}
-                />
-              </Center>
-            </div>
-          );
-        })} */}
       </div>
-      <div style={{ position: 'absolute', right: 10, top: 120 }}>
-        <EmptyConditionCard />
+      <div style={{ position: 'fixed', right: 10, top: 130 }}>
+        <ConditionPreview gatedConditions={gatedConditions} />
       </div>
     </div>
   );

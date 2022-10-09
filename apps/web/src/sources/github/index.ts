@@ -10,10 +10,13 @@ export const source: Source = {
     {
       name: 'User needs to have access to repo',
       key: 'repoAccess',
+      description:
+        'Modernipsum dolor sit amet art nouveau avant-garde precisionism performance art superstroke avant-garde, video game art historicism.',
       fields: [
         {
           type: 'string',
           name: 'repoPath',
+          title: 'Path to repo',
         },
       ],
       method: repoAccess,

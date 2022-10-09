@@ -5,6 +5,8 @@ import { source as quickNodeSource } from './quicknode';
 import { source as githubSource } from './github';
 
 export const sources = {
+  [quickNodeSource.id]: quickNodeSource,
+  [githubSource.id]: githubSource,
   [twitterSource.id]: twitterSource,
   [apiSource.id]: apiSource,
   [theGraphSource.id]: theGraphSource,
