@@ -13,6 +13,7 @@ export const verifyJWT = async (ctx: CommandContext): Promise<boolean> => {
     const { payload } = await jose.jwtVerify(token, publicKey, {
       issuer: 'https://developer.worldcoin.org',
     });
+    // todo: also ensure that payload.nullifier_hash is unique, but that might be checked upstream.
     return payload.verified as boolean;
   } catch (e) {
     return false;
