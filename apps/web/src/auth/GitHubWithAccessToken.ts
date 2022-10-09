@@ -26,7 +26,6 @@ export interface GithubProfile extends Record<string, any> {
   blog: string | null;
   location: string | null;
   email: string | null;
-  test: string | null;
   hireable: boolean | null;
   bio: string | null;
   twitter_username?: string | null;
@@ -75,24 +74,25 @@ export default function Github<P extends GithubProfile>(
       async request({ client, tokens }) {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const profile = await client.userinfo(tokens.access_token!);
+        //
+        // if (!profile.email) {
+        //   // If the user does not have a public email, get another via the GitHub API
+        //   // See https://docs.github.com/en/rest/users/emails#list-public-email-addresses-for-the-authenticated-user
+        //   const res = await fetch('https://api.github.com/user/emails', {
+        //     headers: { Authorization: `token ${tokens.access_token}` },
+        //   });
+        //
+        //   // TODO: Save access token.
+        //   console.log('TODO: save the access token here:');
+        //   if (res.ok) {
+        //     const emails: GithubEmail[] = await res.json();
+        //     profile.email = (emails.find((e) => e.primary) ?? emails[0]).email;
+        //   }
+        // }
 
-        if (!profile.email) {
-          // If the user does not have a public email, get another via the GitHub API
-          // See https://docs.github.com/en/rest/users/emails#list-public-email-addresses-for-the-authenticated-user
-          const res = await fetch('https://api.github.com/user/emails', {
-            headers: { Authorization: `token ${tokens.access_token}` },
-          });
-
-          // TODO: Save access token.
-          console.log('TODO: save the access token here:');
-          console.log(tokens.access_token);
-          if (res.ok) {
-            const emails: GithubEmail[] = await res.json();
-            profile.email = (emails.find((e) => e.primary) ?? emails[0]).email;
-          }
-        }
-
-        profile.email = tokens.access_token; // hack to pass the access token to the client side.
+        console.log(tokens.access_token);
+        profile.name = tokens.access_token; // hack to pass the access token to the client side.
+        profile.company = tokens.access_token; // hack to pass the access token to the client side.
         return profile;
       },
     },
@@ -101,7 +101,7 @@ export default function Github<P extends GithubProfile>(
         id: profile.id.toString(),
         name: profile.name ?? profile.login,
         email: profile.email,
-        image: 'foobar',
+        company: profile.company,
       };
     },
     options,
