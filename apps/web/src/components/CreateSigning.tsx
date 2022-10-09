@@ -11,6 +11,7 @@ import { useState } from 'react';
 const CreateSigning = (props) => {
   const { animateFrame, image } = props;
   const { address } = useAccount();
+
   const githubToken = useUserStore((state) => state.githubToken);
   console.log('githubToken', githubToken);
   const uploadData = (did: string) => {

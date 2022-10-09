@@ -34,7 +34,7 @@ const admin = {
           criteria: ['Contract address: 0x9e...aa7c.'],
         },
       ],
-      query: 'access.xyz/api/verify?identifier=242&walletAddress={wallet}',
+      query: 'https://gates.wtf/api/verify?address=${address}&gateId=242',
     },
     {
       header: '#321 Gated conditions',
@@ -48,7 +48,7 @@ const admin = {
           criteria: ['Account handle: @ethglobal'],
         },
       ],
-      query: 'access.xyz/api/verify?identifier=321&walletAddress={wallet}',
+      query: 'https://gates.wtf/api/verify?address=${address}&gateId=321',
     },
     {
       header: '#871 Gated conditions',
@@ -66,7 +66,7 @@ const admin = {
           criteria: ['Account handle: @bellosights'],
         },
       ],
-      query: 'access.xyz/api/verify?identifier=871&walletAddress={wallet}',
+      query: 'https://gates.wtf/api/verify?address=${address}&gateId=871',
     },
   ],
 };

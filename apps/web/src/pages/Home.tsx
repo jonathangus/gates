@@ -15,12 +15,13 @@ import { BackFrame, TopFrame } from '../components/Icons/TopFrame';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useSpring, useAnimationControls } from 'framer-motion';
+import { useAccount } from 'wagmi';
 
 const SigningFrame = () => {};
 
 const Home = () => {
   const [scrollUp, setScrollUp] = useState(false);
-
+  const account = useAccount();
   const [image, setImage] = useState('click');
 
   const controls = useAnimationControls();
@@ -57,24 +58,28 @@ const Home = () => {
         })}
       >
         <div style={{ margin: 'auto', marginTop: '5%', height: '100vh' }}>
-          <div
-            style={{
-              position: 'absolute',
-              top: 320,
-              right: 125,
-            }}
-          >
-            <BackFrame size={320} />
-          </div>
+          {account && account.address && (
+            <div
+              style={{
+                position: 'absolute',
+                top: 320,
+                right: 118,
+              }}
+            >
+              <BackFrame size={320} />
+            </div>
+          )}
           <motion.div animate={controls} transition={{ duration: 0.5 }}>
-            <div style={{ paddingLeft: '25%' }}>
+            <div style={{ paddingLeft: '29%' }}>
               <IDCard />
             </div>
           </motion.div>
 
-          <div style={{}}>
-            <CreateSigning image={image} animateFrame={animateFrame} />
-          </div>
+          {account && account.address && (
+            <div style={{}}>
+              <CreateSigning image={image} animateFrame={animateFrame} />
+            </div>
+          )}
         </div>
       </AppShell>
     </div>
