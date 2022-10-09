@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from 'react';
+import { useState, PropsWithChildren, useEffect } from 'react';
 import '@rainbow-me/rainbowkit/styles.css';
 import axios from 'axios';
 import {
@@ -30,6 +30,8 @@ const wagmiClient = createClient({
 });
 
 const GatedInner = ({ children, gateId }) => {
+  const [mounted, setMounted] = useState(false);
+
   const { address, isConnected } = useAccount();
   const query = useQuery<any, any, any, any>(
     ['gated.wtf', gateId, address],
@@ -44,6 +46,14 @@ const GatedInner = ({ children, gateId }) => {
       enabled: Boolean(address),
     }
   );
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return;
+  }
 
   if (query.error) {
     return (

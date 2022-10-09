@@ -4,6 +4,7 @@ import { useEnsName, useAccount } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { formatAddressToShort } from './../utils/formatter';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
 
 const credentials = [
   { name: 'Github', key: 'github2' },
@@ -71,10 +72,12 @@ const IDCard = () => {
     chainId: 1,
   });
 
-  const { data: session } = useSession();
-  console.log('session', session);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  console.log({ data });
+  const { data: session } = useSession();
 
   return (
     <div
@@ -131,7 +134,7 @@ const IDCard = () => {
           width: 550,
         }}
       >
-        <Text size="sm">{account.address}</Text>
+        {mounted && <Text size="sm">{account.address}</Text>}
       </div>
       <div
         style={{
