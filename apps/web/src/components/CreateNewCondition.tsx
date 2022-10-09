@@ -11,6 +11,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useAccount, useEnsName } from 'wagmi';
 import { sources } from '../sources';
+import { useFieldStore } from '../stores/useFieldStore';
 import CreateConditionsButton from './CreateConditionsButton';
 import CreateConditions from './CreateConditionsButton';
 import { CondiditonFrame } from './Icons/ConditionFrame';
@@ -26,9 +27,25 @@ const ConditionCriteriaCard = (props) => {
     conditionID,
   } = props;
 
+  const fields = useFieldStore((state) => state.fields);
+  const setField = useFieldStore((state) => state.setField);
+
   const [expanded, setExpanded] = useState(false);
 
   function updateCondition(element, fieldID, value, field) {
+    const prevFields = (fields[conditionID] && fields[conditionID].field) || {};
+
+    // const prevFields = prev?.fields || {};
+    const _id = element.id;
+
+    // console.log('prevFields', prevFields);
+    setField(conditionID, element, {
+      ...prevFields,
+      [field.name]: value,
+    });
+
+    // console.log({ element, fieldID, value, field });
+
     const condition = element.fields?.forEach((fld) => {
       if (fld.fieldID === fieldID) {
         fld.fieldID = fld.fieldID;

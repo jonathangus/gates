@@ -30,8 +30,11 @@ const handler: NextApiHandler = async (req, res) => {
     getAddress(chain.optimismGoerli.id, 'Gates'),
     provider
   );
+  console.log({ gateId });
   const data = await contract.conditions(gateId);
+
   const conditions = JSON.parse(ethers.utils.toUtf8String(data));
+  console.log(conditions);
   const verifier = new ConditionVerifier({ address, conditions });
 
   try {
