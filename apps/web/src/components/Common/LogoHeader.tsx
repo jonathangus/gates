@@ -1,6 +1,7 @@
-import { Button, Image, Text } from '@mantine/core';
+import { Button, Image, Text, UnstyledButton } from '@mantine/core';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export const WrongNetworkButton = ({ isMobile, onClick }) => {
   return (
@@ -113,6 +114,8 @@ export const ConnectedWalletInfo = (props) => {
 
 const LogoHeader = () => {
   const isMobile = false;
+
+  const router = useRouter();
   return (
     <div
       style={{
@@ -124,12 +127,13 @@ const LogoHeader = () => {
         paddingBottom: 20,
       }}
     >
-      <Text weight={500}>
-        <Link href="/">gate.xyz</Link>
-      </Text>
-      <Text weight={500}>
-        <Link href="/create">create</Link>
-      </Text>
+      <UnstyledButton onClick={() => router.push('/')}>
+        <Text weight={500}>gate.xyz</Text>
+      </UnstyledButton>
+      <UnstyledButton onClick={() => router.push('/create')}>
+        <Text weight={500}>create</Text>
+      </UnstyledButton>
+
       <ConnectedWalletInfo isMobile={isMobile} />
     </div>
   );

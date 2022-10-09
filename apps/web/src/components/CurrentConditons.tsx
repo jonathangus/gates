@@ -2,52 +2,6 @@ import { Button, Code, Text } from '@mantine/core';
 import { useAccount, useEnsName } from 'wagmi';
 import { CondiditonFrame } from './Icons/ConditionFrame';
 
-const admin__ = {
-  name: 'global.eth',
-  address: '0x124312321312312412',
-  conditions: [
-    {
-      scope: [
-        {
-          header: 'Token balance (ERC-20)',
-          criteria:
-            'Contract address: 0x9e...aa7c. \nMinimum token balance: 5ETH',
-        },
-        {
-          header: 'Token balance (ERC-721)',
-          criteria: 'Contract address: 0x9e...aa7c.',
-        },
-      ],
-    },
-    {
-      scope: [
-        {
-          header: 'Twitter follow',
-          criteria: 'Account handle: @anotherblock_io',
-        },
-        {
-          header: 'Twitter follow',
-          criteria: 'Account handle: @anotherblock_io',
-        },
-      ],
-    },
-    {
-      scope: [
-        {
-          header: 'API Call',
-          criteria:
-            'Request Url: "https://wwww.whatstheweather.com"\nResponse: true',
-        },
-
-        {
-          header: 'Twitter follow',
-          criteria: 'Account handle: @anotherblock_io',
-        },
-      ],
-    },
-  ],
-};
-
 export const ConditionCard = (props) => {
   const { condition } = props;
 

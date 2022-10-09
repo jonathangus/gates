@@ -4,8 +4,14 @@ import { AppShell, Navbar, Header, Center } from '@mantine/core';
 import LogoHeader from '../components/Common/LogoHeader';
 import IDCard from '../components/IDCard';
 import CreateSigning from '../components/CreateSigning';
+import { BackFrame, TopFrame } from '../components/Icons/TopFrame';
+import { useState } from 'react';
+
+const SigningFrame = () => {};
 
 const Home = () => {
+  const [scrollUp, setScrollUp] = useState(false);
+
   return (
     <div style={{ display: 'grid', gap: 20 }}>
       <AppShell
@@ -24,10 +30,30 @@ const Home = () => {
           },
         })}
       >
-        <div style={{ margin: 'auto', marginTop: '5%' }}>
+        <div style={{ margin: 'auto', marginTop: '5%', height: '100vh' }}>
           <Center>
             <IDCard />
-            <CreateSigning />
+            <div>
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: 190,
+                  right: 125,
+                }}
+              >
+                <BackFrame size={300} />
+              </div>
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: -400,
+                  right: 100,
+                }}
+              >
+                <TopFrame />
+              </div>
+            </div>
+            {/* <CreateSigning /> */}
           </Center>
         </div>
       </AppShell>
