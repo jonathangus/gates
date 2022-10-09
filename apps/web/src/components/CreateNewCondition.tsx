@@ -11,6 +11,8 @@ import {
 import { useEffect, useState } from 'react';
 import { useAccount, useEnsName } from 'wagmi';
 import { sources } from '../sources';
+import CreateConditionsButton from './CreateConditionsButton';
+import CreateConditions from './CreateConditionsButton';
 import { CondiditonFrame } from './Icons/ConditionFrame';
 import { MinusIcon, PlusIcon } from './IDCard';
 
@@ -284,6 +286,7 @@ export const ConditionPreview = (props) => {
             style={{ position: 'absolute', bottom: 20, left: 30, right: 20 }}
           >
             <Button
+              disabled
               style={{ backgroundColor: '#38C953', width: '100%', height: 30 }}
             >
               Get query
@@ -329,9 +332,7 @@ export const ConditionPreview = (props) => {
           <div
             style={{ position: 'absolute', bottom: 20, left: 30, right: 20 }}
           >
-            <Button
-              style={{ backgroundColor: '#38C953', width: '100%', height: 30 }}
-            ></Button>
+            <CreateConditionsButton gatedConditions={gatedConditions} />
           </div>
         </>
       )}

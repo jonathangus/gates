@@ -10,7 +10,7 @@ import {
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useState } from 'react';
 import LogoHeader from '../components/Common/LogoHeader';
-import CreateConditions from '../components/CreateConditions';
+import CreateConditions from '../components/CreateConditionsButton';
 import CreateNewCondition from '../components/CreateNewCondition';
 import CurrentConditons from '../components/CurrentConditons';
 
@@ -122,7 +122,6 @@ const Page = () => {
           </>
         )}
       </AppShell>
-      <CreateConditions />
     </div>
   );
 };
