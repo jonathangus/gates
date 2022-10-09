@@ -46,6 +46,7 @@ class ConditionVerifier {
         let success = await this.createRequest(condition, ctx);
 
         if (!success) {
+          console.log(condition);
           return false;
         }
       }

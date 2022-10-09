@@ -75,8 +75,11 @@ export const readPersonalData = async (wallet: string) => {
   const { walletAddress, ...rest } = content;
   const result = {};
 
+  console.log('match', match);
   Object.entries(rest).forEach(([key, value]) => {
-    result[key] = decryptWithAES(value as string);
+    if (value) {
+      result[key] = decryptWithAES(value as string);
+    }
   });
 
   return result;

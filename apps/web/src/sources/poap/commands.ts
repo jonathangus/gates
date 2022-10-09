@@ -14,9 +14,9 @@ export const userEvent = async (
       },
     });
 
-    console.log(data);
     return true;
   } catch (e) {
+    console.error('userEvent poap error', e);
     return false;
   }
 };

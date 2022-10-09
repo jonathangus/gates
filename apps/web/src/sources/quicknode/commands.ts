@@ -37,8 +37,10 @@ export const hasMinTokenBalance = async (
     wallet: ctx.wallet,
     contracts: [args.contractAddress],
   });
+
   if (tokens.assets.length == 0) {
     return false;
   }
+
   return tokens.assets[0].amount > args.minAmount;
 };
