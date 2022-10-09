@@ -173,7 +173,7 @@ const IDCard = (props) => {
               paddingRight: text ? 110 : 200,
             }}
           >
-            <Text>{text || 'Welcome to gate'}</Text>
+            <Text>{text || ''}</Text>
           </div>
         )}
       </div>
