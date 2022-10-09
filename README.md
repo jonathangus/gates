@@ -44,6 +44,4 @@ Lorem ipsum.
 
 ## License
 
-Licensed under the MIT License, Copyright © 2022-present [Rainbow](https://rainbow.me).
-
-See [LICENSE](./LICENSE) for more information.
+Licensed under the MIT License.
