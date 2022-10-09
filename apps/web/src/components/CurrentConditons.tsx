@@ -20,8 +20,8 @@ export const ConditionCard = (props) => {
         position: 'relative',
       }}
     >
-      <CondiditonFrame size={250} />
-      <div style={{ position: 'absolute', top: 70, left: 30 }}>
+      <CondiditonFrame size={320} />
+      <div style={{ position: 'absolute', top: 90, left: 40 }}>
         <Text style={glowStylesWhite}>Gated Conditions</Text>
         {condition?.scope?.map((scope) => {
           return (
@@ -40,7 +40,7 @@ export const ConditionCard = (props) => {
           );
         })}
       </div>
-      <div style={{ position: 'absolute', top: 70, left: 30 }}>
+      <div style={{ position: 'absolute', top: 90, left: 40 }}>
         <Text style={glowStylesGreen}>Gated Conditions</Text>
         {condition?.scope?.map((scope) => {
           return (
