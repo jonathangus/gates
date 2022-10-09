@@ -128,7 +128,7 @@ const LogoHeader = () => {
       }}
     >
       <UnstyledButton onClick={() => router.push('/')}>
-        <Text weight={500}>gate.xyz</Text>
+        <Text weight={500}>gates.wtf</Text>
       </UnstyledButton>
       {/* <UnstyledButton onClick={() => router.push('/create')}>
         <Text weight={500}>create</Text>
