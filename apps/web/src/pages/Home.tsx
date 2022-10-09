@@ -26,7 +26,7 @@ const Home = () => {
 
   const controls = useAnimationControls();
   async function animateFrame() {
-    await controls.start({ x: 450 });
+    await controls.start({ x: 700 });
     setImage('complete');
   }
 
@@ -64,7 +64,7 @@ const Home = () => {
           )}
           <motion.div animate={controls} transition={{ duration: 0.5 }}>
             <div style={{ paddingLeft: '29%' }}>
-              <IDCard />
+              <IDCard text="Welcome to gate, connect your wallet to start " />
             </div>
           </motion.div>
 

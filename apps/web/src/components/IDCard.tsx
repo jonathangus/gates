@@ -105,7 +105,7 @@ const IDCard = (props) => {
   return (
     <div
       style={{
-        height: 300,
+        height: 310,
         backgroundColor: 'white',
         width: 550,
         border: '1px solid #000000',
