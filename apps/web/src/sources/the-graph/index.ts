@@ -1,5 +1,5 @@
 import { Source } from '../../types';
-import { queryTheGraph } from './commands';
+import { minENSs, queryTheGraph } from './commands';
 
 export const source: Source = {
   id: 'the-graph',
@@ -35,6 +35,17 @@ export const source: Source = {
         },
       ],
       method: queryTheGraph,
+    },
+    {
+      name: 'minENSs',
+      key: 'query',
+      fields: [
+        {
+          type: 'int',
+          name: 'minNumber',
+        },
+      ],
+      method: minENSs,
     },
   ],
 };
