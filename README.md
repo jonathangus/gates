@@ -1,5 +1,5 @@
 <a href="https://gates.wtf/">
-  <img alt="gates.wtf" src="https://user-images.githubusercontent.com/34306844/194740868-75dae891-b5de-4989-8b35-fbd96eff9a5b.png" />
+  <img alt="gates.wtf" src="https://user-images.githubusercontent.com/34306844/194741838-79d8eda2-24d5-4190-98bb-4854923b6bdc.png" />
 </a>
 
 # Gates
