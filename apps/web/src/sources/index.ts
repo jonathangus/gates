@@ -8,9 +8,9 @@ import { source as poapSource } from './poap';
 export const sources = {
   [quickNodeSource.id]: quickNodeSource,
   [githubSource.id]: githubSource,
+  [poapSource.id]: poapSource,
   [theGraphSource.id]: theGraphSource,
   [twitterSource.id]: twitterSource,
   [apiSource.id]: apiSource,
   [githubSource.id]: githubSource,
-  [poapSource.id]: poapSource,
 };

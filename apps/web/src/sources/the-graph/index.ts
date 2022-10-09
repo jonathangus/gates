@@ -15,23 +15,23 @@ export const source: Source = {
       fields: [
         {
           type: 'string',
-          name: 'Endpoint', // https://api.thegraph.com/subgraphs/name/ensdomains/ens
-          title: '',
+          name: 'endpoint', // https://api.thegraph.com/subgraphs/name/ensdomains/ens
+          title: 'Endpoint',
         },
         {
           type: 'string',
-          name: 'Query',
-          title: '',
+          name: 'query',
+          title: 'Query',
         },
         {
           type: 'string',
-          name: 'GraphQL selector', // data.domain.name
-          title: '',
+          name: 'selector', // data.domain.name
+          title: 'GraphQL selector',
         },
         {
           type: 'string',
-          name: 'Expected response', // jont.eth
-          title: '',
+          name: 'result', // jont.eth
+          title: 'Expected response',
         },
       ],
       method: queryTheGraph,

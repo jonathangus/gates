@@ -20,7 +20,6 @@ type Props = { gatedConditions: any[] };
 
 const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
   const fields = useFieldStore((state) => state.fields);
-
   const itemz = Object.values(fields).map((value) => {
     const data = value.field;
     return value.id + ':' + value.element.key + ':' + JSON.stringify(data);
@@ -38,6 +37,7 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
     },
   });
 
+  console.log(itemz);
   const items = JSON.stringify(itemz);
   // const items = JSON.stringify([
   //   // `api:get:${JSON.stringify(apiData)}`,
