@@ -253,7 +253,7 @@ export const ConditionPreview = (props) => {
       const field = value.element.fields.find((field) => field.name == key);
 
       return {
-        name: field.title,
+        name: field.title || field.name,
         value: _value,
       };
     });

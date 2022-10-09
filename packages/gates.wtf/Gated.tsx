@@ -36,9 +36,8 @@ const GatedInner = ({ children, gateId }) => {
   const query = useQuery<any, any, any, any>(
     ['gated.wtf', gateId, address],
     async () => {
-      console.log({ address, gateId });
       const { data } = await axios.get(
-        `http://localhost:3000/api/verify?address=${address}&gateId=${gateId}`
+        `https://gates.wtf/api/verify?address=${address}&gateId=${gateId}`
       );
 
       return data;
