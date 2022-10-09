@@ -11,6 +11,7 @@ export const source: Source = {
       name: 'Twitter follow',
       key: 'twitter.follow',
       description: 'User is required to follow the specified handle.',
+      disabled: true,
       fields: [
         {
           type: 'string',
@@ -23,6 +24,7 @@ export const source: Source = {
     {
       name: 'Twitter retweet',
       key: 'twitter.retweet',
+      disabled: true,
       description: 'User is required to retweet the specified tweet.',
       fields: [
         {

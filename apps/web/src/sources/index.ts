@@ -5,6 +5,7 @@ import { source as quickNodeSource } from './quicknode';
 import { source as githubSource } from './github';
 import { source as poapSource } from './poap';
 import { source as worldcoinSource } from './worldcoin';
+import { source as spotifySource } from './spotify';
 
 export const sources = {
   [quickNodeSource.id]: quickNodeSource,
@@ -14,5 +15,6 @@ export const sources = {
   [worldcoinSource.id]: worldcoinSource,
   [twitterSource.id]: twitterSource,
   [apiSource.id]: apiSource,
+  [spotifySource.id]: spotifySource,
   [githubSource.id]: githubSource,
 };

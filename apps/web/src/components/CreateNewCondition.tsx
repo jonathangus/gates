@@ -127,6 +127,7 @@ const ConditionCriteriaCard = (props) => {
     }
   }
 
+  console.log(condition);
   return (
     <>
       <div
@@ -138,6 +139,8 @@ const ConditionCriteriaCard = (props) => {
           marginBottom: 20,
           position: 'relative',
           paddingTop: 10,
+          opacity: condition.disabled ? '0.5' : 1,
+          pointerEvents: condition.disabled ? 'none' : '',
         }}
       >
         <div

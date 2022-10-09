@@ -19,6 +19,7 @@ export const queryTheGraph = async (
     console.log({ data, selector, result });
     return get(data, selector) == result;
   } catch (e) {
+    console.error('queryTheGraph', e);
     return false;
   }
 };

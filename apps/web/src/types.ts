@@ -16,6 +16,7 @@ export type Condition = {
   key: string;
   fields: Field[];
   description?: string;
+  disabled?: boolean;
   method: (args: any, ctx: CommandContext) => Promise<boolean>;
 };
 

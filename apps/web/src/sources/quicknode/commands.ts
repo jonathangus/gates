@@ -1,5 +1,5 @@
 import { CommandContext } from '../../types';
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 import { ENDPOINTS } from '../../utils/endpoints';
 
 export const ownsNFT = async (
@@ -42,5 +42,7 @@ export const hasMinTokenBalance = async (
     return false;
   }
 
-  return tokens.assets[0].amount >= args.minAmount;
+  return BigNumber.from(tokens.assets[0].amount).gte(
+    ethers.utils.parseEther(args.minAmount + '')
+  );
 };
