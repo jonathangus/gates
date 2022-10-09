@@ -1,5 +1,6 @@
 /** @see https://docs.github.com/en/rest/users/users#get-the-authenticated-user */
 import { OAuthConfig, OAuthUserConfig } from 'next-auth/providers';
+import { useUserStore } from '../stores/useUserStore';
 
 export interface GithubProfile extends Record<string, any> {
   login: string;
@@ -85,7 +86,6 @@ export default function Github<P extends GithubProfile>(
           // TODO: Save access token.
           console.log('TODO: save the access token here:');
           console.log(tokens.access_token);
-
           if (res.ok) {
             const emails: GithubEmail[] = await res.json();
             profile.email = (emails.find((e) => e.primary) ?? emails[0]).email;

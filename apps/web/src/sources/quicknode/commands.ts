@@ -17,7 +17,8 @@ export const ownsNFT = async (
     perPage: 10,
     contracts: [args.contractAddress],
   });
-  return nfts.assets.length > 1;
+
+  return nfts.assets.length >= 1;
 };
 
 export const hasMinTokenBalance = async (

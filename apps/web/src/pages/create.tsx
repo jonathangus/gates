@@ -110,12 +110,12 @@ const Page = () => {
               >
                 <Center>Create new condition</Center>
               </UnstyledButton>
-              {/* <CreateConditions /> */}
             </div>
             <CurrentConditons admin={admin} />
           </>
         )}
       </AppShell>
+      <CreateConditions />
     </div>
   );
 };

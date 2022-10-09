@@ -119,7 +119,6 @@ const ConditionCard = (props) => {
 
 const CurrentConditons = (props) => {
   const { admin } = props;
-  console.log({ admin });
   return (
     <div>
       {/* <Text style={{ margin: 10, marginLeft: 25 }}>

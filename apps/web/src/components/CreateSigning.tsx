@@ -3,9 +3,13 @@ import { DIDSession } from 'did-session';
 import { compose } from '../utils/compose';
 import { EthereumAuthProvider } from '@ceramicnetwork/blockchain-utils-linking';
 import axios from 'axios';
+import { useUserStore } from '../stores/useUserStore';
 
 const CreateSigning = () => {
   const { address } = useAccount();
+
+  const githubToken = useUserStore((state) => state.githubToken);
+  console.log({ githubToken });
   const uploadData = (did: string) => {
     axios.post('/api/save-data', {
       wallet: address,

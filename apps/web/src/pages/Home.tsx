@@ -3,6 +3,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { AppShell, Navbar, Header, Center } from '@mantine/core';
 import LogoHeader from '../components/Common/LogoHeader';
 import IDCard from '../components/IDCard';
+import CreateSigning from '../components/CreateSigning';
 
 const Home = () => {
   return (
@@ -26,6 +27,7 @@ const Home = () => {
         <div style={{ margin: 'auto', marginTop: '5%' }}>
           <Center>
             <IDCard />
+            <CreateSigning />
           </Center>
         </div>
       </AppShell>

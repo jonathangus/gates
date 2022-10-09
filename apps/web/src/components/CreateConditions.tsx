@@ -39,18 +39,21 @@ const CreateConditions = ({}: Props) => {
 
   const twitterData = { account: '0xjont' };
   const items = JSON.stringify([
-    `api:get:${JSON.stringify(apiData)}`,
-    `the-graph:query:${JSON.stringify(theGraph)}`,
     `quicknode:ownsNFT:${JSON.stringify({
-      contractAddress: '0xED5AF388653567Af2F388E6224dC7C4b3241C544', // azuki
+      contractAddress: '0x745fc083f4336a4151c76de9f598e0f67991c3fa', // mems
     })}`,
-    `quicknode:hasMinTokenBalance:${JSON.stringify({
-      contractAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // usdc
-      minAmount: 100 * Math.pow(10, 6),
-    })}`,
-    `github:repoAccess:${JSON.stringify({
-      repoPath: 'jonathangus/gates',
-    })}`,
+    // `api:get:${JSON.stringify(apiData)}`,
+    // `the-graph:query:${JSON.stringify(theGraph)}`,
+    // `quicknode:ownsNFT:${JSON.stringify({
+    //   contractAddress: '0xED5AF388653567Af2F388E6224dC7C4b3241C544', // azuki
+    // })}`,
+    // `quicknode:hasMinTokenBalance:${JSON.stringify({
+    //   contractAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // usdc
+    //   minAmount: 100 * Math.pow(10, 6),
+    // })}`,
+    // `github:repoAccess:${JSON.stringify({
+    //   repoPath: 'jonathangus/gates',
+    // })}`,
     // `twitter:twitter.follow:${JSON.stringify(twitterData)}`,
   ]);
 

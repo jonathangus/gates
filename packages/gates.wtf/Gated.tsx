@@ -11,14 +11,12 @@ import {
   WagmiConfig,
   createClient,
   configureChains,
-  defaultChains,
   useAccount,
+  allChains,
 } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
 
-const { chains, provider, webSocketProvider } = configureChains(defaultChains, [
-  publicProvider(),
-]);
+const { chains, provider } = configureChains(allChains, [publicProvider()]);
 
 const { connectors } = getDefaultWallets({
   appName: '...',
@@ -33,7 +31,7 @@ const wagmiClient = createClient({
 
 const GatedInner = ({ children, gateId }) => {
   const { address, isConnected } = useAccount();
-  const query = useQuery(
+  const query = useQuery<any, any, any, any>(
     ['gated.wtf', gateId, address],
     async () => {
       const { data } = await axios.get(
@@ -48,18 +46,35 @@ const GatedInner = ({ children, gateId }) => {
   );
 
   if (query.error) {
-    return <div>Error: {query.error.message}</div>;
+    return (
+      <div>
+        Error: {query.error.message}. Most likely {address} have not signed on
+        gates.wtf
+      </div>
+    );
   }
 
-  console.log(query);
+  if (query.isLoading) {
+    return <div>Loading...</div>;
+  }
+
   if (!isConnected) {
     return <ConnectButton />;
   }
 
-  console.log(address);
+  if (query.data && !query.data.success) {
+    return (
+      <div>
+        <h2>You have no access to gateId {gateId} :(</h2>
+      </div>
+    );
+  }
 
-  return <ConnectButton />;
-  return children;
+  if (query.data && query.data.success) {
+    return <>{children}</>;
+  }
+
+  return null;
 };
 
 export type GatedProps = {
@@ -73,7 +88,7 @@ export const Gated = ({ gateId, children }: PropsWithChildren<GatedProps>) => {
     <QueryClientProvider client={queryClient}>
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains}>
-          <GatedInner gateId={gateId}>{children}</GatedInner>;
+          <GatedInner gateId={gateId}>{children}</GatedInner>
         </RainbowKitProvider>
       </WagmiConfig>
     </QueryClientProvider>
