@@ -8,36 +8,36 @@ export const source: Source = {
   },
   conditions: [
     {
-      name: 'Owns an NFT part of a collection',
+      name: 'Ethereum NFT owner (ERC-721)',
       key: 'ownsNFT',
       description:
-        'Modernipsum dolor sit amet art nouveau avant-garde precisionism performance art superstroke avant-garde, video game art historicism.',
+        'User is required to hold minimum one NFT of a specified collection.',
 
       fields: [
         {
           type: 'string',
           name: 'contractAddress',
-          title: 'Contract address',
+          title: 'NFT contract address',
         },
       ],
       method: ownsNFT,
     },
     {
-      name: 'Has at least a certain amount of a given token',
+      name: 'Ethereum token balance (ERC-20)',
       key: 'hasMinTokenBalance',
       description:
-        'Modernipsum dolor sit amet art nouveau avant-garde precisionism performance art superstroke avant-garde, video game art historicism.',
+        'User is required to have a minimum balance of a specified token.',
 
       fields: [
         {
           type: 'string',
           name: 'contractAddress',
-          title: 'Contract address',
+          title: 'Token contract address',
         },
         {
           type: 'int',
           name: 'minAmount',
-          title: 'Min amount',
+          title: 'Minimum balance',
         },
       ],
       method: hasMinTokenBalance,

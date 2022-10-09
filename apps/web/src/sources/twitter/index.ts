@@ -8,29 +8,27 @@ export const source: Source = {
   },
   conditions: [
     {
-      name: 'User need to follow account',
+      name: 'Twitter follow',
       key: 'twitter.follow',
-      description:
-        'Modernipsum dolor sit amet art nouveau avant-garde precisionism performance art superstroke avant-garde, video game art historicism.',
+      description: 'User is required to follow the specified handle.',
       fields: [
         {
           type: 'string',
           name: 'account',
-          title: 'Account name (ex: @ETHGlobal)',
+          title: 'Twitter handle',
         },
       ],
       method: userFollow,
     },
     {
-      name: 'User need to retweet post',
+      name: 'Twitter retweet',
       key: 'twitter.retweet',
-      description:
-        'Modernipsum dolor sit amet art nouveau avant-garde precisionism performance art superstroke avant-garde, video game art historicism.',
+      description: 'User is required to retweet the specified tweet.',
       fields: [
         {
           type: 'string',
           name: 'postId',
-          title: 'Post Id (ex: https://twitter.com/ETHGlobal/status/{postId}',
+          title: 'Post identifier',
         },
       ],
       method: userRetweet,
