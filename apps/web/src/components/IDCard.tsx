@@ -78,10 +78,14 @@ const IDCard = (props) => {
 
   const setGithubAuth = useUserStore((state) => state.setGithubAuth);
   const account = useAccount();
-  const { data, isError, isLoading } = useEnsName({
+  const { data, error, isError, isLoading } = useEnsName({
     address: account.address,
     chainId: 1,
+    cacheTime: 3000,
+    staleTime: 20000,
   });
+
+  console.log(error);
 
   const { data: avatar } = useEnsAvatar({
     addressOrName: account.address,

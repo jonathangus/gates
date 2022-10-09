@@ -5,7 +5,13 @@ import {
   getDefaultWallets,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';
-import { chainId, configureChains, createClient, WagmiConfig } from 'wagmi';
+import {
+  chain,
+  chainId,
+  configureChains,
+  createClient,
+  WagmiConfig,
+} from 'wagmi';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { publicProvider } from 'wagmi/providers/public';
@@ -39,12 +45,15 @@ const poktProvider = jsonRpcProvider({
   }),
 });
 
-const { chains, provider } = configureChains(config.defaultChains, [
-  alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY }),
-  coinbaseProvider,
-  poktProvider,
-  publicProvider(),
-]);
+const { chains, provider } = configureChains(
+  [chain.optimismGoerli, chain.mainnet],
+  [
+    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY }),
+    coinbaseProvider,
+    poktProvider,
+    publicProvider(),
+  ]
+);
 
 const { connectors } = getDefaultWallets({
   chains,
