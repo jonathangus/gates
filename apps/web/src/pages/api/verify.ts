@@ -4,6 +4,7 @@ import { chain } from 'wagmi';
 import { Gates__factory, getAddress } from 'web3-config';
 import { readPersonalData } from '../../utils/ceramic-api';
 import ConditionVerifier from '../../utils/ConditionVerifier';
+import { CommandContext, UserData } from '../../types';
 
 const allowCors = (fn) => async (req, res) => {
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -58,7 +59,7 @@ const handler: NextApiHandler = async (req, res) => {
   const verifier = new ConditionVerifier({ address, conditions });
 
   try {
-    const userData = await readPersonalData(address);
+    const userData = (await readPersonalData(address)) as UserData;
     const success = await verifier.verify({
       wallet: address,
       userData,

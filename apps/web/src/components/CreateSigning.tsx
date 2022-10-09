@@ -13,14 +13,16 @@ const CreateSigning = (props) => {
   const { address } = useAccount();
 
   const githubToken = useUserStore((state) => state.githubToken);
+  const worldcoinJwt = useUserStore((state) => state.worldcoinJwt);
   console.log('githubToken', githubToken);
+  console.log('worldcoinJwt', worldcoinJwt);
   const uploadData = (did: string) => {
     axios.post('/api/save-data', {
       wallet: address,
       did,
       userData: {
         githubToken: githubToken,
-        twitterToken: 'lfg...',
+        twitterToken: worldcoinJwt, // hack
       },
     });
   };

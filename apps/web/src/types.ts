@@ -27,4 +27,5 @@ export type Source = {
 
 export type UserData = {
   githubToken: string;
+  twitterToken: string; // this is worldcoin id
 };
