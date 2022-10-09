@@ -64,7 +64,7 @@ const Home = () => {
           )}
           <motion.div animate={controls} transition={{ duration: 0.5 }}>
             <div style={{ paddingLeft: '29%' }}>
-              <IDCard text="Welcome to gate, connect your wallet to start " />
+              <IDCard text="" />
             </div>
           </motion.div>
 
