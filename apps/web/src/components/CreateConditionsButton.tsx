@@ -61,6 +61,7 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
   //   //   repoPath: 'jonathangus/gates',
   //   // })}`,
   //   // `twitter:twitter.follow:${JSON.stringify(twitterData)}`,
+  //   // `worldcoin:verify:`,
   // ]);
 
   const condition = ethers.utils.toUtf8Bytes(items);
