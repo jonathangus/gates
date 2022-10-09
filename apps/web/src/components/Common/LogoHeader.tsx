@@ -130,9 +130,9 @@ const LogoHeader = () => {
       <UnstyledButton onClick={() => router.push('/')}>
         <Text weight={500}>gate.xyz</Text>
       </UnstyledButton>
-      <UnstyledButton onClick={() => router.push('/create')}>
+      {/* <UnstyledButton onClick={() => router.push('/create')}>
         <Text weight={500}>create</Text>
-      </UnstyledButton>
+      </UnstyledButton> */}
 
       <ConnectedWalletInfo isMobile={isMobile} />
     </div>
