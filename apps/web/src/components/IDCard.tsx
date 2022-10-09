@@ -80,6 +80,7 @@ const IDCard = () => {
     addressOrName: account.address,
     chainId: 1,
   });
+  console.log('avanatar:', avatar);
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -113,7 +114,13 @@ const IDCard = () => {
         }}
       >
         <div style={{ padding: 30 }}>
-          <Text>
+          <Text style={{ display: 'flex', alignItems: 'center' }}>
+            {avatar && (
+              <img
+                style={{ width: 40, marginRight: 5, borderRadius: '50%' }}
+                src={avatar}
+              />
+            )}
             {isLoading
               ? ''
               : data
