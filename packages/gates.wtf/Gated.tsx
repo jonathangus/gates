@@ -59,20 +59,19 @@ const GatedInner = ({ children, gateId }) => {
   }
 
   const { address, isConnected } = useAccount();
-  // const query = useQuery<any, any, any, any>(
-  //   ['gated.wtf', gateId, address],
-  //   async () => {
-  //     const { data } = await axios.get(
-  //       `https://gates.wtf/api/verify?address=${address}&gateId=${gateId}`
-  //     );
+  const query = useQuery<any, any, any, any>(
+    ['gated.wtf', gateId, address],
+    async () => {
+      const { data } = await axios.get(
+        `https://gates.wtf/api/verify?address=${address}&gateId=${gateId}`
+      );
 
-  //     return data;
-  //   },
-  //   {
-  //     enabled: Boolean(address),
-  //   }
-  // );
-  const query = { data: { success: true } };
+      return data;
+    },
+    {
+      enabled: Boolean(address),
+    }
+  );
 
   useEffect(() => {
     setMounted(true);

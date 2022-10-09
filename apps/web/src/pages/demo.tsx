@@ -14,9 +14,10 @@ import { useRouter } from 'next/router';
 import LogoHeader from '../components/Common/LogoHeader';
 import { CopyIcon } from '../components/CurrentConditons';
 
-const demo = () => {
+const Demo = () => {
   const router = useRouter();
   const demoId = router?.query?.id;
+  console.log(demoId);
   return (
     <Gated gateId={demoId?.toString()}>
       <div style={{ display: 'grid', gap: 20 }}>
@@ -132,4 +133,4 @@ const demo = () => {
   );
 };
 
-export default demo;
+export default Demo;
