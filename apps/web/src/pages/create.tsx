@@ -20,6 +20,7 @@ const admin = {
   address: '0x124312321312312412',
   conditions: [
     {
+      header: '#242 Gated conditions',
       scope: [
         {
           header: 'Token balance (ERC-20)',
@@ -33,8 +34,10 @@ const admin = {
           criteria: ['Contract address: 0x9e...aa7c.'],
         },
       ],
+      query: 'access.xyz/api/verify?identifier=242&walletAddress={wallet}',
     },
     {
+      header: '#321 Gated conditions',
       scope: [
         {
           header: 'Twitter follow',
@@ -45,8 +48,10 @@ const admin = {
           criteria: ['Account handle: @ethglobal'],
         },
       ],
+      query: 'access.xyz/api/verify?identifier=321&walletAddress={wallet}',
     },
     {
+      header: '#871 Gated conditions',
       scope: [
         {
           header: 'API Call',
@@ -61,6 +66,7 @@ const admin = {
           criteria: ['Account handle: @bellosights'],
         },
       ],
+      query: 'access.xyz/api/verify?identifier=871&walletAddress={wallet}',
     },
   ],
 };
