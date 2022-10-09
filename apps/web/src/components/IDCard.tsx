@@ -8,14 +8,14 @@ import { useEffect, useState } from 'react';
 import { useUserStore } from '../stores/useUserStore';
 
 const credentials = [
-  { name: 'Github', key: 'github2' },
-  { name: 'Twitter', key: 'twitter' },
-  { name: 'Lens', key: 'lens' },
+  { name: 'Github', key: 'github2', enabled: true },
+  { name: 'Twitter', key: 'twitter', enabled: false },
+  { name: 'Lens', key: 'lens', enabled: false },
 ];
 
 export const MinusIcon = () => {
   return (
-    <div style={{ display: 'flex', paddingBottom: 10, cursor: 'pointer' }}>
+    <div style={{ display: 'flex', paddingBottom: 10 }}>
       <svg
         width="24"
         height="25"
@@ -57,7 +57,7 @@ const Credential = (props) => {
   const { item } = props;
   return (
     <div style={{ display: 'flex', paddingBottom: 10 }}>
-      <PlusIcon />
+      {item.enabled ? <PlusIcon /> : <MinusIcon />}
       <Space w={10} />
       <Text weight={300}>{item.name}</Text>
     </div>
@@ -120,6 +120,9 @@ const IDCard = () => {
             <div
               key={item.key}
               onClick={async () => {
+                if (!item.enabled) {
+                  return;
+                }
                 if (session) {
                   await signOut();
                 } else {
