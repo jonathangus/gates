@@ -8,27 +8,25 @@ export const source: Source = {
   },
   conditions: [
     {
-      name: 'Api GET request',
+      name: 'API call',
       key: 'get',
       description:
-        'Modernipsum dolor sit amet art nouveau avant-garde precisionism performance art superstroke avant-garde, video game art historicism.',
+        'Retrieved response from the triggered endpoint matches the inputted result.',
       fields: [
         {
           type: 'string',
           name: 'endpoint',
-          title: '',
+          title: 'Endpoint',
         },
         {
           type: 'string',
           name: 'selector',
-          description: 'ex: data.model.name',
-          title: '',
+          title: 'JSON selector',
         },
         {
           type: 'string',
           name: 'result',
-          description: 'vitalik',
-          title: '',
+          title: 'Expected response',
         },
       ],
       method: getRequest,
