@@ -27,25 +27,7 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
   });
 
   const { address } = useAccount();
-  // const apiData = {
-  //   endpoint: 'https://jsonplaceholder.typicode.com/todos/1',
-  //   selector: 'title',
-  //   result: 'delectus aut autem',
-  // };
-  // const theGraph = {
-  //   endpoint: 'https://api.thegraph.com/subgraphs/name/ensdomains/ens',
-  //   selector: 'data.domain.name',
-  //   result: 'jont.eth',
-  //   query: `{
-  //       domain(id:"0x5fd41c0b70d42da6abd27640b5f5a22964f019d30e9eefc4a06be3c460d50c34") {
-  //         id
-  //         name
-  //         labelName
-  //         labelhash
-  //       }
-  //     }
-  //   `,
-  // };
+
   const [gateId, setGateId] = useState<BigNumber>();
   const events = useEvent(Gates__factory, 'Created', {
     // args: [null, address],
@@ -98,7 +80,6 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
       <Popover width={450} position="bottom" shadow="md">
         <Popover.Target>
           <Button
-            disabled
             style={{
               backgroundColor: '#38C953',
               color: 'white',
@@ -106,7 +87,7 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
               height: 30,
             }}
           >
-            Created gateId: {gateId.toString()}
+            Copy endpont for gate with id: {gateId?.toString()}
           </Button>
         </Popover.Target>
         <Popover.Dropdown
