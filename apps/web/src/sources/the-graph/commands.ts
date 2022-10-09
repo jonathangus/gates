@@ -1,5 +1,5 @@
 import { CommandContext } from '../../types';
-import { request } from 'graphql-request';
+import { gql, request } from 'graphql-request';
 import get from 'lodash/get';
 
 export const queryTheGraph = async (
@@ -26,20 +26,25 @@ export const minENSs = async (
 ): Promise<boolean> => {
   try {
     const data = await request(
-      'https://api.thegraph.com/subgraphs/name/ensdomains/ens/graphql',
-      `
+      'https://api.thegraph.com/subgraphs/name/ensdomains/ens',
+      gql`
+        query GetAccount($wallet: ID!) {
+          account(id: $wallet) {
+            registrations {
+              id
+              labelName
+            }
+          }
+        }
+      `,
       {
-  domains(where: {id: ${ctx.wallet}) {
-    id
-    name
-    labelName
-    labelhash
-  }
-}
-      `
+        wallet: ctx.wallet.toLowerCase(),
+      }
     );
-    return data.length >= minENSs;
+
+    return data.account.registrations.length >= minNumber;
   } catch (e) {
+    console.error('minENSs', e);
     return false;
   }
 };

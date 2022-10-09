@@ -37,8 +37,8 @@ export const source: Source = {
       method: queryTheGraph,
     },
     {
-      name: 'minENSs',
-      key: 'query',
+      name: 'Minimum ENSs names hold',
+      key: 'minENSs',
       fields: [
         {
           type: 'int',

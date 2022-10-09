@@ -8,14 +8,14 @@ export type Field = {
   type: 'string' | 'int';
   name: string;
   description?: string;
-  title: string;
+  title?: string;
 };
 
 export type Condition = {
   name: string;
   key: string;
   fields: Field[];
-  description: string;
+  description?: string;
   method: (args: any, ctx: CommandContext) => Promise<boolean>;
 };
 
