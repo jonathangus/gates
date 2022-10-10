@@ -6,8 +6,11 @@ import NotificationHandler from '../components/NotificationHandler';
 import { SessionProvider } from 'next-auth/react';
 import Head from 'next/head';
 import SEO from '../components/SEO';
+import { usePanelbear } from '@panelbear/panelbear-nextjs';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+  usePanelbear('FqeHQCLEy3v');
+
   return (
     <NotificationsProvider>
       <SessionProvider session={session}>

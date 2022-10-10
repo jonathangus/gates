@@ -1488,6 +1488,18 @@
   resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-4.7.3.tgz#939534757a81f8d69cc854c7692805684ff3111e"
   integrity sha512-dGRS0agJzu8ybo44pCIf3xBaPQN/65AIXNgK8+4gzKd5kbvlqyxryUYVLJv7fK98Seyd2hDZzVEHSWAh0Bt1Yw==
 
+"@panelbear/panelbear-js@^1.3.3":
+  version "1.3.3"
+  resolved "https://registry.yarnpkg.com/@panelbear/panelbear-js/-/panelbear-js-1.3.3.tgz#f27e2abeefc751b83e23d107e4ba160f63f65eff"
+  integrity sha512-LsAxdlvdvyoQy04no/VsSMQd1i1qGFNMy328VG/BI5N5hQXIa8CZjCWNXuOjIMbJcltt7QjESMr6BgHuEeo5AA==
+
+"@panelbear/panelbear-nextjs@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@panelbear/panelbear-nextjs/-/panelbear-nextjs-1.0.4.tgz#65af1d6c83dbdb224702a35a24a2079c0be636db"
+  integrity sha512-BEtWVgOqAuFKCAe4ZAiSnpvjb7C7J50h9AhlGVYb/kf3MEHlA9gJEKMgr0FF//l1ix/qCvA6EUJ8NpHnjVc61g==
+  dependencies:
+    "@panelbear/panelbear-js" "^1.3.3"
+
 "@panva/hkdf@^1.0.1":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@panva/hkdf/-/hkdf-1.0.2.tgz#bab0f09d09de9fd83628220d496627681bc440d6"
