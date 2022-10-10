@@ -28,7 +28,7 @@ const SEO: FC<Props> = ({
   const metaTitle = `gates.wtf`;
   const metaDescription = description || defaultDescription;
 
-  let metaImage = `https://gates.wtf/meta-image.png`;
+  let metaImage = `https://gates.wtf/og.png`;
 
   const metaContent = [
     {
