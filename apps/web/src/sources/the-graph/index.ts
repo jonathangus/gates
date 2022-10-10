@@ -15,7 +15,7 @@ export const source: Source = {
       fields: [
         {
           type: 'string',
-          name: 'endpoint', // https://api.thegraph.com/subgraphs/name/ensdomains/ens
+          name: 'endpoint',
           title: 'Endpoint',
         },
         {
@@ -25,12 +25,12 @@ export const source: Source = {
         },
         {
           type: 'string',
-          name: 'selector', // data.domain.name
+          name: 'selector',
           title: 'GraphQL selector',
         },
         {
           type: 'string',
-          name: 'result', // jont.eth
+          name: 'result',
           title: 'Expected response',
         },
       ],
@@ -44,21 +44,11 @@ export const source: Source = {
       fields: [
         {
           type: 'int',
-          name: 'Minimum ENS token balance',
+          name: 'minNumber',
+          title: 'Minimum ENS token balance',
         },
       ],
       method: minENSs,
     },
   ],
 };
-
-/*
-{
-  domain(id:"0x5fd41c0b70d42da6abd27640b5f5a22964f019d30e9eefc4a06be3c460d50c34") {
-    id
-    name
-    labelName
-    labelhash
-  } 
-}
-*/

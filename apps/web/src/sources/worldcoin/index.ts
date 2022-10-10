@@ -10,6 +10,7 @@ export const source: Source = {
     {
       name: 'Verify JWT',
       key: 'verify',
+      disabled: true,
       description: 'Verify worldcoin JWT from Ceramic context.',
       fields: [],
       method: verifyJWT,

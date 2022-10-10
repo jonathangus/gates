@@ -5,18 +5,14 @@ import get from 'lodash/get';
 export const queryTheGraph = async (
   {
     endpoint,
-    selector,
     result,
+    selector,
     query,
   }: { endpoint: string; selector: string; result: string; query: string },
   ctx: CommandContext
 ): Promise<boolean> => {
   try {
-    console.log({ endpoint, query, selector, result });
-
     const data = await request(endpoint, query);
-
-    console.log({ data, selector, result });
     return get(data, selector) == result;
   } catch (e) {
     console.error('queryTheGraph', e);
@@ -46,7 +42,7 @@ export const minENSs = async (
       }
     );
 
-    return data.account.registrations.length >= minNumber;
+    return data.account.registrations.length >= Number(minNumber);
   } catch (e) {
     console.error('minENSs', e);
     return false;

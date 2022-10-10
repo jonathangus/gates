@@ -18,6 +18,6 @@ export const Address: Record<number, AddressObj> = {
 };
 
 export const getAddress = (
-  chain: number,
+  _chain: number,
   contract: AvailableContracts
-): string => Address[chain][contract];
+): string => Address[chain.optimismGoerli.id][contract];

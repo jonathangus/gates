@@ -28,7 +28,7 @@ const allowCors = (fn) => async (req, res) => {
 
 const handler: NextApiHandler = async (req, res) => {
   const { gateId, address } = req.query;
-
+  console.log('start verify');
   if (typeof gateId !== 'string') {
     return res.status(500).send('missing gateId');
   }

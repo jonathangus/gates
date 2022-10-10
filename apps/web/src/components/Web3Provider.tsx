@@ -46,7 +46,7 @@ const poktProvider = jsonRpcProvider({
 });
 
 const { chains, provider } = configureChains(
-  [chain.optimismGoerli, chain.mainnet],
+  [chain.optimismGoerli],
   [
     alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY }),
     coinbaseProvider,

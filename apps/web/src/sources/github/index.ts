@@ -11,6 +11,7 @@ export const source: Source = {
       name: 'GitHub repository access',
       key: 'repoAccess',
       description: 'User is required to have the specified repository access.',
+      disabled: true,
       fields: [
         {
           type: 'string',
