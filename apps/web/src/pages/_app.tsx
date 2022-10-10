@@ -4,7 +4,7 @@ import Web3Provider from '../components/Web3Provider';
 import { NotificationsProvider } from 'reapop';
 import NotificationHandler from '../components/NotificationHandler';
 import { SessionProvider } from 'next-auth/react';
-import Head from 'next/head';
+
 import SEO from '../components/SEO';
 import { usePanelbear } from '@panelbear/panelbear-nextjs';
 
@@ -15,9 +15,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     <NotificationsProvider>
       <SessionProvider session={session}>
         <Web3Provider>
-          <Head>
-            <SEO />
-          </Head>
+          <SEO />
           <Component {...pageProps} />
           <NotificationHandler />
         </Web3Provider>

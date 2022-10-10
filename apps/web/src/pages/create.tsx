@@ -8,7 +8,6 @@ import {
   UnstyledButton,
 } from '@mantine/core';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import Head from 'next/head';
 import { useState } from 'react';
 import LogoHeader from '../components/Common/LogoHeader';
 import CreateConditions from '../components/CreateConditionsButton';
@@ -76,9 +75,6 @@ const Page = () => {
 
   return (
     <div style={{ display: 'grid', gap: 20 }}>
-      <Head>
-        <title>gates.wtf - create condition</title>
-      </Head>
       <AppShell
         padding="md"
         header={

@@ -21,9 +21,6 @@ const Demo = () => {
   return (
     <Gated gateId={demoId?.toString()}>
       <div style={{ display: 'grid', gap: 20 }}>
-        <Head>
-          <title>gates.wtf - create condition</title>
-        </Head>
         <AppShell
           padding="md"
           header={

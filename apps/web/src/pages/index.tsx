@@ -7,9 +7,6 @@ import Home from './Home';
 const Page = () => {
   return (
     <div>
-      <Head>
-        <title>gates.wtf</title>
-      </Head>
       <Home />
     </div>
   );
