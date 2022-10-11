@@ -6,7 +6,7 @@
 
 **User verification using decentralised identity and custom conditions**
 
-Gates is a web3 tool that makes it easy to create custom condtioned gates for your dapp, metaverse, or NFT project.
+Gates enables dapps, metaverse games, and NFT projects to seamlessly verify users via custom conditions. We expand the concept of access management by combining on- and off-chain identities, arbitrary conditions, and increased customizability. As a result, managing access and creating a world of personalized experiences cross-contexts has never been easier.
 
 - ✨ Straight-forward API to check user access without violating privacy
 - ⛩ Easily customizable conditions
@@ -14,7 +14,15 @@ Gates is a web3 tool that makes it easy to create custom condtioned gates for yo
 
 ## About
 
-Gates expands the concept of access management by combining on- and off-chain identities, arbitrary conditions, and increased customisability. Managing user access and creating personalised experiences has never been easier.
+> Winner of 9 bounties (Optimism, ENS, The Graph, Ceramic, QuickNode, Worldcoin, Coinbase) at [ETH Bogotá 2022](https://ethglobal.com/showcase/gates-wtf-qy8w8).
+
+To build Gates, we used Sign in with Ethereum and Ceramic to create a DID and let users store data connected to their identity. Since the data is on IPFS, we also encode it with a secret so only our server will be able to read from it and sensitive information is safe.
+
+Furthermore, when reading the data from Ceramic, we decrypt it and only read the values on the server to determine if conditions are met.
+
+The conditions that we create are supposed to be dynamic. Therefore, each condition is structured like 'service:method:args' that is converted to bytes and stored on-chain. With this structure, we can support any service we can think of.
+
+When a user asks our API to verify, we decode the steps iterate through them, execute the connected method with our arguments and require all of them to pass. In the future, we are looking to implement OR/NAND/NOR. The API will only return a boolean to mimic a zkproof as much as possible.
 
 To protect users’ data, we’re utilising DID (decentralised identities) for Ceramic where only the user own and can modify their (encrypted) data. Enjoy!
 
@@ -60,7 +68,7 @@ This turborepo has some additional tools already setup for you:
 
 ## Contributions
 
-Lorem ipsum.
+Feel free to open an issue or a PR. More information and guidelines TBD.
 
 ## License
 
