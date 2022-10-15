@@ -70,8 +70,7 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
   });
 
   const create = () => {
-    console.log(itemz);
-    console.log('GOOGO');
+    console.log(itemz);;
     write({ args: [condition] });
   };
 

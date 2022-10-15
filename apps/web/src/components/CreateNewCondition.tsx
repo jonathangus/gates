@@ -11,9 +11,11 @@ import {
 import { useEffect, useState } from 'react';
 import { useAccount, useEnsName } from 'wagmi';
 import { sources } from '../sources';
+import { useBooleanStore } from '../stores/useBooleanStore';
 import { useFieldStore } from '../stores/useFieldStore';
 import CreateConditionsButton from './CreateConditionsButton';
 import CreateConditions from './CreateConditionsButton';
+import Fields from './Fields';
 import { CondiditonFrame } from './Icons/ConditionFrame';
 import { MinusIcon, PlusIcon } from './IDCard';
 
@@ -29,8 +31,11 @@ const ConditionCriteriaCard = (props) => {
 
   const fields = useFieldStore((state) => state.fields);
   const setField = useFieldStore((state) => state.setField);
-  const [expanded, setExpanded] = useState(false);
 
+  console.log({ 
+    fields, setField
+  })
+  const [expanded, setExpanded] = useState(false); 
   function updateCondition(element, fieldID, value, field) {
     const condition = element.fields?.forEach((fld) => {
       if (fld.fieldID === fieldID) {
@@ -217,21 +222,7 @@ const ConditionCriteriaCard = (props) => {
                 {condition.fields.map((item, i) => {
                   return (
                     <>
-                      <Text style={{ fontSize: 14 }}>
-                        {item.title && item.title.length > 2
-                          ? item.title
-                          : item.name}
-                      </Text>
-                      <Input
-                        onChange={(event) =>
-                          addOrEdit(
-                            item,
-                            event.currentTarget.value,
-                            'field_id_' + i,
-                            condition
-                          )
-                        }
-                      />
+                     <Fields item={item} addOrEdit={addOrEdit} condition={condition} i={i} />
                       <Space h={5} />
                     </>
                   );
@@ -422,7 +413,7 @@ const Source = (props) => {
 const CreateNewCondition = (props) => {
   const { admin, setCreateNew } = props;
   const [gatedConditions, setGatedConditions] = useState([]);
-
+  console.log({ sources })
   const sourcesList = Object.values(sources);
 
   //   const gated = {
