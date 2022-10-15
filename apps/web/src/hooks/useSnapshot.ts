@@ -2,10 +2,17 @@ import { useEffect, useMemo, useState } from 'react';
 import Queue from 'queue-promise';
 import axios from 'axios';
 
-const useSnapshot = (addresses: string[], gateId: string, enabled: boolean) => {
-  const queue = useMemo(() => new Queue({ concurrent: 3, interval: 1000 }), []);
+const useSnapshot = (
+  addresses: string[],
+  gateId: string,
+  enabled: boolean,
+  { onEnd }: any
+) => {
+  const queue = useMemo(() => new Queue({ concurrent: 3, interval: 500 }), []);
   const [failed, setFailed] = useState(0);
   const [success, setSuccess] = useState(0);
+  const [successFullAddress, setSuccesfull] = useState([]);
+
   const [end, setEnd] = useState(false);
 
   const lfg = () => {
@@ -17,6 +24,8 @@ const useSnapshot = (addresses: string[], gateId: string, enabled: boolean) => {
         if (!data.success) {
           throw new Error('Not elligble');
         }
+
+        return address;
       });
     }
 
@@ -25,11 +34,10 @@ const useSnapshot = (addresses: string[], gateId: string, enabled: boolean) => {
     queue.on('end', (...args) => setEnd(true));
 
     queue.on('resolve', (data) => {
-      console.log('resolve', data);
       setSuccess((prev) => prev + 1);
+      setSuccesfull((prev) => [...prev, data]);
     });
     queue.on('reject', (error) => {
-      console.error('reject', error);
       setFailed((prev) => prev + 1);
     });
 

@@ -1,5 +1,3 @@
-import { useContractRead } from 'wagmi-lfg';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import {
   AppShell,
   Navbar,
@@ -42,68 +40,49 @@ const Home = () => {
   }
 
   return (
-    <div style={{ height: '100vh', overflow: 'hidden' }}>
-      <div style={{ display: 'grid', gap: 20 }}>
-        <AppShell
-          padding="md"
-          header={
-            <Header height={60} p="xs">
-              <LogoHeader />
-            </Header>
-          }
-          styles={(theme) => ({
-            main: {
-              backgroundColor:
-                theme.colorScheme === 'dark'
-                  ? theme.colors.dark[8]
-                  : theme.colors.gray[0],
-            },
-          })}
-        >
-          <div style={{ margin: 'auto', marginTop: '5%', height: '100vh' }}>
-            {account && mounted && account.address && (
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 320,
-                  right: 125,
-                }}
-              >
-                <motion.div animate={{ y: 0 }} transition={{ duration: 0.1 }}>
-                  <BackFrame size={320} />
-                </motion.div>
-              </div>
-            )}
-            <motion.div animate={controls} transition={{ duration: 0.5 }}>
-              <div style={{ paddingLeft: '29%' }}>
-                <IDCard text="" />
-              </div>
-            </motion.div>
-
-            {account && mounted && account.address && (
-              <motion.div animate={{ y: 400 }} transition={{ duration: 0.5 }}>
-                <div>
-                  <CreateSigning image={image} animateFrame={animateFrame} />
-                </div>
-              </motion.div>
-            )}
-          </div>
+    <div>
+      <div style={{ margin: 'auto', marginTop: '5%', height: '100vh' }}>
+        {account && mounted && account.address && (
           <div
             style={{
-              position: 'fixed',
-              left: '50%',
-              bottom: 20,
-              color: 'lightgray',
-              cursor: 'pointer',
-              transform: 'translateX(-50%)',
+              position: 'absolute',
+              top: 320,
+              right: 125,
             }}
           >
-            <Link href="/create">
-              <Text weight={500}>Create</Text>
-            </Link>
+            <motion.div animate={{ y: 0 }} transition={{ duration: 0.1 }}>
+              <BackFrame size={320} />
+            </motion.div>
           </div>
-        </AppShell>
-      </div>{' '}
+        )}
+        <motion.div animate={controls} transition={{ duration: 0.5 }}>
+          <div style={{ paddingLeft: '29%' }}>
+            <IDCard text="" />
+          </div>
+        </motion.div>
+
+        {account && mounted && account.address && (
+          <motion.div animate={{ y: 400 }} transition={{ duration: 0.5 }}>
+            <div>
+              <CreateSigning image={image} animateFrame={animateFrame} />
+            </div>
+          </motion.div>
+        )}
+      </div>
+      <div
+        style={{
+          position: 'fixed',
+          left: '50%',
+          bottom: 20,
+          color: 'lightgray',
+          cursor: 'pointer',
+          transform: 'translateX(-50%)',
+        }}
+      >
+        <Link href="/create">
+          <Text weight={500}>Create</Text>
+        </Link>
+      </div>
     </div>
   );
 };

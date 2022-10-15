@@ -28,7 +28,7 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
   const { address } = useAccount();
 
   const [gateId, setGateId] = useState<BigNumber>();
-  const events = useEvent(Gates__factory, 'Created', {
+  useEvent(Gates__factory, 'Created', {
     // args: [null, address],
     onChange: (data) => {
       if (data[1] == address) {
@@ -37,7 +37,6 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
     },
   });
 
-  console.log(itemz);
   const items = JSON.stringify(itemz);
   // const items = JSON.stringify([
   //   // `api:get:${JSON.stringify(apiData)}`,

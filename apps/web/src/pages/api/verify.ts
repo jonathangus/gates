@@ -52,11 +52,8 @@ const handler: NextApiHandler = async (req, res) => {
       getAddress(chain.arbitrumGoerli.id, 'Gates'),
       provider
     );
-    console.log({ gateId });
     const data = await contract.conditions(gateId);
-    console.log({ data });
     const conditions = JSON.parse(ethers.utils.toUtf8String(data));
-    console.log(conditions);
     const verifier = new ConditionVerifier({ address, conditions });
 
     const userData = (await readPersonalData(address)) as UserData;
