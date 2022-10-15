@@ -5,9 +5,10 @@ import {MerkleProof} from '@openzeppelin/contracts/utils/cryptography/MerkleProo
 contract Gates {
     uint256 count = 0;
     mapping(uint256 => bytes) public conditions;
-    mapping(bytes32 => bytes32) public gates;
+    mapping(bytes32 => address[]) public gates;
 
     event Created(uint256 gateId, address creator);
+    event SnapshotCreated(bytes32 snapshotId, uint256 gateId, address creator);
 
     function add(bytes calldata _conditions) public {
         conditions[count] = _conditions;
@@ -15,18 +16,26 @@ contract Gates {
         count++;
     }
 
-    // function verify(address user, bytes32 snapshotId)
-    //     public
-    //     view
-    //     returns (bool)
-    // {
-    //     bytes32 leaf = keccak256(abi.encodePacked(user));
-    //     bool isValidLeaf = MerkleProof.verify(proof, merkleRoot, leaf);
-    // }
+    function verify(address user, bytes32 snapshotId)
+        public
+        view
+        returns (bool)
+    {
+        // TODO create merkle tree or zkproof
+        for (uint256 i = 0; i < gates[snapshotId].length; i++) {
+            if (gates[snapshotId][i] == user) {
+                return true;
+            }
+        }
 
-    // function createSnapShot(uint256 gateId, bytes32 merkle) public {
-    //     bytes32 id = keccak256(abi.encodePacked(gateId, msg.sender));
-    //     id = bytes20(keccak256(msg.sender, gateId));
-    //     gates[id] = merkle;
-    // }
+        return false;
+    }
+
+    function createSnapShot(uint256 gateId, address[] calldata addresses)
+        public
+    {
+        bytes32 id = keccak256(abi.encodePacked(gateId, msg.sender));
+        gates[id] = addresses;
+        emit SnapshotCreated(id, gateId, msg.sender);
+    }
 }

@@ -7,20 +7,23 @@ import { SessionProvider } from 'next-auth/react';
 
 import SEO from '../components/SEO';
 import { usePanelbear } from '@panelbear/panelbear-nextjs';
+import LivepeerProvider from '../components/LivepeerProvider';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   usePanelbear('FqeHQCLEy3v');
 
   return (
-    <NotificationsProvider>
-      <SessionProvider session={session}>
-        <Web3Provider>
-          <SEO />
-          <Component {...pageProps} />
-          <NotificationHandler />
-        </Web3Provider>
-      </SessionProvider>
-    </NotificationsProvider>
+    <LivepeerProvider>
+      <NotificationsProvider>
+        <SessionProvider session={session}>
+          <Web3Provider>
+            <SEO />
+            <Component {...pageProps} />
+            <NotificationHandler />
+          </Web3Provider>
+        </SessionProvider>
+      </NotificationsProvider>
+    </LivepeerProvider>
   );
 }
 
