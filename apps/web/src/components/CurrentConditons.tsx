@@ -36,7 +36,6 @@ H14.723V22.148h8.762c0.828,0,1.5-0.672,1.5-1.5V12h8.904V37.945z"
 
 export const ConditionCard = (props) => {
   const { condition } = props;
-
   const glowStylesGreen = {
     color: '#38C953',
     filter: 'blur(10px)',
@@ -44,7 +43,7 @@ export const ConditionCard = (props) => {
   };
   const glowStylesWhite = { color: 'white' };
 
-  console.log({ condition });
+  console.log({ condition }, "bob ");
   return (
     <div
       style={{
