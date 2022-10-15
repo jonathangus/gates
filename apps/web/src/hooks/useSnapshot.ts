@@ -12,7 +12,6 @@ const useSnapshot = (
   const [failed, setFailed] = useState(0);
   const [success, setSuccess] = useState(0);
   const [successFullAddress, setSuccesfull] = useState([]);
-
   const [end, setEnd] = useState(false);
 
   const lfg = () => {
@@ -31,7 +30,10 @@ const useSnapshot = (
 
     queue.on('start', (...args) => console.log('start'));
     queue.on('stop', (...args) => console.log('stop'));
-    queue.on('end', (...args) => setEnd(true));
+    queue.on('end', (...args) => {
+      setEnd(true);
+      onEnd(successFullAddress);
+    });
 
     queue.on('resolve', (data) => {
       setSuccess((prev) => prev + 1);
@@ -43,8 +45,6 @@ const useSnapshot = (
 
     queue.start();
   };
-
-  console.log({ failed, success });
 
   useEffect(() => {
     if (enabled) {

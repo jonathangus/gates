@@ -4,6 +4,7 @@ import {
   Code,
   createStyles,
   Input,
+  Space,
   Text,
   TextInput,
 } from '@mantine/core';
@@ -60,17 +61,30 @@ const SnapshotHandler = ({ addresses }: Props) => {
 
   if (res) {
     return (
-      <div>
-        <Center>
-          <Text size={'xl'}>How to validate users in your smart contract:</Text>
-        </Center>
+      <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+        <div>
+          <Center>
+            <Text size={'xl'}>
+              How to validate users in your smart contract:
+            </Text>
+          </Center>
+          <div>
+            <Space h={10} />
+            <Text size={'md'}>
+              Your snapshot id is {res.snapshotId} and now can be used to verify
+              your users on-chain. Extend our smart contract in a smooth way and
+              then see if the user is elligble.
+            </Text>
+          </div>
+        </div>{' '}
+        <Space h={47} />
         <Code
           block
           color="blue"
           style={{
             borderRadius: 10,
             padding: 20,
-            width: 900,
+            width: '100%',
             backgroundColor: '#ededed',
           }}
         >
@@ -81,10 +95,10 @@ const SnapshotHandler = ({ addresses }: Props) => {
           contract MintTest {
               function yourFunction() external {
                   address gatesAddress = ${gatesAddress};
-                  bytes bytes32 = ${res.snapshotId};
+                  bytes32 snapshotId = ${res.snapshotId};
                   
                   bool elligble = IGates(gatesAddress)
-                      .verify(msg.sender, bytes32);
+                      .verify(msg.sender, snapshotId);
                   require(elligble, 'User not allowed to procced');
                   // ...
               }
