@@ -31,12 +31,15 @@ const Home = () => {
     setImage('complete');
   }
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   async function animateUp() {
     await controls.start({ y: 200 });
     // await controls.stop({ y: 1000 });
   }
-
-  console.log({ image });
 
   return (
     <div style={{ height: '100vh', overflow: 'hidden' }}>
@@ -58,7 +61,7 @@ const Home = () => {
           })}
         >
           <div style={{ margin: 'auto', marginTop: '5%', height: '100vh' }}>
-            {account && account.address && (
+            {account && mounted && account.address && (
               <div
                 style={{
                   position: 'absolute',
@@ -77,7 +80,7 @@ const Home = () => {
               </div>
             </motion.div>
 
-            {account && account.address && (
+            {account && mounted && account.address && (
               <motion.div animate={{ y: 400 }} transition={{ duration: 0.5 }}>
                 <div>
                   <CreateSigning image={image} animateFrame={animateFrame} />

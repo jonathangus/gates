@@ -1,4 +1,4 @@
-import goerliDeployment from './deployments/optimismGoerli/Gates.json';
+import goerliDeployment from './deployments/arbitrumGoerli/Gates.json';
 export * from './typechain';
 import * as _typechain from './typechain';
 import { chain } from 'wagmi';
@@ -12,7 +12,7 @@ type AddressObj = Record<AvailableContracts, string>;
 const _counter = new Gates__factory();
 
 export const Address: Record<number, AddressObj> = {
-  [chain.optimismGoerli.id]: {
+  [chain.arbitrumGoerli.id]: {
     [_counter.contractName]: goerliDeployment.address,
   },
 };
@@ -20,4 +20,4 @@ export const Address: Record<number, AddressObj> = {
 export const getAddress = (
   _chain: number,
   contract: AvailableContracts
-): string => Address[chain.optimismGoerli.id][contract];
+): string => Address[chain.arbitrumGoerli.id][contract];
