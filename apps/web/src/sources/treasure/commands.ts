@@ -1,12 +1,6 @@
 import { CommandContext } from '../../types';
 import { gql, request } from 'graphql-request';
 
-const checkStakingRequirements = (stakingObject) => {
-  const { school, racing, gym } = stakingObject;
-  if (school === 'true') {
-  }
-};
-
 export const checkUserStakedAssets = async (
   {
     school,
@@ -32,7 +26,7 @@ export const checkUserStakedAssets = async (
         }
       `,
       {
-        wallet: '0xbecac25b580c20d3142cdd4af140e7e7f6f8876c',
+        wallet: '0x001aede476495f4732b8273f554ba1f858a439c8',
       }
     );
     const stakedTokens = data.user.stakedTokens;

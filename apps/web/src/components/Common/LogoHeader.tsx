@@ -136,7 +136,7 @@ const LogoHeader = () => {
     >
       <Center>
         <UnstyledButton onClick={() => router.push('/')}>
-          <Text weight={500}>gates.wtf</Text>
+          <Text weight={500}>arbi.gates.wtf</Text>
         </UnstyledButton>
         <Space w={20} />
         <UnstyledButton onClick={() => router.push('/snapshot')}>

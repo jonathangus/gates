@@ -11,7 +11,6 @@ import {
 import { useEffect, useState } from 'react';
 import { useAccount, useEnsName } from 'wagmi';
 import { sources } from '../sources';
-import { useBooleanStore } from '../stores/useBooleanStore';
 import { useFieldStore } from '../stores/useFieldStore';
 import CreateConditionsButton from './CreateConditionsButton';
 import CreateConditions from './CreateConditionsButton';
