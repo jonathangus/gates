@@ -9,6 +9,8 @@ contract Arbigates is ERC721, Ownable {
     string private baseTokenURI;
     uint256 public MAX_TOKENS = 24;
 
+    mapping(address => bool) private minted;
+
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
@@ -22,6 +24,7 @@ contract Arbigates is ERC721, Ownable {
     // }
 
     function safeMint(address user) public {
+        require(!minted[user], 'User already minted');
         uint256 tokenId = _tokenIdCounter.current();
         require(
             tokenId + 1 <= MAX_TOKENS,
@@ -29,6 +32,7 @@ contract Arbigates is ERC721, Ownable {
         );
         _tokenIdCounter.increment();
         _safeMint(user, _tokenIdCounter.current());
+        minted[user] = true;
     }
 
     function setBaseURI(string calldata _newBaseURI) external onlyOwner {

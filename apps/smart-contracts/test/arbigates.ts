@@ -21,8 +21,51 @@ describe('Arbimint', function () {
 
   describe('contract', async () => {
     it('mint', async () => {
-      console.log(addrs.length);
-      // await nft.safeMint(user)
+      const count = 24;
+      const wallets = Array(count)
+        .fill(null)
+        .map(() => ethers.Wallet.createRandom());
+
+      for (let wallet of wallets) {
+        wallet = wallet.connect(ethers.provider);
+        // send ETH to the new wallet so it can perform a tx
+        await addr1.sendTransaction({
+          to: wallet.address,
+          value: ethers.utils.parseEther('1'),
+        });
+
+        await nft.connect(wallet).safeMint(wallet.address);
+      }
+
+      const balance = await nft.balanceOf(wallets[0].address);
+      expect(balance.toString()).to.eq('1');
+
+      let mintError = false;
+
+      try {
+        console.log(addrs.length);
+        await nft.connect(addr1).safeMint(addr1.address);
+      } catch (e) {
+        console.error(e);
+        mintError = true;
+      }
+
+      expect(mintError).to.eq(true);
+    });
+
+    it('one per user', async () => {
+      await nft.connect(addr1).safeMint(addr1.address);
+      let mintError = false;
+
+      try {
+        console.log(addrs.length);
+        await nft.connect(addr1).safeMint(addr1.address);
+      } catch (e) {
+        console.error(e);
+        mintError = true;
+      }
+
+      expect(mintError).to.eq(true);
     });
   });
 });
