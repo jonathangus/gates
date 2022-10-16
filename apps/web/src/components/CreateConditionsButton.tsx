@@ -70,7 +70,7 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
   });
 
   const create = () => {
-    console.log(itemz);;
+    console.log(itemz);
     write({ args: [condition] });
   };
 
@@ -101,10 +101,7 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
           <Text size="sm" style={{ display: 'flex' }}>
             <div style={{ paddingTop: 1 }}>
               <CopyButton
-                value={
-                  'https://gates.wtf/api/verify?address=${address}&gateId=' +
-                  gateId.toString()
-                }
+                value={`https://gates.wtf/api/verify?address=${address}&gateId=${gateId.toString()}`}
               >
                 {({ copied, copy }) => (
                   <UnstyledButton onClick={copy}>
@@ -116,8 +113,7 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
             <Space w={10} />
             <Text style={{ color: 'white' }}>GET </Text>
             <Space w={5} />
-            {'https://gates.wtf/api/verify?address=${address}&gateId=' +
-              gateId.toString()}
+            {`https://gates.wtf/api/verify?address=${address}&gateId=${gateId.toString()}`}
           </Text>
         </Popover.Dropdown>
       </Popover>

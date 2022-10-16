@@ -9,6 +9,7 @@ import { source as spotifySource } from './spotify';
 import { source as treasureSource } from './treasure';
 
 export const sources = {
+  [treasureSource.id]: treasureSource,
   [quickNodeSource.id]: quickNodeSource,
   [githubSource.id]: githubSource,
   [poapSource.id]: poapSource,
@@ -18,5 +19,4 @@ export const sources = {
   [apiSource.id]: apiSource,
   [spotifySource.id]: spotifySource,
   [githubSource.id]: githubSource,
-  [treasureSource.id]: treasureSource,
 };
