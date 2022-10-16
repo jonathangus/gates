@@ -154,11 +154,14 @@ const LogoHeader = () => {
         <UnstyledButton onClick={() => router.push('/create')}>
           <Text weight={500}>create</Text>
         </UnstyledButton>
+        <Space w={20} />
+
+        <UnstyledButton onClick={() => router.push('/nfts')}>
+        <Text weight={500}>nfts</Text>
+      </UnstyledButton>
       </Center>
-      <div></div>
-      {/* <UnstyledButton onClick={() => router.push('/create')}>
-        <Text weight={500}>create</Text>
-      </UnstyledButton> */}
+
+
 
       <ConnectedWalletInfo isMobile={isMobile} />
     </div>

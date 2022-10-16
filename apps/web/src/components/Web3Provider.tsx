@@ -24,14 +24,14 @@ import { ENDPOINTS } from '../utils/endpoints';
 import * as allChains from 'wagmi/chains';
 
 const { chains, provider } = configureChains(
-  [chain.arbitrumGoerli],
+  [chain.arbitrumGoerli, chain.goerli],
   [
-    jsonRpcProvider({
-      rpc: () => ({
-        http: 'https://rough-neat-crater.arbitrum-goerli.discover.quiknode.pro/73721a90cdd5340c3d3622b93bb42d7d522f159b/',
-      }),
-    }),
-    // alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY }),
+    // jsonRpcProvider({
+    //   rpc: () => ({
+    //     http: 'https://rough-neat-crater.arbitrum-goerli.discover.quiknode.pro/73721a90cdd5340c3d3622b93bb42d7d522f159b/',
+    //   }),
+    // }),
+    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY }),
     publicProvider(),
   ]
 );
@@ -57,9 +57,9 @@ const Web3Provider = ({ children }) => {
           notice={({ status, message }) =>
             notice({ status: status as Status, message })
           }
-          resolveAddress={(contractName, chainId) =>
-            getAddress(chainId, contractName as AvailableContracts)
-          }
+          resolveAddress={(contractName, chainId) => {
+            return getAddress(chainId, contractName as AvailableContracts);
+          }}
           fallbackChain={config.fallbackId}
         >
           {children}
