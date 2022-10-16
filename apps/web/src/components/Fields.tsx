@@ -3,7 +3,7 @@ import { useState} from "react"
 
 const Fields = ({ item, addOrEdit, condition, i }) => {
     const [toggle, setToggle] = useState(false)
-    const toggleSymbol = toggle ? "❌" : "✅"
+    const toggleSymbol = toggle ? "false" : "true"
     return item.type === 'boolean' ? (
     <>
       <Text style={{ fontSize: 14 }}>
