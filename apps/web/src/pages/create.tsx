@@ -19,18 +19,18 @@ const admin = {
   address: '0x124312321312312412',
   conditions: [
     {
-      header: '#242 Gated conditions',
+      header: '#119 Gated conditions',
       scope: [
         {
-          header: 'Token balance (ERC-20)',
+          header: 'Token balance (ERC-721)',
           criteria: [
-            'Contract address: 0x9e...aa7c.',
-            'Minimum token balance: 5ETH',
+            'Contract address: 0xfAe3...3752.',
+            'Minimum token balance: 1',
           ],
         },
         {
           header: 'Token balance (ERC-721)',
-          criteria: ['Contract address: 0x9e...aa7c.'],
+          criteria: ['Contract address: 0xfAe3...3752.'],
         },
       ],
       query: 'https://gates.wtf/api/verify?address=${address}&gateId=242',
@@ -40,17 +40,17 @@ const admin = {
       scope: [
         {
           header: 'Twitter follow',
-          criteria: ['Account handle: @anotherblock'],
+          criteria: ['Account handle: @ArbitrumDevs'],
         },
         {
           header: 'Twitter follow',
-          criteria: ['Account handle: @ethglobal'],
+          criteria: ['Account handle: @arbitrum'],
         },
       ],
       query: 'https://gates.wtf/api/verify?address=${address}&gateId=321',
     },
     {
-      header: '#871 Gated conditions',
+      header: '#333 Gated conditions',
       scope: [
         {
           header: 'API Call',
@@ -61,8 +61,8 @@ const admin = {
         },
 
         {
-          header: 'Twitter follow',
-          criteria: ['Account handle: @bellosights'],
+          header: 'Staked Smoleverse',
+          criteria: ['Staked School: 1'],
         },
       ],
       query: 'https://gates.wtf/api/verify?address=${address}&gateId=871',
