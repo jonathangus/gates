@@ -1,4 +1,11 @@
-import { Button, Image, Text, UnstyledButton } from '@mantine/core';
+import {
+  Button,
+  Center,
+  Image,
+  Space,
+  Text,
+  UnstyledButton,
+} from '@mantine/core';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -127,9 +134,20 @@ const LogoHeader = () => {
         paddingBottom: 20,
       }}
     >
-      <UnstyledButton onClick={() => router.push('/')}>
-        <Text weight={500}>gates.wtf</Text>
-      </UnstyledButton>
+      <Center>
+        <UnstyledButton onClick={() => router.push('/')}>
+          <Text weight={500}>gates.wtf</Text>
+        </UnstyledButton>
+        <Space w={20} />
+        <UnstyledButton onClick={() => router.push('/snapshot')}>
+          <Text weight={500}>snapshot</Text>
+        </UnstyledButton>
+        <Space w={20} />
+        <UnstyledButton onClick={() => router.push('/demo')}>
+          <Text weight={500}>demo</Text>
+        </UnstyledButton>
+      </Center>
+      <div></div>
       {/* <UnstyledButton onClick={() => router.push('/create')}>
         <Text weight={500}>create</Text>
       </UnstyledButton> */}

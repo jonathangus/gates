@@ -14,9 +14,9 @@ import { useRouter } from 'next/router';
 import LogoHeader from '../components/Common/LogoHeader';
 import { CopyIcon } from '../components/CurrentConditons';
 
-type Props = {};
+type Props = { demoId: string };
 
-const GatedDemoContent = ({}: Props) => {
+const GatedDemoContent = ({ demoId }: Props) => {
   return (
     <div style={{ display: 'grid', gap: 20 }}>
       <AppShell
