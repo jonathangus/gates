@@ -17,7 +17,7 @@ describe('Arbimint', function () {
     const GatesContract = await ethers.getContractFactory('Arbigates');
     nft = (await GatesContract.deploy(
       4,
-      'https://',
+      'https://asdasd/',
       60 * 1000 * 1
     )) as Arbigates;
     await nft.deployed();
@@ -55,6 +55,10 @@ describe('Arbimint', function () {
       }
 
       expect(mintError).to.eq(true);
+
+      const hej = await nft.tokenURI('0');
+
+      console.log('HEJJ:::', hej);
     });
 
     it('one per user', async () => {
