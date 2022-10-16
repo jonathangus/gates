@@ -24,7 +24,7 @@ import { ENDPOINTS } from '../utils/endpoints';
 import * as allChains from 'wagmi/chains';
 
 const { chains, provider } = configureChains(
-  [chain.arbitrumGoerli],
+  [chain.arbitrumGoerli, chain.goerli],
   [
     jsonRpcProvider({
       rpc: () => ({
@@ -58,7 +58,11 @@ const Web3Provider = ({ children }) => {
             notice({ status: status as Status, message })
           }
           resolveAddress={(contractName, chainId) =>
-            getAddress(chainId, contractName as AvailableContracts)
+            {
+              
+              console.log(getAddress(chainId, contractName as AvailableContracts), contractName, chainId)
+              return getAddress(chainId, contractName as AvailableContracts)
+            }
           }
           fallbackChain={config.fallbackId}
         >
