@@ -24,6 +24,8 @@ contract Autogates is
      */
     uint256 public immutable interval;
     uint256 public lastTimeStamp;
+    string private gateID;
+    bool public approved;
 
     event RequestVolume(
         bytes32 indexed requestId,
@@ -67,6 +69,18 @@ contract Autogates is
         // We don't use the checkData in this example. The checkData is defined when the Upkeep was registered.
     }
 
+    function addAddress(address _newAddress) public {
+        addressesToVerify.push(_newAddress);
+    }
+
+    function setGate(string memory _newGate) public {
+        gateID = _newGate;
+    }
+
+    function setMintingContract(address _newContract) public onlyOwner {
+        MintingContractAddress = _newContract;
+    }
+
     function performUpkeep(
         bytes calldata /* performData */
     ) external override {
@@ -85,7 +99,7 @@ contract Autogates is
     function batchVerify() public {
         for (uint256 i = 0; i < addressesToVerify.length; i++) {
             address currentWallet = addressesToVerify[i];
-            requestVolumeData(currentWallet, '47');
+            requestVolumeData(currentWallet, gateID);
         }
     }
 
@@ -116,26 +130,27 @@ contract Autogates is
         return response;
     }
 
-    bool public approved;
-
     function fulfill(bytes32 _requestId, bool _approved)
         public
         recordChainlinkFulfillment(_requestId)
     {
-        approved = _approved;
         address mintTo = responseID[_requestId];
-        if (approved = true) {
-            IMintngContractInterface(MintingContractAddress).safeMint(
-                mintTo,
-                'sometestURI'
-            );
+        if (_approved = true) {
+            execute(mintTo);
         }
-        //todo logic  if  _approved get wallet id by requestId then mint by wallet addres
-        //interface goes here
         emit RequestVolume(_requestId, _approved, lastChecked);
     }
 
-    function execute() private {}
+    function execute(address mintTo) internal virtual {
+        gainAccess(mintTo);
+    }
+
+    function gainAccess(address _newMemb) public {
+        IMintngContractInterface(MintingContractAddress).safeMint(
+            _newMemb,
+            'https://media.istockphoto.com/photos/yellow-rubber-duck-for-bath-time-picture-id185590965?k=20&m=185590965&s=612x612&w=0&h=tXDiN77vzdvGyCuIN3tD8I6kUjA2fNq-dKaVmodXuTA='
+        );
+    }
 
     /**
      * Allow withdraw of Link tokens from the contract
