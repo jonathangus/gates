@@ -20,8 +20,13 @@ contract ArbiGates is ERC721, AccessControl, Autogates {
     constructor(
         uint256 _gateId,
         string memory _baseUri,
-        uint256 updateInterval
-    ) ERC721('Arbigates', 'AGTS') Autogates(_gateId, updateInterval) {
+        uint256 updateInterval,
+        address chainLinkToken,
+        address chainLinkOracle
+    )
+        ERC721('Arbigates', 'AGTS')
+        Autogates(_gateId, updateInterval, chainLinkToken, chainLinkOracle)
+    {
         baseTokenURI = _baseUri;
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
@@ -50,7 +55,7 @@ contract ArbiGates is ERC721, AccessControl, Autogates {
         return baseTokenURI;
     }
 
-    function withdrawAll() external {
+    function withdrawAll() external onlyOwner {
         payable(owner()).transfer(address(this).balance);
     }
 
