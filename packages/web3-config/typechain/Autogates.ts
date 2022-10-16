@@ -25,6 +25,7 @@ export interface AutogatesInterface extends utils.Interface {
     "addressesToVerify(uint256)": FunctionFragment;
     "approved()": FunctionFragment;
     "batchVerify()": FunctionFragment;
+    "buildUrl(address,uint256)": FunctionFragment;
     "checkUpkeep(bytes)": FunctionFragment;
     "counter()": FunctionFragment;
     "fulfill(bytes32,bool)": FunctionFragment;
@@ -38,6 +39,7 @@ export interface AutogatesInterface extends utils.Interface {
     "setGate(uint256)": FunctionFragment;
     "setMintingContract(address)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
+    "uintToString(uint256)": FunctionFragment;
     "volume()": FunctionFragment;
     "withdrawLink()": FunctionFragment;
   };
@@ -55,6 +57,10 @@ export interface AutogatesInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "batchVerify",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "buildUrl",
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "checkUpkeep",
@@ -96,6 +102,10 @@ export interface AutogatesInterface extends utils.Interface {
     functionFragment: "transferOwnership",
     values: [string]
   ): string;
+  encodeFunctionData(
+    functionFragment: "uintToString",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "volume", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "withdrawLink",
@@ -116,6 +126,7 @@ export interface AutogatesInterface extends utils.Interface {
     functionFragment: "batchVerify",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "buildUrl", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "checkUpkeep",
     data: BytesLike
@@ -148,6 +159,10 @@ export interface AutogatesInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "uintToString",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "volume", data: BytesLike): Result;
@@ -279,6 +294,18 @@ export interface Autogates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    buildUrl(
+      _wallet: string,
+      _gateId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    "buildUrl(address,uint256)"(
+      _wallet: string,
+      _gateId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
     checkUpkeep(
       arg0: BytesLike,
       overrides?: CallOverrides
@@ -383,6 +410,16 @@ export interface Autogates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    uintToString(
+      _value: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    "uintToString(uint256)"(
+      _value: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
     volume(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "volume()"(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -435,6 +472,18 @@ export interface Autogates extends BaseContract {
   "batchVerify()"(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
+
+  buildUrl(
+    _wallet: string,
+    _gateId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  "buildUrl(address,uint256)"(
+    _wallet: string,
+    _gateId: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
   checkUpkeep(
     arg0: BytesLike,
@@ -540,6 +589,16 @@ export interface Autogates extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  uintToString(
+    _value: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  "uintToString(uint256)"(
+    _value: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
   volume(overrides?: CallOverrides): Promise<BigNumber>;
 
   "volume()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -581,6 +640,18 @@ export interface Autogates extends BaseContract {
     batchVerify(overrides?: CallOverrides): Promise<void>;
 
     "batchVerify()"(overrides?: CallOverrides): Promise<void>;
+
+    buildUrl(
+      _wallet: string,
+      _gateId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    "buildUrl(address,uint256)"(
+      _wallet: string,
+      _gateId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
     checkUpkeep(
       arg0: BytesLike,
@@ -673,6 +744,16 @@ export interface Autogates extends BaseContract {
       to: string,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    uintToString(
+      _value: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    "uintToString(uint256)"(
+      _value: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
     volume(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -768,6 +849,18 @@ export interface Autogates extends BaseContract {
 
     "batchVerify()"(
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    buildUrl(
+      _wallet: string,
+      _gateId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "buildUrl(address,uint256)"(
+      _wallet: string,
+      _gateId: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     checkUpkeep(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
@@ -871,6 +964,16 @@ export interface Autogates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    uintToString(
+      _value: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "uintToString(uint256)"(
+      _value: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     volume(overrides?: CallOverrides): Promise<BigNumber>;
 
     "volume()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -923,6 +1026,18 @@ export interface Autogates extends BaseContract {
 
     "batchVerify()"(
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    buildUrl(
+      _wallet: string,
+      _gateId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "buildUrl(address,uint256)"(
+      _wallet: string,
+      _gateId: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     checkUpkeep(
@@ -1027,6 +1142,16 @@ export interface Autogates extends BaseContract {
     "transferOwnership(address)"(
       to: string,
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    uintToString(
+      _value: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "uintToString(uint256)"(
+      _value: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     volume(overrides?: CallOverrides): Promise<PopulatedTransaction>;
