@@ -1,15 +1,22 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.14;
 
+// AutomationCompatible.sol imports the functions from both ./AutomationBase.sol and
+// ./interfaces/AutomationCompatibleInterface.sol
 import '@chainlink/contracts/src/v0.8/AutomationCompatible.sol';
 import '@chainlink/contracts/src/v0.8/ChainlinkClient.sol';
 import '@chainlink/contracts/src/v0.8/ConfirmedOwner.sol';
 
+/**
+ * THIS IS AN EXAMPLE CONTRACT THAT USES HARDCODED VALUES FOR CLARITY.
+ * THIS IS AN EXAMPLE CONTRACT THAT USES UN-AUDITED CODE.
+ * DO NOT USE THIS CODE IN PRODUCTION.
+ */
 interface IMintngContractInterface {
     function safeMint(address to, string memory uri) external;
 }
 
-contract Autogates is
+contract Arbigates is
     AutomationCompatibleInterface,
     ChainlinkClient,
     ConfirmedOwner
@@ -19,11 +26,6 @@ contract Autogates is
     uint256 public volume;
     bytes32 private jobId;
     uint256 private fee;
-    /**
-     * Use an interval in seconds and a timestamp to slow execution of Upkeep
-     */
-    uint256 public immutable interval;
-    uint256 public lastTimeStamp;
     string private gateID;
     bool public approved;
 
@@ -35,6 +37,12 @@ contract Autogates is
     address private MintingContractAddress =
         0x5cB675e6e9e947A1c40b3F83b673c6A8f803f3B7;
     uint256 public counter;
+
+    /**
+     * Use an interval in seconds and a timestamp to slow execution of Upkeep
+     */
+    uint256 public immutable interval;
+    uint256 public lastTimeStamp;
 
     address[] public addressesToVerify = [
         0x4269f41Fa8440CdbD1A919eEd9414bF96BDFB5eE,
