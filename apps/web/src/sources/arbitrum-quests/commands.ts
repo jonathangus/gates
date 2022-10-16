@@ -9,10 +9,10 @@ export const checkOdyssey = async (
   ctx: CommandContext
 ): Promise<boolean> => {
   const provider = new ethers.providers.JsonRpcProvider(
-    `https://arb.g.alchemy.com/v2/${process.env.ALCHEMY_KEY}`
+    `https://arb-mainnet.g.alchemy.com/v2/vN4c_KKblME3xS4SU349FNBSwQynuV9Q`
   );
-
   return true;
+
   const nfts = await provider.send('qn_fetchNFTs', {
     wallet: ctx.wallet,
     omitFields: ['provenance', 'traits'],
