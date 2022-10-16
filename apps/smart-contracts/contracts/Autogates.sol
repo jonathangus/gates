@@ -1,17 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.14;
+pragma solidity 0.8.14;
 
-// AutomationCompatible.sol imports the functions from both ./AutomationBase.sol and
-// ./interfaces/AutomationCompatibleInterface.sol
 import "@chainlink/contracts/src/v0.8/AutomationCompatible.sol";
 import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 import "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol";
 
-/**
- * THIS IS AN EXAMPLE CONTRACT THAT USES HARDCODED VALUES FOR CLARITY.
- * THIS IS AN EXAMPLE CONTRACT THAT USES UN-AUDITED CODE.
- * DO NOT USE THIS CODE IN PRODUCTION.
- */
+
 interface IMintngContractInterface {
   function safeMint(address to, string memory uri) external;
   
@@ -22,18 +16,16 @@ contract Autogates is AutomationCompatibleInterface, ChainlinkClient, ConfirmedO
     uint256 public volume;
     bytes32 private jobId;
     uint256 private fee;
-    string private gateID;
-
-    event RequestVolume(bytes32 indexed requestId, bool approved, string lastChecked);
-    address private  MintingContractAddress = 0x5cB675e6e9e947A1c40b3F83b673c6A8f803f3B7;
-    uint public counter;
-
     /**
     * Use an interval in seconds and a timestamp to slow execution of Upkeep
     */
     uint public immutable interval;
     uint public lastTimeStamp;
-    
+
+    event RequestVolume(bytes32 indexed requestId, bool approved, string lastChecked);
+    address private  MintingContractAddress = 0x5cB675e6e9e947A1c40b3F83b673c6A8f803f3B7;
+    uint public counter;
+
     address[] public addressesToVerify = [0x4269f41Fa8440CdbD1A919eEd9414bF96BDFB5eE, 0xA4B7CEe8409673624EC9B075f5A4f9b8EbAdEd49];
 
     mapping(bytes32=> address) private responseID;
@@ -45,6 +37,7 @@ contract Autogates is AutomationCompatibleInterface, ChainlinkClient, ConfirmedO
         fee = (1 * LINK_DIVISIBILITY) / 10; // 0,1 * 10**18 (Varies by network and job)
         interval = updateInterval;
       lastTimeStamp = block.timestamp;
+
       counter = 0;
     }
 
@@ -66,13 +59,9 @@ contract Autogates is AutomationCompatibleInterface, ChainlinkClient, ConfirmedO
 
     string public lastChecked;
 
-    function setGateId(string _newID) public onlyOwner{
-        gateID = _newID
-    }
-
     function batchVerify() public{
         for (uint i = 0; i < addressesToVerify.length; i++ ){
-        address memory urrentWallet = addressesToVerify[i];
+        address currentWallet = addressesToVerify[i];
         requestVolumeData(currentWallet, "47");
         }
     }
@@ -98,13 +87,13 @@ function fulfill(bytes32 _requestId, bool _approved) public recordChainlinkFulfi
   address mintTo = responseID[_requestId];
   if(approved = true){
 
-      execute(mintTo);
+      IMintngContractInterface(MintingContractAddress).safeMint(mintTo, "sometestURI");
   }
   //todo logic  if  _approved get wallet id by requestId then mint by wallet addres
   //interface goes here
   emit RequestVolume(_requestId, _approved, lastChecked);
 }
-function execute(address mintTo) virtual internal {
+function execute() virtual private {
 
 }
 
@@ -115,7 +104,6 @@ function execute(address mintTo) virtual internal {
         LinkTokenInterface link = LinkTokenInterface(chainlinkTokenAddress());
         require(link.transfer(msg.sender, link.balanceOf(address(this))), 'Unable to transfer');
     }
-
 
 
 
