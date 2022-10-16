@@ -37,8 +37,8 @@ contract Arbigates is ERC721, AccessControl, Autogates {
             tokenId + 1 <= MAX_TOKENS,
             'Purchase would exceed max supply of tokens'
         );
+        _safeMint(user, tokenId);
         _tokenIdCounter.increment();
-        _safeMint(user, _tokenIdCounter.current());
         minted[user] = true;
     }
 
