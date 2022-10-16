@@ -146,6 +146,10 @@ const LogoHeader = () => {
         <UnstyledButton onClick={() => router.push('/demo')}>
           <Text weight={500}>demo</Text>
         </UnstyledButton>
+        <Space w={20} />
+        <UnstyledButton onClick={() => router.push('/livepeer-demo')}>
+          <Text weight={500}>livepeer</Text>
+        </UnstyledButton>
       </Center>
       <div></div>
       {/* <UnstyledButton onClick={() => router.push('/create')}>

@@ -1,4 +1,4 @@
-import { Input } from '@mantine/core';
+import { Input, Space } from '@mantine/core';
 import { Gated } from 'gates.wtf';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -25,9 +25,12 @@ const Demo = () => {
           }}
         />
       </div>
-      <Gated gateId={demoId as string}>
-        <GatedDemoContent demoId={demoId as string} />
-      </Gated>
+      <Space h={30} />
+      {demoId && (
+        <Gated gateId={demoId as string}>
+          <GatedDemoContent demoId={demoId as string} />
+        </Gated>
+      )}
     </div>
   );
 };

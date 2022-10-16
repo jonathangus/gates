@@ -5,8 +5,8 @@ import useGated from '../hooks/useGated';
 
 type Props = { gateId: string };
 
-const goodQuality = '4a57zlg4766trxej';
-const badQuality = 'ed78yd2463fsc32w';
+const goodQuality = '8d60jgt727n8b4o2';
+const badQuality = '558by8pe0vpxwg2w';
 
 const LivepeerDemo = ({ gateId }: Props) => {
   const [useGood, setGood] = useState(false);

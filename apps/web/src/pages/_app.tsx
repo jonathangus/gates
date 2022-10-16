@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           <SessionProvider session={session}>
             <Web3Provider>
               <SEO />
-              <div style={{ height: '100vh', overflow: 'hidden' }}>
+              <div style={{ minHeight: '100vh', overflow: 'hidden' }}>
                 <div style={{ display: 'grid', gap: 20 }}>
                   <AppShell
                     padding="md"

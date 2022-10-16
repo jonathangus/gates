@@ -26,7 +26,12 @@ import * as allChains from 'wagmi/chains';
 const { chains, provider } = configureChains(
   [chain.arbitrumGoerli],
   [
-    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY }),
+    jsonRpcProvider({
+      rpc: () => ({
+        http: 'https://rough-neat-crater.arbitrum-goerli.discover.quiknode.pro/73721a90cdd5340c3d3622b93bb42d7d522f159b/',
+      }),
+    }),
+    // alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY }),
     publicProvider(),
   ]
 );
