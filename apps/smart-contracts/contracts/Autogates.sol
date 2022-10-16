@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.14;
+pragma solidity ^0.8.14;
 
 import '@chainlink/contracts/src/v0.8/AutomationCompatible.sol';
 import '@chainlink/contracts/src/v0.8/ChainlinkClient.sol';
@@ -135,7 +135,7 @@ contract Autogates is
         emit RequestVolume(_requestId, _approved, lastChecked);
     }
 
-    function execute() private virtual {}
+    function execute() private {}
 
     /**
      * Allow withdraw of Link tokens from the contract
