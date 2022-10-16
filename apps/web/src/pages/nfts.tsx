@@ -18,27 +18,35 @@ const NFTs = () => {
     'addAddress',
     {
       reckless: true,
+      onSuccess: () => {
+        // set localstorage
+        // set state
+      },
     }
   );
 
-
-  
-  const { data:balanceOf } = useContractRead(Arbigates__factory, 'balanceOf', {
-    args: ["0xA4B7CEe8409673624EC9B075f5A4f9b8EbAdEd49"],
-  });
-
-  console.log(balanceOf)
-  const { data } = useContractRead(Arbigates__factory, 'addressesToVerify', {
+  const { data: balanceOf } = useContractRead(Arbigates__factory, 'balanceOf', {
     args: [address],
+    enabled: Boolean(address),
   });
-  console.log({ data });
-    useEvent(Arbigates__factory, 'Transfer', {
-      onChange: (data) => {
-        if (data[0] === NULL_ADDRESS && data[1] === address) {
-          setMinted(true);
-        }
-      },
-    });
+
+  const { data: match } = useContractRead(
+    Arbigates__factory,
+    'addressesToVerify',
+    {
+      args: [address],
+      enabled: Boolean(address),
+    }
+  );
+
+  const a = useEvent(Arbigates__factory, 'Transfer', {
+    onChange: (data) => {
+      console.log(data);
+      if (data[0] === NULL_ADDRESS && data[1] === address) {
+        setMinted(true);
+      }
+    },
+  });
 
   const eligible = useGated({ gateId });
 
@@ -49,6 +57,8 @@ const NFTs = () => {
         : 'Sign up to mint the NFT'}
       <Space h={30} />
 
+      {balanceOf && <div>you own {balanceOf.toString()}</div>}
+
       {eligible && isSignedUp && (
         <div>User is eligible. You should receive an NFT. Wait a minute...</div>
       )}
@@ -57,18 +67,9 @@ const NFTs = () => {
         style={{ width: '100px' }}
         loading={isLoading}
         onClick={(e) => {
-            write({
-                args: [address],
-              });
-
-              return
-          if (!data?.toString()) {
-            console.log('data is falsey');
-        
-            setIsSignedUp(true);
-            return;
-          }
-          setAlreadySignedUp(true);
+          write({
+            args: [address],
+          });
         }}
       >
         Sign up
