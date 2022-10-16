@@ -46,6 +46,10 @@ contract Arbigates is ERC721, AccessControl, Autogates {
         baseTokenURI = _newBaseURI;
     }
 
+    function _baseURI() internal view virtual override returns (string memory) {
+        return baseTokenURI;
+    }
+
     function withdrawAll() external {
         payable(owner()).transfer(address(this).balance);
     }
