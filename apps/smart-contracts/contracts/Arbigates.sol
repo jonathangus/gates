@@ -37,13 +37,17 @@ contract Arbigates is ERC721, AccessControl, Autogates {
             tokenId + 1 <= MAX_TOKENS,
             'Purchase would exceed max supply of tokens'
         );
+        _safeMint(user, tokenId);
         _tokenIdCounter.increment();
-        _safeMint(user, _tokenIdCounter.current());
         minted[user] = true;
     }
 
     function setBaseURI(string calldata _newBaseURI) external onlyOwner {
         baseTokenURI = _newBaseURI;
+    }
+
+    function _baseURI() internal view virtual override returns (string memory) {
+        return baseTokenURI;
     }
 
     function withdrawAll() external {

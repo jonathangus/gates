@@ -5,12 +5,11 @@ import gatesgoerliDeployment from './deployments/goerli/Gates.json';
 export * from './typechain';
 import * as _typechain from './typechain';
 import { chain } from 'wagmi';
+import { Arbigates__factory } from './typechain/factories/Arbigates__factory';
 
-import { Gates__factory, Arbigates__factory } from './typechain';
+import { Gates__factory } from './typechain';
 
-export type AvailableContracts =
-  | Gates__factory['contractName']
-  | Arbigates__factory['contractName'];
+export type AvailableContracts = any;
 
 type AddressObj = Record<AvailableContracts, string>;
 
