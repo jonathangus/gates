@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import useGated from '../hooks/useGated';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import Confetti from 'react-confetti';
+import { useAccount } from 'wagmi';
 
 type Props = { gateId: string };
 
@@ -11,6 +12,8 @@ const goodQuality = '8d60jgt727n8b4o2';
 const badQuality = '558by8pe0vpxwg2w';
 
 const LivepeerDemo = ({ gateId }: Props) => {
+
+ 
   const [useGood, setGood] = useState(false);
   const elligble = useGated({ gateId });
   const { width, height } = useWindowSize();
