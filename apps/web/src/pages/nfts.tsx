@@ -42,9 +42,8 @@ const NFTs = () => {
       const { data } = await axios.get(`${IPFS_ADDRESS}/${id}`);
       return data.image;
     };
-     getNftImage(counter).then((res) => setMintedNFT(res))
-  }, [mintedNFT, counter])
-
+    getNftImage(counter).then((res) => setMintedNFT(res));
+  }, [mintedNFT, counter]);
 
   const { data: match } = useContractRead(
     Arbigates__factory,
@@ -55,10 +54,8 @@ const NFTs = () => {
     }
   );
 
-  const a = useEvent(Arbigates__factory, 'Transfer', {
+  const { data: items } = useEvent(Arbigates__factory, 'Transfer', {
     onChange: (data) => {
-      console.log({ data});
-      console.log("hello")
       if (data[0] === NULL_ADDRESS && data[1] === address) {
         setMinted(true);
       }
@@ -81,10 +78,6 @@ const NFTs = () => {
         loading={isLoading}
         disabled={alreadySignedUp}
         onClick={(e) => {
-          if (localStorage.getItem('minted')) {
-            setAlreadySignedUp(true);
-            return;
-          }
           write({
             args: [address],
           });
@@ -96,11 +89,17 @@ const NFTs = () => {
       <Space h={30} />
       {minted && (
         <>
-        {console.log({mintedNFT})}
+          {console.log({ mintedNFT })}
           <Text>Token Id: {counter}</Text>
           <Image src={mintedNFT} alt={'Bob Saget'} />
         </>
       )}
+
+      <Space h={40} />
+      {items?.length ? <h1>Minted:</h1> : null}
+      {items?.map((item) => (
+        <div>{JSON.stringify(item)}</div>
+      ))}
     </Box>
   );
 };
