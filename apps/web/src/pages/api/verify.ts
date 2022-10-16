@@ -28,6 +28,7 @@ const allowCors = (fn) => async (req, res) => {
 
 const handler: NextApiHandler = async (req, res) => {
   const { gateId, address } = req.query;
+  let finalAddress: string = address as string;
   console.log('start verify');
   if (typeof gateId !== 'string') {
     return res.status(500).send('missing gateId');
@@ -37,11 +38,25 @@ const handler: NextApiHandler = async (req, res) => {
     return res.status(500).send('missing address');
   }
 
-  try {
-    ethers.utils.getAddress(address as string);
-  } catch (e) {
-    return res.status(500).send('invalid wallet address');
+  let okAddress = false;
+  if (finalAddress.startsWith('0x')) {
+    try {
+      ethers.utils.getAddress(finalAddress as string);
+      okAddress = true;
+    } catch (e) {}
   }
+
+  if (!okAddress) {
+    try {
+      let tmp = ethers.utils.getAddress(`0x${finalAddress}`);
+      okAddress = true;
+      finalAddress = tmp;
+    } catch (e) {
+      return res.status(500).send('invalid wallet address');
+    }
+  }
+
+  console.log('FINAL ADDESSS', finalAddress);
 
   try {
     const provider = new ethers.providers.JsonRpcBatchProvider(
@@ -54,11 +69,14 @@ const handler: NextApiHandler = async (req, res) => {
     );
     const data = await contract.conditions(gateId);
     const conditions = JSON.parse(ethers.utils.toUtf8String(data));
-    const verifier = new ConditionVerifier({ address, conditions });
+    const verifier = new ConditionVerifier({
+      address: finalAddress,
+      conditions,
+    });
 
-    const userData = (await readPersonalData(address)) as UserData;
+    const userData = (await readPersonalData(finalAddress)) as UserData;
     const success = await verifier.verify({
-      wallet: address,
+      wallet: finalAddress,
       userData,
     });
     res.setHeader('Cache-Control', 'max-age=10, s-maxage=10');
