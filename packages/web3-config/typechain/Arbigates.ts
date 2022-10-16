@@ -33,7 +33,6 @@ export interface ArbiGatesInterface extends utils.Interface {
     "checkUpkeep(bytes)": FunctionFragment;
     "counter()": FunctionFragment;
     "fulfill(bytes32,bool)": FunctionFragment;
-    "gainAccess(address)": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
     "getRoleAdmin(bytes32)": FunctionFragment;
     "grantRole(bytes32,address)": FunctionFragment;
@@ -106,7 +105,6 @@ export interface ArbiGatesInterface extends utils.Interface {
     functionFragment: "fulfill",
     values: [BytesLike, boolean]
   ): string;
-  encodeFunctionData(functionFragment: "gainAccess", values: [string]): string;
   encodeFunctionData(
     functionFragment: "getApproved",
     values: [BigNumberish]
@@ -235,7 +233,6 @@ export interface ArbiGatesInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "counter", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "fulfill", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "gainAccess", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getApproved",
     data: BytesLike
@@ -558,16 +555,6 @@ export interface ArbiGates extends BaseContract {
     "fulfill(bytes32,bool)"(
       _requestId: BytesLike,
       _approved: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    gainAccess(
-      _newMemb: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "gainAccess(address)"(
-      _newMemb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -951,16 +938,6 @@ export interface ArbiGates extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  gainAccess(
-    _newMemb: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  "gainAccess(address)"(
-    _newMemb: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   getApproved(
     tokenId: BigNumberish,
     overrides?: CallOverrides
@@ -1321,13 +1298,6 @@ export interface ArbiGates extends BaseContract {
     "fulfill(bytes32,bool)"(
       _requestId: BytesLike,
       _approved: boolean,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    gainAccess(_newMemb: string, overrides?: CallOverrides): Promise<void>;
-
-    "gainAccess(address)"(
-      _newMemb: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1789,16 +1759,6 @@ export interface ArbiGates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    gainAccess(
-      _newMemb: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "gainAccess(address)"(
-      _newMemb: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     getApproved(
       tokenId: BigNumberish,
       overrides?: CallOverrides
@@ -2187,16 +2147,6 @@ export interface ArbiGates extends BaseContract {
     "fulfill(bytes32,bool)"(
       _requestId: BytesLike,
       _approved: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    gainAccess(
-      _newMemb: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "gainAccess(address)"(
-      _newMemb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

@@ -256,19 +256,6 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_newMemb",
-        "type": "address"
-      }
-    ],
-    "name": "gainAccess",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "interval",
     "outputs": [

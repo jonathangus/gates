@@ -148,7 +148,7 @@ contract Autogates is
     {
         return
             string.concat(
-                'https://arbi.gates.wtf/api/verify?address=',
+                'https://gates-84696mash-jontgus.vercel.app/api/verify?address=',
                 toAsciiString(_wallet),
                 '&gateId=',
                 Strings.toString(_gateId)
@@ -186,16 +186,7 @@ contract Autogates is
         emit RequestVolume(_requestId, _approved, lastChecked);
     }
 
-    function execute(address mintTo) internal virtual {
-        gainAccess(mintTo);
-    }
-
-    function gainAccess(address _newMemb) public {
-        IMintngContractInterface(MintingContractAddress).safeMint(
-            _newMemb,
-            'https://media.istockphoto.com/photos/yellow-rubber-duck-for-bath-time-picture-id185590965?k=20&m=185590965&s=612x612&w=0&h=tXDiN77vzdvGyCuIN3tD8I6kUjA2fNq-dKaVmodXuTA='
-        );
-    }
+    function execute(address mintTo) internal virtual {}
 
     /**
      * Allow withdraw of Link tokens from the contract

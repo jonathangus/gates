@@ -29,7 +29,6 @@ export interface AutogatesInterface extends utils.Interface {
     "checkUpkeep(bytes)": FunctionFragment;
     "counter()": FunctionFragment;
     "fulfill(bytes32,bool)": FunctionFragment;
-    "gainAccess(address)": FunctionFragment;
     "interval()": FunctionFragment;
     "lastChecked()": FunctionFragment;
     "lastTimeStamp()": FunctionFragment;
@@ -71,7 +70,6 @@ export interface AutogatesInterface extends utils.Interface {
     functionFragment: "fulfill",
     values: [BytesLike, boolean]
   ): string;
-  encodeFunctionData(functionFragment: "gainAccess", values: [string]): string;
   encodeFunctionData(functionFragment: "interval", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "lastChecked",
@@ -133,7 +131,6 @@ export interface AutogatesInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "counter", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "fulfill", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "gainAccess", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "interval", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "lastChecked",
@@ -332,16 +329,6 @@ export interface Autogates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    gainAccess(
-      _newMemb: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "gainAccess(address)"(
-      _newMemb: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     interval(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "interval()"(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -511,16 +498,6 @@ export interface Autogates extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  gainAccess(
-    _newMemb: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  "gainAccess(address)"(
-    _newMemb: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   interval(overrides?: CallOverrides): Promise<BigNumber>;
 
   "interval()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -676,13 +653,6 @@ export interface Autogates extends BaseContract {
     "fulfill(bytes32,bool)"(
       _requestId: BytesLike,
       _approved: boolean,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    gainAccess(_newMemb: string, overrides?: CallOverrides): Promise<void>;
-
-    "gainAccess(address)"(
-      _newMemb: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -886,16 +856,6 @@ export interface Autogates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    gainAccess(
-      _newMemb: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "gainAccess(address)"(
-      _newMemb: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     interval(overrides?: CallOverrides): Promise<BigNumber>;
 
     "interval()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1063,16 +1023,6 @@ export interface Autogates extends BaseContract {
     "fulfill(bytes32,bool)"(
       _requestId: BytesLike,
       _approved: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    gainAccess(
-      _newMemb: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "gainAccess(address)"(
-      _newMemb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

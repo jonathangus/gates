@@ -8,8 +8,8 @@ import './Autogates.sol';
 import '@openzeppelin/contracts/access/AccessControl.sol';
 
 contract ArbiGates is ERC721, AccessControl, Autogates {
-    string private baseTokenURI;
     uint256 public MAX_TOKENS = 24;
+    string private baseTokenURI;
 
     mapping(address => bool) private minted;
 
@@ -26,9 +26,9 @@ contract ArbiGates is ERC721, AccessControl, Autogates {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
-    // function execute(address user) internal virtual overrides {
-    //     safeMint(user);
-    // }
+    function execute(address user) internal virtual override {
+        safeMint(user);
+    }
 
     function safeMint(address user) public {
         require(!minted[user], 'User already minted');
