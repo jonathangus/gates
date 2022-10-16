@@ -179,6 +179,30 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "_wallet",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_gateId",
+        "type": "uint256"
+      }
+    ],
+    "name": "buildUrl",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes",
         "name": "",
         "type": "bytes"
@@ -370,6 +394,25 @@
     "name": "transferOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_value",
+        "type": "uint256"
+      }
+    ],
+    "name": "uintToString",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "pure",
     "type": "function"
   },
   {

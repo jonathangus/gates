@@ -6,6 +6,7 @@ pragma solidity ^0.8.14;
 import '@chainlink/contracts/src/v0.8/AutomationCompatible.sol';
 import '@chainlink/contracts/src/v0.8/ChainlinkClient.sol';
 import '@chainlink/contracts/src/v0.8/ConfirmedOwner.sol';
+import '@openzeppelin/contracts/utils/Strings.sol';
 
 /**
  * THIS IS AN EXAMPLE CONTRACT THAT USES HARDCODED VALUES FOR CLARITY.
@@ -110,6 +111,50 @@ contract Autogates is
         }
     }
 
+    function toAsciiString(address x) internal pure returns (string memory) {
+        bytes memory s = new bytes(40);
+        for (uint256 i = 0; i < 20; i++) {
+            bytes1 b = bytes1(uint8(uint256(uint160(x)) / (2**(8 * (19 - i)))));
+            bytes1 hi = bytes1(uint8(b) / 16);
+            bytes1 lo = bytes1(uint8(b) - 16 * uint8(hi));
+            s[2 * i] = char(hi);
+            s[2 * i + 1] = char(lo);
+        }
+        return string(s);
+    }
+
+    function char(bytes1 b) internal pure returns (bytes1 c) {
+        if (uint8(b) < 10) return bytes1(uint8(b) + 0x30);
+        else return bytes1(uint8(b) + 0x57);
+    }
+
+    function uintToString(uint256 _value) public pure returns (string memory) {
+        bytes32 _bytes = bytes32(_value);
+        bytes memory HEX = '0123456789abcdef';
+        bytes memory _string = new bytes(42);
+        _string[0] = '0';
+        _string[1] = 'x';
+        for (uint256 i = 0; i < 20; i++) {
+            _string[2 + i * 2] = HEX[uint8(_bytes[i + 12] >> 4)];
+            _string[3 + i * 2] = HEX[uint8(_bytes[i + 12] & 0x0f)];
+        }
+        return string(_string);
+    }
+
+    function buildUrl(address _wallet, uint256 _gateId)
+        public
+        view
+        returns (string memory)
+    {
+        return
+            string.concat(
+                'https://arbi.gates.wtf/api/verify?address=',
+                toAsciiString(_wallet),
+                '&gateId=',
+                Strings.toString(_gateId)
+            );
+    }
+
     function requestVolumeData(address _wallet, uint256 _gateId)
         public
         returns (bytes32 requestId)
@@ -119,14 +164,7 @@ contract Autogates is
             address(this),
             this.fulfill.selector
         );
-        string memory wallet = string(abi.encodePacked(_wallet));
-        string memory gateId = string(abi.encode(_gateId));
-        string memory url = string.concat(
-            'https://gates.wtf/api/verify?address=',
-            wallet,
-            '&gateId=',
-            gateId
-        );
+        string memory url = buildUrl(_wallet, _gateId);
         // Set the URL to perform the GET request on
         req.add('get', url);
         req.add('path', 'success');

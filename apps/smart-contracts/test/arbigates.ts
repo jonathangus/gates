@@ -15,7 +15,11 @@ describe('Arbimint', function () {
     [owner, addr1, addr2, ...addrs] = await ethers.getSigners();
 
     const GatesContract = await ethers.getContractFactory('Arbigates');
-    nft = (await GatesContract.deploy('https://')) as Arbigates;
+    nft = (await GatesContract.deploy(
+      4,
+      'https://',
+      60 * 1000 * 1
+    )) as Arbigates;
     await nft.deployed();
   });
 
@@ -66,6 +70,14 @@ describe('Arbimint', function () {
       }
 
       expect(mintError).to.eq(true);
+    });
+
+    it('buildUrl', async () => {
+      const a = await nft.buildUrl(
+        '0xA4B7CEe8409673624EC9B075f5A4f9b8EbAdEd49',
+        4
+      );
+      console.log(a.toString());
     });
   });
 });
