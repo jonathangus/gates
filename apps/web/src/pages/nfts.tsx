@@ -3,15 +3,20 @@ import { useContractWrite, useContractRead } from 'wagmi-lfg';
 import { useAccount } from 'wagmi';
 import useEvent from '../hooks/useEvent';
 import { Arbigates__factory } from 'web3-config';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useGated from '../hooks/useGated';
+import axios from 'axios';
 
 const gateId = '4';
 const NFTs = () => {
   const NULL_ADDRESS = '0x0000000000000000000000000000000000000000';
+  const IPFS_ADDRESS =
+    'https://gateway.pinata.cloud/ipfs/QmfK4jMsx5qZ3fBiixfYawRQsrCGrGjgMXKbYzkovF7Qwg';
   const [isSignedUp, setIsSignedUp] = useState(false);
   const [alreadySignedUp, setAlreadySignedUp] = useState(false);
   const [minted, setMinted] = useState(false);
+  const [counter, setCounter] = useState(0);
+  const [mintedNFT, setMintedNFT] = useState('');
   const { address } = useAccount();
   const { write, isLoading } = useContractWrite(
     Arbigates__factory,
@@ -19,9 +24,11 @@ const NFTs = () => {
     {
       reckless: true,
       onSuccess: () => {
-        localStorage.setItem('minted', "true")
-        setMinted(true)
-        setIsSignedUp(false)
+        localStorage.setItem('minted', 'true');
+        setCounter(counter + 1);
+        localStorage.setItem('mintedNFT', counter.toString());
+        setMinted(true);
+        setIsSignedUp(false);
       },
     }
   );
@@ -30,6 +37,14 @@ const NFTs = () => {
   //   args: [address],
   //   enabled: Boolean(address),
   // });
+  useEffect(() => {
+    const getNftImage = async (id: any) => {
+      const { data } = await axios.get(`${IPFS_ADDRESS}/${id}`);
+      return data.image;
+    };
+     getNftImage(counter).then((res) => setMintedNFT(res))
+  }, [mintedNFT, counter])
+
 
   const { data: match } = useContractRead(
     Arbigates__factory,
@@ -42,7 +57,8 @@ const NFTs = () => {
 
   const a = useEvent(Arbigates__factory, 'Transfer', {
     onChange: (data) => {
-      console.log(data);
+      console.log({ data});
+      console.log("hello")
       if (data[0] === NULL_ADDRESS && data[1] === address) {
         setMinted(true);
       }
@@ -50,12 +66,9 @@ const NFTs = () => {
   });
 
   const eligible = useGated({ gateId });
-
   return (
     <Box style={{ display: 'flex', flexDirection: 'column' }}>
-      {alreadySignedUp
-        ? "You've already minted!"
-        : 'Sign up to mint the NFT'}
+      {alreadySignedUp ? "You've already minted!" : 'Sign up to mint the NFT'}
       <Space h={30} />
 
       {/* {balanceOf && <div>you own {balanceOf.toString()}</div>} */}
@@ -68,14 +81,14 @@ const NFTs = () => {
         loading={isLoading}
         disabled={alreadySignedUp}
         onClick={(e) => {
-          if(localStorage.getItem("minted")) {
-            setAlreadySignedUp(true)
+          if (localStorage.getItem('minted')) {
+            setAlreadySignedUp(true);
             return;
           }
           write({
             args: [address],
           });
-          setIsSignedUp(true)
+          setIsSignedUp(true);
         }}
       >
         Sign up
@@ -83,14 +96,9 @@ const NFTs = () => {
       <Space h={30} />
       {minted && (
         <>
-          <Text>Token Id: 1337</Text>
-
-          <Image
-            src={
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaTDR03yVSTVOO4JAiOKLIyqbM1FHYOACROw&usqp=CAU'
-            }
-            alt={'Bob Saget'}
-          />
+        {console.log({mintedNFT})}
+          <Text>Token Id: {counter}</Text>
+          <Image src={mintedNFT} alt={'Bob Saget'} />
         </>
       )}
     </Box>
