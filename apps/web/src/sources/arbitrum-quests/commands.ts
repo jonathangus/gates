@@ -1,7 +1,4 @@
-import axios from 'axios';
 import { CommandContext } from '../../types';
-import get from 'lodash/get';
-import { ENDPOINTS } from '../../utils/endpoints';
 import { ethers } from 'ethers';
 
 export const checkOdyssey = async (
@@ -11,17 +8,18 @@ export const checkOdyssey = async (
   const provider = new ethers.providers.JsonRpcProvider(
     `https://arb-mainnet.g.alchemy.com/v2/vN4c_KKblME3xS4SU349FNBSwQynuV9Q`
   );
-  return true;
+  if (args.use === 'false') {
+    return false;
+  }
+  const contract = new ethers.Contract(
+    '0xfae39ec09730ca0f14262a636d2d7c5539353752',
+    ['function balanceOf(address owner) external view returns(uint256)'],
+    provider
+  );
 
-  const nfts = await provider.send('qn_fetchNFTs', {
-    wallet: ctx.wallet,
-    omitFields: ['provenance', 'traits'],
-    page: 1,
-    perPage: 10,
-    contracts: ['0xfAe39eC09730CA0F14262A636D2d7C5539353752'],
-  });
+  const balance = await contract.balanceOf(ctx.wallet);
 
-  return nfts.assets.length >= 1;
+  return balance.gt(0);
 };
 
 export const commands = {
