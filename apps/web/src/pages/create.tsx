@@ -44,7 +44,7 @@ const admin = {
         },
         {
           header: 'Twitter follow',
-          criteria: ['Account handle: @arbitrum'],
+          criteria: ['Account handle: @Arbitrum'],
         },
       ],
       query: 'https://gates.wtf/api/verify?address=${address}&gateId=321',
