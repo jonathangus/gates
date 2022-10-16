@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { useAccount } from 'wagmi';
 import { useContractWrite } from 'wagmi-lfg';
 import { Gates__factory } from 'web3-config';
+import useCorrectChain from '../hooks/useCorrectChain';
 import useEvent from '../hooks/useEvent';
 import { hasMinTokenBalance } from '../sources/quicknode/commands';
 import { useFieldStore } from '../stores/useFieldStore';
@@ -26,7 +27,7 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
   });
 
   const { address } = useAccount();
-
+  const { isSupported } = useCorrectChain();
   const [gateId, setGateId] = useState<BigNumber>();
   useEvent(Gates__factory, 'Created', {
     // args: [null, address],
@@ -119,10 +120,10 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
       </Popover>
     );
   }
+
   return (
     <Button
-      disabled={!address}
-      // disabled={itemz.length == 0}
+      disabled={!address || !isSupported}
       loading={isLoading}
       onClick={create}
       style={{
