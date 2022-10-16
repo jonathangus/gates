@@ -66,7 +66,7 @@ const SnapshotPage = ({}: Props) => {
   }
 
   return (
-    <section className="container">
+    <section className="container" style={{ maxWidth: 800 }}>
       <div
         {...getRootProps({ className: 'dropzone' })}
         style={{ border: '1px solid #CCC' }}
