@@ -16,7 +16,7 @@ interface IMintngContractInterface {
     function safeMint(address to, string memory uri) external;
 }
 
-contract Arbigates is
+contract Autogates is
     AutomationCompatibleInterface,
     ChainlinkClient,
     ConfirmedOwner
@@ -26,7 +26,7 @@ contract Arbigates is
     uint256 public volume;
     bytes32 private jobId;
     uint256 private fee;
-    string private gateID;
+    uint256 private gateID;
     bool public approved;
 
     event RequestVolume(
@@ -44,21 +44,20 @@ contract Arbigates is
     uint256 public immutable interval;
     uint256 public lastTimeStamp;
 
-    address[] public addressesToVerify = [
-        0x4269f41Fa8440CdbD1A919eEd9414bF96BDFB5eE,
-        0xA4B7CEe8409673624EC9B075f5A4f9b8EbAdEd49
-    ];
+    address[] public addressesToVerify;
 
     mapping(bytes32 => address) private responseID;
 
-    constructor(uint256 updateInterval) ConfirmedOwner(msg.sender) {
+    constructor(uint256 _gateId, uint256 updateInterval)
+        ConfirmedOwner(msg.sender)
+    {
         setChainlinkToken(0x326C977E6efc84E512bB9C30f76E30c160eD06FB);
         setChainlinkOracle(0xCC79157eb46F5624204f47AB42b3906cAA40eaB7);
         jobId = 'c1c5e92880894eb6b27d3cae19670aa3';
         fee = (1 * LINK_DIVISIBILITY) / 10; // 0,1 * 10**18 (Varies by network and job)
         interval = updateInterval;
         lastTimeStamp = block.timestamp;
-
+        gateID = _gateId;
         counter = 0;
     }
 
@@ -81,8 +80,8 @@ contract Arbigates is
         addressesToVerify.push(_newAddress);
     }
 
-    function setGate(string memory _newGate) public {
-        gateID = _newGate;
+    function setGate(uint256 _gateId) public onlyOwner {
+        gateID = _gateId;
     }
 
     function setMintingContract(address _newContract) public onlyOwner {
@@ -111,7 +110,7 @@ contract Arbigates is
         }
     }
 
-    function requestVolumeData(address _wallet, string memory _gateId)
+    function requestVolumeData(address _wallet, uint256 _gateId)
         public
         returns (bytes32 requestId)
     {
@@ -121,7 +120,7 @@ contract Arbigates is
             this.fulfill.selector
         );
         string memory wallet = string(abi.encodePacked(_wallet));
-        string memory gateId = _gateId;
+        string memory gateId = string(abi.encode(_gateId));
         string memory url = string.concat(
             'https://gates.wtf/api/verify?address=',
             wallet,

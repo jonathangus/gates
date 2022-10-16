@@ -4,8 +4,10 @@ pragma solidity ^0.8.14;
 import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 import '@openzeppelin/contracts/utils/Counters.sol';
+import './Autogates.sol';
+import '@openzeppelin/contracts/access/AccessControl.sol';
 
-contract Arbigates is ERC721, Ownable {
+contract Arbigates is ERC721, AccessControl, Autogates {
     string private baseTokenURI;
     uint256 public MAX_TOKENS = 24;
 
@@ -15,8 +17,13 @@ contract Arbigates is ERC721, Ownable {
 
     Counters.Counter private _tokenIdCounter;
 
-    constructor(string memory _baseUri) ERC721('Arbigates', 'AGTS') {
+    constructor(
+        uint256 _gateId,
+        string memory _baseUri,
+        uint256 updateInterval
+    ) ERC721('Arbigates', 'AGTS') Autogates(_gateId, updateInterval) {
         baseTokenURI = _baseUri;
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
     // function execute(address user) internal virtual overrides {
@@ -41,5 +48,14 @@ contract Arbigates is ERC721, Ownable {
 
     function withdrawAll() external {
         payable(owner()).transfer(address(this).balance);
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(ERC721, AccessControl)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
     }
 }

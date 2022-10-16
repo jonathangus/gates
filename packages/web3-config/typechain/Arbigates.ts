@@ -20,43 +20,115 @@ import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
 export interface ArbigatesInterface extends utils.Interface {
   contractName: "Arbigates";
   functions: {
+    "DEFAULT_ADMIN_ROLE()": FunctionFragment;
     "MAX_TOKENS()": FunctionFragment;
+    "acceptOwnership()": FunctionFragment;
+    "addAddress(address)": FunctionFragment;
+    "addressesToVerify(uint256)": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
+    "approved()": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
+    "batchVerify()": FunctionFragment;
+    "checkUpkeep(bytes)": FunctionFragment;
+    "counter()": FunctionFragment;
+    "fulfill(bytes32,bool)": FunctionFragment;
+    "gainAccess(address)": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
+    "getRoleAdmin(bytes32)": FunctionFragment;
+    "grantRole(bytes32,address)": FunctionFragment;
+    "hasRole(bytes32,address)": FunctionFragment;
+    "interval()": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
+    "lastChecked()": FunctionFragment;
+    "lastTimeStamp()": FunctionFragment;
     "name()": FunctionFragment;
     "owner()": FunctionFragment;
     "ownerOf(uint256)": FunctionFragment;
-    "renounceOwnership()": FunctionFragment;
+    "performUpkeep(bytes)": FunctionFragment;
+    "renounceRole(bytes32,address)": FunctionFragment;
+    "requestVolumeData(address,uint256)": FunctionFragment;
+    "revokeRole(bytes32,address)": FunctionFragment;
     "safeMint(address)": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
     "setBaseURI(string)": FunctionFragment;
+    "setGate(uint256)": FunctionFragment;
+    "setMintingContract(address)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "symbol()": FunctionFragment;
     "tokenURI(uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
+    "volume()": FunctionFragment;
     "withdrawAll()": FunctionFragment;
+    "withdrawLink()": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "DEFAULT_ADMIN_ROLE",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "MAX_TOKENS",
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "acceptOwnership",
+    values?: undefined
+  ): string;
+  encodeFunctionData(functionFragment: "addAddress", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "addressesToVerify",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "approve",
     values: [string, BigNumberish]
   ): string;
+  encodeFunctionData(functionFragment: "approved", values?: undefined): string;
   encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "batchVerify",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "checkUpkeep",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(functionFragment: "counter", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "fulfill",
+    values: [BytesLike, boolean]
+  ): string;
+  encodeFunctionData(functionFragment: "gainAccess", values: [string]): string;
   encodeFunctionData(
     functionFragment: "getApproved",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "getRoleAdmin",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "grantRole",
+    values: [BytesLike, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "hasRole",
+    values: [BytesLike, string]
+  ): string;
+  encodeFunctionData(functionFragment: "interval", values?: undefined): string;
+  encodeFunctionData(
     functionFragment: "isApprovedForAll",
     values: [string, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "lastChecked",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "lastTimeStamp",
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
@@ -65,8 +137,20 @@ export interface ArbigatesInterface extends utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "renounceOwnership",
-    values?: undefined
+    functionFragment: "performUpkeep",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "renounceRole",
+    values: [BytesLike, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "requestVolumeData",
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "revokeRole",
+    values: [BytesLike, string]
   ): string;
   encodeFunctionData(functionFragment: "safeMint", values: [string]): string;
   encodeFunctionData(
@@ -78,6 +162,14 @@ export interface ArbigatesInterface extends utils.Interface {
     values: [string, boolean]
   ): string;
   encodeFunctionData(functionFragment: "setBaseURI", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "setGate",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setMintingContract",
+    values: [string]
+  ): string;
   encodeFunctionData(
     functionFragment: "supportsInterface",
     values: [BytesLike]
@@ -95,29 +187,83 @@ export interface ArbigatesInterface extends utils.Interface {
     functionFragment: "transferOwnership",
     values: [string]
   ): string;
+  encodeFunctionData(functionFragment: "volume", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "withdrawAll",
     values?: undefined
   ): string;
+  encodeFunctionData(
+    functionFragment: "withdrawLink",
+    values?: undefined
+  ): string;
 
+  decodeFunctionResult(
+    functionFragment: "DEFAULT_ADMIN_ROLE",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "MAX_TOKENS", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "acceptOwnership",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "addAddress", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "addressesToVerify",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "approved", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "batchVerify",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "checkUpkeep",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "counter", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "fulfill", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "gainAccess", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getApproved",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "getRoleAdmin",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "grantRole", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "interval", data: BytesLike): Result;
+  decodeFunctionResult(
     functionFragment: "isApprovedForAll",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "lastChecked",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "lastTimeStamp",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "ownerOf", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "renounceOwnership",
+    functionFragment: "performUpkeep",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "renounceRole",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "requestVolumeData",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "safeMint", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "safeTransferFrom",
@@ -128,6 +274,11 @@ export interface ArbigatesInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setBaseURI", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setGate", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "setMintingContract",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "supportsInterface",
     data: BytesLike
@@ -142,21 +293,42 @@ export interface ArbigatesInterface extends utils.Interface {
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "volume", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "withdrawAll",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "withdrawLink",
     data: BytesLike
   ): Result;
 
   events: {
     "Approval(address,address,uint256)": EventFragment;
     "ApprovalForAll(address,address,bool)": EventFragment;
+    "ChainlinkCancelled(bytes32)": EventFragment;
+    "ChainlinkFulfilled(bytes32)": EventFragment;
+    "ChainlinkRequested(bytes32)": EventFragment;
+    "OwnershipTransferRequested(address,address)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
+    "RequestVolume(bytes32,bool,string)": EventFragment;
+    "RoleAdminChanged(bytes32,bytes32,bytes32)": EventFragment;
+    "RoleGranted(bytes32,address,address)": EventFragment;
+    "RoleRevoked(bytes32,address,address)": EventFragment;
     "Transfer(address,address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ApprovalForAll"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ChainlinkCancelled"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ChainlinkFulfilled"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ChainlinkRequested"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "OwnershipTransferRequested"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RequestVolume"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RoleAdminChanged"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RoleGranted"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RoleRevoked"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
 }
 
@@ -174,13 +346,65 @@ export type ApprovalForAllEvent = TypedEvent<
 
 export type ApprovalForAllEventFilter = TypedEventFilter<ApprovalForAllEvent>;
 
+export type ChainlinkCancelledEvent = TypedEvent<[string], { id: string }>;
+
+export type ChainlinkCancelledEventFilter =
+  TypedEventFilter<ChainlinkCancelledEvent>;
+
+export type ChainlinkFulfilledEvent = TypedEvent<[string], { id: string }>;
+
+export type ChainlinkFulfilledEventFilter =
+  TypedEventFilter<ChainlinkFulfilledEvent>;
+
+export type ChainlinkRequestedEvent = TypedEvent<[string], { id: string }>;
+
+export type ChainlinkRequestedEventFilter =
+  TypedEventFilter<ChainlinkRequestedEvent>;
+
+export type OwnershipTransferRequestedEvent = TypedEvent<
+  [string, string],
+  { from: string; to: string }
+>;
+
+export type OwnershipTransferRequestedEventFilter =
+  TypedEventFilter<OwnershipTransferRequestedEvent>;
+
 export type OwnershipTransferredEvent = TypedEvent<
   [string, string],
-  { previousOwner: string; newOwner: string }
+  { from: string; to: string }
 >;
 
 export type OwnershipTransferredEventFilter =
   TypedEventFilter<OwnershipTransferredEvent>;
+
+export type RequestVolumeEvent = TypedEvent<
+  [string, boolean, string],
+  { requestId: string; approved: boolean; lastChecked: string }
+>;
+
+export type RequestVolumeEventFilter = TypedEventFilter<RequestVolumeEvent>;
+
+export type RoleAdminChangedEvent = TypedEvent<
+  [string, string, string],
+  { role: string; previousAdminRole: string; newAdminRole: string }
+>;
+
+export type RoleAdminChangedEventFilter =
+  TypedEventFilter<RoleAdminChangedEvent>;
+
+export type RoleGrantedEvent = TypedEvent<
+  [string, string, string],
+  { role: string; account: string; sender: string }
+>;
+
+export type RoleGrantedEventFilter = TypedEventFilter<RoleGrantedEvent>;
+
+export type RoleRevokedEvent = TypedEvent<
+  [string, string, string],
+  { role: string; account: string; sender: string }
+>;
+
+export type RoleRevokedEventFilter = TypedEventFilter<RoleRevokedEvent>;
 
 export type TransferEvent = TypedEvent<
   [string, string, BigNumber],
@@ -217,9 +441,41 @@ export interface Arbigates extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>;
+
+    "DEFAULT_ADMIN_ROLE()"(overrides?: CallOverrides): Promise<[string]>;
+
     MAX_TOKENS(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "MAX_TOKENS()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    acceptOwnership(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "acceptOwnership()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    addAddress(
+      _newAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "addAddress(address)"(
+      _newAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    addressesToVerify(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    "addressesToVerify(uint256)"(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
 
     approve(
       to: string,
@@ -233,12 +489,60 @@ export interface Arbigates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    approved(overrides?: CallOverrides): Promise<[boolean]>;
+
+    "approved()"(overrides?: CallOverrides): Promise<[boolean]>;
+
     balanceOf(owner: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "balanceOf(address)"(
       owner: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
+
+    batchVerify(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "batchVerify()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    checkUpkeep(
+      arg0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[boolean, string] & { upkeepNeeded: boolean }>;
+
+    "checkUpkeep(bytes)"(
+      arg0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[boolean, string] & { upkeepNeeded: boolean }>;
+
+    counter(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "counter()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    fulfill(
+      _requestId: BytesLike,
+      _approved: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "fulfill(bytes32,bool)"(
+      _requestId: BytesLike,
+      _approved: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    gainAccess(
+      _newMemb: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "gainAccess(address)"(
+      _newMemb: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     getApproved(
       tokenId: BigNumberish,
@@ -249,6 +553,41 @@ export interface Arbigates extends BaseContract {
       tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[string]>;
+
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<[string]>;
+
+    "getRoleAdmin(bytes32)"(
+      role: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
+
+    grantRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "grantRole(bytes32,address)"(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    hasRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
+    "hasRole(bytes32,address)"(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
+    interval(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "interval()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     isApprovedForAll(
       owner: string,
@@ -261,6 +600,14 @@ export interface Arbigates extends BaseContract {
       operator: string,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
+
+    lastChecked(overrides?: CallOverrides): Promise<[string]>;
+
+    "lastChecked()"(overrides?: CallOverrides): Promise<[string]>;
+
+    lastTimeStamp(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "lastTimeStamp()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     name(overrides?: CallOverrides): Promise<[string]>;
 
@@ -280,11 +627,49 @@ export interface Arbigates extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
-    renounceOwnership(
+    performUpkeep(
+      arg0: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "renounceOwnership()"(
+    "performUpkeep(bytes)"(
+      arg0: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    renounceRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "renounceRole(bytes32,address)"(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    requestVolumeData(
+      _wallet: string,
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "requestVolumeData(address,uint256)"(
+      _wallet: string,
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    revokeRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "revokeRole(bytes32,address)"(
+      role: BytesLike,
+      account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -335,6 +720,26 @@ export interface Arbigates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    setGate(
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "setGate(uint256)"(
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    setMintingContract(
+      _newContract: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "setMintingContract(address)"(
+      _newContract: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     supportsInterface(
       interfaceId: BytesLike,
       overrides?: CallOverrides
@@ -374,14 +779,18 @@ export interface Arbigates extends BaseContract {
     ): Promise<ContractTransaction>;
 
     transferOwnership(
-      newOwner: string,
+      to: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "transferOwnership(address)"(
-      newOwner: string,
+      to: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    volume(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "volume()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     withdrawAll(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -390,11 +799,51 @@ export interface Arbigates extends BaseContract {
     "withdrawAll()"(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    withdrawLink(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "withdrawLink()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
   };
+
+  DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+
+  "DEFAULT_ADMIN_ROLE()"(overrides?: CallOverrides): Promise<string>;
 
   MAX_TOKENS(overrides?: CallOverrides): Promise<BigNumber>;
 
   "MAX_TOKENS()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+  acceptOwnership(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "acceptOwnership()"(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  addAddress(
+    _newAddress: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "addAddress(address)"(
+    _newAddress: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  addressesToVerify(
+    arg0: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  "addressesToVerify(uint256)"(
+    arg0: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
   approve(
     to: string,
@@ -408,12 +857,60 @@ export interface Arbigates extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  approved(overrides?: CallOverrides): Promise<boolean>;
+
+  "approved()"(overrides?: CallOverrides): Promise<boolean>;
+
   balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   "balanceOf(address)"(
     owner: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
+
+  batchVerify(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "batchVerify()"(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  checkUpkeep(
+    arg0: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<[boolean, string] & { upkeepNeeded: boolean }>;
+
+  "checkUpkeep(bytes)"(
+    arg0: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<[boolean, string] & { upkeepNeeded: boolean }>;
+
+  counter(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "counter()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+  fulfill(
+    _requestId: BytesLike,
+    _approved: boolean,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "fulfill(bytes32,bool)"(
+    _requestId: BytesLike,
+    _approved: boolean,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  gainAccess(
+    _newMemb: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "gainAccess(address)"(
+    _newMemb: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   getApproved(
     tokenId: BigNumberish,
@@ -424,6 +921,41 @@ export interface Arbigates extends BaseContract {
     tokenId: BigNumberish,
     overrides?: CallOverrides
   ): Promise<string>;
+
+  getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
+
+  "getRoleAdmin(bytes32)"(
+    role: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
+  grantRole(
+    role: BytesLike,
+    account: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "grantRole(bytes32,address)"(
+    role: BytesLike,
+    account: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  hasRole(
+    role: BytesLike,
+    account: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
+  "hasRole(bytes32,address)"(
+    role: BytesLike,
+    account: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
+  interval(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "interval()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   isApprovedForAll(
     owner: string,
@@ -436,6 +968,14 @@ export interface Arbigates extends BaseContract {
     operator: string,
     overrides?: CallOverrides
   ): Promise<boolean>;
+
+  lastChecked(overrides?: CallOverrides): Promise<string>;
+
+  "lastChecked()"(overrides?: CallOverrides): Promise<string>;
+
+  lastTimeStamp(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "lastTimeStamp()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   name(overrides?: CallOverrides): Promise<string>;
 
@@ -452,11 +992,49 @@ export interface Arbigates extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
-  renounceOwnership(
+  performUpkeep(
+    arg0: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "renounceOwnership()"(
+  "performUpkeep(bytes)"(
+    arg0: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  renounceRole(
+    role: BytesLike,
+    account: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "renounceRole(bytes32,address)"(
+    role: BytesLike,
+    account: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  requestVolumeData(
+    _wallet: string,
+    _gateId: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "requestVolumeData(address,uint256)"(
+    _wallet: string,
+    _gateId: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  revokeRole(
+    role: BytesLike,
+    account: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "revokeRole(bytes32,address)"(
+    role: BytesLike,
+    account: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -507,6 +1085,26 @@ export interface Arbigates extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  setGate(
+    _gateId: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "setGate(uint256)"(
+    _gateId: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  setMintingContract(
+    _newContract: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "setMintingContract(address)"(
+    _newContract: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   supportsInterface(
     interfaceId: BytesLike,
     overrides?: CallOverrides
@@ -543,14 +1141,18 @@ export interface Arbigates extends BaseContract {
   ): Promise<ContractTransaction>;
 
   transferOwnership(
-    newOwner: string,
+    to: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "transferOwnership(address)"(
-    newOwner: string,
+    to: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
+
+  volume(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "volume()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   withdrawAll(
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -560,10 +1162,43 @@ export interface Arbigates extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  withdrawLink(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "withdrawLink()"(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+
+    "DEFAULT_ADMIN_ROLE()"(overrides?: CallOverrides): Promise<string>;
+
     MAX_TOKENS(overrides?: CallOverrides): Promise<BigNumber>;
 
     "MAX_TOKENS()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    acceptOwnership(overrides?: CallOverrides): Promise<void>;
+
+    "acceptOwnership()"(overrides?: CallOverrides): Promise<void>;
+
+    addAddress(_newAddress: string, overrides?: CallOverrides): Promise<void>;
+
+    "addAddress(address)"(
+      _newAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    addressesToVerify(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    "addressesToVerify(uint256)"(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
     approve(
       to: string,
@@ -577,12 +1212,53 @@ export interface Arbigates extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    approved(overrides?: CallOverrides): Promise<boolean>;
+
+    "approved()"(overrides?: CallOverrides): Promise<boolean>;
+
     balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "balanceOf(address)"(
       owner: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    batchVerify(overrides?: CallOverrides): Promise<void>;
+
+    "batchVerify()"(overrides?: CallOverrides): Promise<void>;
+
+    checkUpkeep(
+      arg0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[boolean, string] & { upkeepNeeded: boolean }>;
+
+    "checkUpkeep(bytes)"(
+      arg0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[boolean, string] & { upkeepNeeded: boolean }>;
+
+    counter(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "counter()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    fulfill(
+      _requestId: BytesLike,
+      _approved: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "fulfill(bytes32,bool)"(
+      _requestId: BytesLike,
+      _approved: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    gainAccess(_newMemb: string, overrides?: CallOverrides): Promise<void>;
+
+    "gainAccess(address)"(
+      _newMemb: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     getApproved(
       tokenId: BigNumberish,
@@ -593,6 +1269,41 @@ export interface Arbigates extends BaseContract {
       tokenId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
+
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
+
+    "getRoleAdmin(bytes32)"(
+      role: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    grantRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "grantRole(bytes32,address)"(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    hasRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    "hasRole(bytes32,address)"(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    interval(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "interval()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     isApprovedForAll(
       owner: string,
@@ -605,6 +1316,14 @@ export interface Arbigates extends BaseContract {
       operator: string,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    lastChecked(overrides?: CallOverrides): Promise<string>;
+
+    "lastChecked()"(overrides?: CallOverrides): Promise<string>;
+
+    lastTimeStamp(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "lastTimeStamp()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     name(overrides?: CallOverrides): Promise<string>;
 
@@ -621,9 +1340,48 @@ export interface Arbigates extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
-    renounceOwnership(overrides?: CallOverrides): Promise<void>;
+    performUpkeep(arg0: BytesLike, overrides?: CallOverrides): Promise<void>;
 
-    "renounceOwnership()"(overrides?: CallOverrides): Promise<void>;
+    "performUpkeep(bytes)"(
+      arg0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    renounceRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "renounceRole(bytes32,address)"(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    requestVolumeData(
+      _wallet: string,
+      _gateId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    "requestVolumeData(address,uint256)"(
+      _wallet: string,
+      _gateId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<string>;
+
+    revokeRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "revokeRole(bytes32,address)"(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     safeMint(user: string, overrides?: CallOverrides): Promise<void>;
 
@@ -663,6 +1421,23 @@ export interface Arbigates extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    setGate(_gateId: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
+    "setGate(uint256)"(
+      _gateId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setMintingContract(
+      _newContract: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "setMintingContract(address)"(
+      _newContract: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     supportsInterface(
       interfaceId: BytesLike,
       overrides?: CallOverrides
@@ -698,19 +1473,24 @@ export interface Arbigates extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    transferOwnership(
-      newOwner: string,
+    transferOwnership(to: string, overrides?: CallOverrides): Promise<void>;
+
+    "transferOwnership(address)"(
+      to: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "transferOwnership(address)"(
-      newOwner: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    volume(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "volume()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     withdrawAll(overrides?: CallOverrides): Promise<void>;
 
     "withdrawAll()"(overrides?: CallOverrides): Promise<void>;
+
+    withdrawLink(overrides?: CallOverrides): Promise<void>;
+
+    "withdrawLink()"(overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
@@ -736,14 +1516,82 @@ export interface Arbigates extends BaseContract {
       approved?: null
     ): ApprovalForAllEventFilter;
 
+    "ChainlinkCancelled(bytes32)"(
+      id?: BytesLike | null
+    ): ChainlinkCancelledEventFilter;
+    ChainlinkCancelled(id?: BytesLike | null): ChainlinkCancelledEventFilter;
+
+    "ChainlinkFulfilled(bytes32)"(
+      id?: BytesLike | null
+    ): ChainlinkFulfilledEventFilter;
+    ChainlinkFulfilled(id?: BytesLike | null): ChainlinkFulfilledEventFilter;
+
+    "ChainlinkRequested(bytes32)"(
+      id?: BytesLike | null
+    ): ChainlinkRequestedEventFilter;
+    ChainlinkRequested(id?: BytesLike | null): ChainlinkRequestedEventFilter;
+
+    "OwnershipTransferRequested(address,address)"(
+      from?: string | null,
+      to?: string | null
+    ): OwnershipTransferRequestedEventFilter;
+    OwnershipTransferRequested(
+      from?: string | null,
+      to?: string | null
+    ): OwnershipTransferRequestedEventFilter;
+
     "OwnershipTransferred(address,address)"(
-      previousOwner?: string | null,
-      newOwner?: string | null
+      from?: string | null,
+      to?: string | null
     ): OwnershipTransferredEventFilter;
     OwnershipTransferred(
-      previousOwner?: string | null,
-      newOwner?: string | null
+      from?: string | null,
+      to?: string | null
     ): OwnershipTransferredEventFilter;
+
+    "RequestVolume(bytes32,bool,string)"(
+      requestId?: BytesLike | null,
+      approved?: null,
+      lastChecked?: null
+    ): RequestVolumeEventFilter;
+    RequestVolume(
+      requestId?: BytesLike | null,
+      approved?: null,
+      lastChecked?: null
+    ): RequestVolumeEventFilter;
+
+    "RoleAdminChanged(bytes32,bytes32,bytes32)"(
+      role?: BytesLike | null,
+      previousAdminRole?: BytesLike | null,
+      newAdminRole?: BytesLike | null
+    ): RoleAdminChangedEventFilter;
+    RoleAdminChanged(
+      role?: BytesLike | null,
+      previousAdminRole?: BytesLike | null,
+      newAdminRole?: BytesLike | null
+    ): RoleAdminChangedEventFilter;
+
+    "RoleGranted(bytes32,address,address)"(
+      role?: BytesLike | null,
+      account?: string | null,
+      sender?: string | null
+    ): RoleGrantedEventFilter;
+    RoleGranted(
+      role?: BytesLike | null,
+      account?: string | null,
+      sender?: string | null
+    ): RoleGrantedEventFilter;
+
+    "RoleRevoked(bytes32,address,address)"(
+      role?: BytesLike | null,
+      account?: string | null,
+      sender?: string | null
+    ): RoleRevokedEventFilter;
+    RoleRevoked(
+      role?: BytesLike | null,
+      account?: string | null,
+      sender?: string | null
+    ): RoleRevokedEventFilter;
 
     "Transfer(address,address,uint256)"(
       from?: string | null,
@@ -758,9 +1606,41 @@ export interface Arbigates extends BaseContract {
   };
 
   estimateGas: {
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "DEFAULT_ADMIN_ROLE()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     MAX_TOKENS(overrides?: CallOverrides): Promise<BigNumber>;
 
     "MAX_TOKENS()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    acceptOwnership(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "acceptOwnership()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    addAddress(
+      _newAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "addAddress(address)"(
+      _newAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    addressesToVerify(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "addressesToVerify(uint256)"(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     approve(
       to: string,
@@ -774,11 +1654,56 @@ export interface Arbigates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    approved(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "approved()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     "balanceOf(address)"(
       owner: string,
       overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    batchVerify(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "batchVerify()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    checkUpkeep(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
+
+    "checkUpkeep(bytes)"(
+      arg0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    counter(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "counter()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    fulfill(
+      _requestId: BytesLike,
+      _approved: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "fulfill(bytes32,bool)"(
+      _requestId: BytesLike,
+      _approved: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    gainAccess(
+      _newMemb: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "gainAccess(address)"(
+      _newMemb: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     getApproved(
@@ -791,6 +1716,44 @@ export interface Arbigates extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getRoleAdmin(
+      role: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "getRoleAdmin(bytes32)"(
+      role: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    grantRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "grantRole(bytes32,address)"(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    hasRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    "hasRole(bytes32,address)"(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    interval(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "interval()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     isApprovedForAll(
       owner: string,
       operator: string,
@@ -802,6 +1765,14 @@ export interface Arbigates extends BaseContract {
       operator: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    lastChecked(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "lastChecked()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    lastTimeStamp(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "lastTimeStamp()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -821,11 +1792,49 @@ export interface Arbigates extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    renounceOwnership(
+    performUpkeep(
+      arg0: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "renounceOwnership()"(
+    "performUpkeep(bytes)"(
+      arg0: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    renounceRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "renounceRole(bytes32,address)"(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    requestVolumeData(
+      _wallet: string,
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "requestVolumeData(address,uint256)"(
+      _wallet: string,
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    revokeRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "revokeRole(bytes32,address)"(
+      role: BytesLike,
+      account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -873,6 +1882,26 @@ export interface Arbigates extends BaseContract {
 
     "setBaseURI(string)"(
       _newBaseURI: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    setGate(
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "setGate(uint256)"(
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    setMintingContract(
+      _newContract: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "setMintingContract(address)"(
+      _newContract: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -915,14 +1944,18 @@ export interface Arbigates extends BaseContract {
     ): Promise<BigNumber>;
 
     transferOwnership(
-      newOwner: string,
+      to: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "transferOwnership(address)"(
-      newOwner: string,
+      to: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    volume(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "volume()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     withdrawAll(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -931,12 +1964,56 @@ export interface Arbigates extends BaseContract {
     "withdrawAll()"(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    withdrawLink(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "withdrawLink()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    DEFAULT_ADMIN_ROLE(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "DEFAULT_ADMIN_ROLE()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     MAX_TOKENS(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "MAX_TOKENS()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    acceptOwnership(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "acceptOwnership()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    addAddress(
+      _newAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "addAddress(address)"(
+      _newAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    addressesToVerify(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "addressesToVerify(uint256)"(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     approve(
       to: string,
@@ -950,6 +2027,10 @@ export interface Arbigates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    approved(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "approved()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     balanceOf(
       owner: string,
       overrides?: CallOverrides
@@ -958,6 +2039,50 @@ export interface Arbigates extends BaseContract {
     "balanceOf(address)"(
       owner: string,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    batchVerify(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "batchVerify()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    checkUpkeep(
+      arg0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "checkUpkeep(bytes)"(
+      arg0: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    counter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "counter()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    fulfill(
+      _requestId: BytesLike,
+      _approved: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "fulfill(bytes32,bool)"(
+      _requestId: BytesLike,
+      _approved: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    gainAccess(
+      _newMemb: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "gainAccess(address)"(
+      _newMemb: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     getApproved(
@@ -970,6 +2095,44 @@ export interface Arbigates extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getRoleAdmin(
+      role: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "getRoleAdmin(bytes32)"(
+      role: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    grantRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "grantRole(bytes32,address)"(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    hasRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "hasRole(bytes32,address)"(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    interval(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "interval()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     isApprovedForAll(
       owner: string,
       operator: string,
@@ -981,6 +2144,14 @@ export interface Arbigates extends BaseContract {
       operator: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
+
+    lastChecked(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "lastChecked()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    lastTimeStamp(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "lastTimeStamp()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1000,11 +2171,49 @@ export interface Arbigates extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    renounceOwnership(
+    performUpkeep(
+      arg0: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "renounceOwnership()"(
+    "performUpkeep(bytes)"(
+      arg0: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    renounceRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "renounceRole(bytes32,address)"(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    requestVolumeData(
+      _wallet: string,
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "requestVolumeData(address,uint256)"(
+      _wallet: string,
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    revokeRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "revokeRole(bytes32,address)"(
+      role: BytesLike,
+      account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1055,6 +2264,26 @@ export interface Arbigates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    setGate(
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "setGate(uint256)"(
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setMintingContract(
+      _newContract: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "setMintingContract(address)"(
+      _newContract: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     supportsInterface(
       interfaceId: BytesLike,
       overrides?: CallOverrides
@@ -1094,20 +2323,32 @@ export interface Arbigates extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     transferOwnership(
-      newOwner: string,
+      to: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "transferOwnership(address)"(
-      newOwner: string,
+      to: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
+
+    volume(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "volume()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     withdrawAll(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "withdrawAll()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    withdrawLink(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "withdrawLink()"(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

@@ -21,18 +21,22 @@ export interface AutogatesInterface extends utils.Interface {
   contractName: "Autogates";
   functions: {
     "acceptOwnership()": FunctionFragment;
+    "addAddress(address)": FunctionFragment;
     "addressesToVerify(uint256)": FunctionFragment;
     "approved()": FunctionFragment;
     "batchVerify()": FunctionFragment;
     "checkUpkeep(bytes)": FunctionFragment;
     "counter()": FunctionFragment;
     "fulfill(bytes32,bool)": FunctionFragment;
+    "gainAccess(address)": FunctionFragment;
     "interval()": FunctionFragment;
     "lastChecked()": FunctionFragment;
     "lastTimeStamp()": FunctionFragment;
     "owner()": FunctionFragment;
     "performUpkeep(bytes)": FunctionFragment;
-    "requestVolumeData(address,string)": FunctionFragment;
+    "requestVolumeData(address,uint256)": FunctionFragment;
+    "setGate(uint256)": FunctionFragment;
+    "setMintingContract(address)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "volume()": FunctionFragment;
     "withdrawLink()": FunctionFragment;
@@ -42,6 +46,7 @@ export interface AutogatesInterface extends utils.Interface {
     functionFragment: "acceptOwnership",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "addAddress", values: [string]): string;
   encodeFunctionData(
     functionFragment: "addressesToVerify",
     values: [BigNumberish]
@@ -60,6 +65,7 @@ export interface AutogatesInterface extends utils.Interface {
     functionFragment: "fulfill",
     values: [BytesLike, boolean]
   ): string;
+  encodeFunctionData(functionFragment: "gainAccess", values: [string]): string;
   encodeFunctionData(functionFragment: "interval", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "lastChecked",
@@ -76,7 +82,15 @@ export interface AutogatesInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "requestVolumeData",
-    values: [string, string]
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setGate",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setMintingContract",
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
@@ -92,6 +106,7 @@ export interface AutogatesInterface extends utils.Interface {
     functionFragment: "acceptOwnership",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "addAddress", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "addressesToVerify",
     data: BytesLike
@@ -107,6 +122,7 @@ export interface AutogatesInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "counter", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "fulfill", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "gainAccess", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "interval", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "lastChecked",
@@ -123,6 +139,11 @@ export interface AutogatesInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "requestVolumeData",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "setGate", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "setMintingContract",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -226,6 +247,16 @@ export interface Autogates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    addAddress(
+      _newAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "addAddress(address)"(
+      _newAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     addressesToVerify(
       arg0: BigNumberish,
       overrides?: CallOverrides
@@ -274,6 +305,16 @@ export interface Autogates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    gainAccess(
+      _newMemb: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "gainAccess(address)"(
+      _newMemb: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     interval(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "interval()"(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -302,13 +343,33 @@ export interface Autogates extends BaseContract {
 
     requestVolumeData(
       _wallet: string,
-      _gateId: string,
+      _gateId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "requestVolumeData(address,string)"(
+    "requestVolumeData(address,uint256)"(
       _wallet: string,
-      _gateId: string,
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    setGate(
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "setGate(uint256)"(
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    setMintingContract(
+      _newContract: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "setMintingContract(address)"(
+      _newContract: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -340,6 +401,16 @@ export interface Autogates extends BaseContract {
   ): Promise<ContractTransaction>;
 
   "acceptOwnership()"(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  addAddress(
+    _newAddress: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "addAddress(address)"(
+    _newAddress: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -391,6 +462,16 @@ export interface Autogates extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  gainAccess(
+    _newMemb: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "gainAccess(address)"(
+    _newMemb: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   interval(overrides?: CallOverrides): Promise<BigNumber>;
 
   "interval()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -419,13 +500,33 @@ export interface Autogates extends BaseContract {
 
   requestVolumeData(
     _wallet: string,
-    _gateId: string,
+    _gateId: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "requestVolumeData(address,string)"(
+  "requestVolumeData(address,uint256)"(
     _wallet: string,
-    _gateId: string,
+    _gateId: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  setGate(
+    _gateId: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "setGate(uint256)"(
+    _gateId: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  setMintingContract(
+    _newContract: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "setMintingContract(address)"(
+    _newContract: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -455,6 +556,13 @@ export interface Autogates extends BaseContract {
     acceptOwnership(overrides?: CallOverrides): Promise<void>;
 
     "acceptOwnership()"(overrides?: CallOverrides): Promise<void>;
+
+    addAddress(_newAddress: string, overrides?: CallOverrides): Promise<void>;
+
+    "addAddress(address)"(
+      _newAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     addressesToVerify(
       arg0: BigNumberish,
@@ -500,6 +608,13 @@ export interface Autogates extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    gainAccess(_newMemb: string, overrides?: CallOverrides): Promise<void>;
+
+    "gainAccess(address)"(
+      _newMemb: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     interval(overrides?: CallOverrides): Promise<BigNumber>;
 
     "interval()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -525,15 +640,32 @@ export interface Autogates extends BaseContract {
 
     requestVolumeData(
       _wallet: string,
-      _gateId: string,
+      _gateId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
 
-    "requestVolumeData(address,string)"(
+    "requestVolumeData(address,uint256)"(
       _wallet: string,
-      _gateId: string,
+      _gateId: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
+
+    setGate(_gateId: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
+    "setGate(uint256)"(
+      _gateId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setMintingContract(
+      _newContract: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "setMintingContract(address)"(
+      _newContract: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     transferOwnership(to: string, overrides?: CallOverrides): Promise<void>;
 
@@ -606,6 +738,16 @@ export interface Autogates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    addAddress(
+      _newAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "addAddress(address)"(
+      _newAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     addressesToVerify(
       arg0: BigNumberish,
       overrides?: CallOverrides
@@ -651,6 +793,16 @@ export interface Autogates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    gainAccess(
+      _newMemb: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "gainAccess(address)"(
+      _newMemb: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     interval(overrides?: CallOverrides): Promise<BigNumber>;
 
     "interval()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -679,13 +831,33 @@ export interface Autogates extends BaseContract {
 
     requestVolumeData(
       _wallet: string,
-      _gateId: string,
+      _gateId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "requestVolumeData(address,string)"(
+    "requestVolumeData(address,uint256)"(
       _wallet: string,
-      _gateId: string,
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    setGate(
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "setGate(uint256)"(
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    setMintingContract(
+      _newContract: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "setMintingContract(address)"(
+      _newContract: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -718,6 +890,16 @@ export interface Autogates extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     "acceptOwnership()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    addAddress(
+      _newAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "addAddress(address)"(
+      _newAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -769,6 +951,16 @@ export interface Autogates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    gainAccess(
+      _newMemb: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "gainAccess(address)"(
+      _newMemb: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     interval(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "interval()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -797,13 +989,33 @@ export interface Autogates extends BaseContract {
 
     requestVolumeData(
       _wallet: string,
-      _gateId: string,
+      _gateId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "requestVolumeData(address,string)"(
+    "requestVolumeData(address,uint256)"(
       _wallet: string,
-      _gateId: string,
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setGate(
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "setGate(uint256)"(
+      _gateId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setMintingContract(
+      _newContract: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "setMintingContract(address)"(
+      _newContract: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

@@ -3,6 +3,11 @@
     "inputs": [
       {
         "internalType": "uint256",
+        "name": "_gateId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
         "name": "updateInterval",
         "type": "uint256"
       }
@@ -122,6 +127,19 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "_newAddress",
+        "type": "address"
+      }
+    ],
+    "name": "addAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
@@ -214,6 +232,19 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_newMemb",
+        "type": "address"
+      }
+    ],
+    "name": "gainAccess",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "interval",
     "outputs": [
@@ -286,9 +317,9 @@
         "type": "address"
       },
       {
-        "internalType": "string",
+        "internalType": "uint256",
         "name": "_gateId",
-        "type": "string"
+        "type": "uint256"
       }
     ],
     "name": "requestVolumeData",
@@ -299,6 +330,32 @@
         "type": "bytes32"
       }
     ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_gateId",
+        "type": "uint256"
+      }
+    ],
+    "name": "setGate",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_newContract",
+        "type": "address"
+      }
+    ],
+    "name": "setMintingContract",
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
