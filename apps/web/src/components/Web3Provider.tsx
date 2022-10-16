@@ -23,41 +23,22 @@ import { Status } from 'reapop';
 import { ENDPOINTS } from '../utils/endpoints';
 import * as allChains from 'wagmi/chains';
 
-const coinbaseProvider = jsonRpcProvider({
-  rpc: (chain) => ({
-    http:
-      chain == allChains.mainnet
-        ? `https://${ENDPOINTS.COINBASE_MAINNET_USERNAME}:${ENDPOINTS.COINBASE_MAINNET_PASSWORD}@${ENDPOINTS.COINBASE_MAINNET_NODE}`
-        : chain == allChains.goerli
-        ? `https://${ENDPOINTS.COINBASE_GOERLI_USERNAME}:${ENDPOINTS.COINBASE_GOERLI_PASSWORD}@${ENDPOINTS.COINBASE_GOERLI_NODE}`
-        : '',
-  }),
-});
-
-const poktProvider = jsonRpcProvider({
-  rpc: (chain) => ({
-    http:
-      chain == allChains.mainnet
-        ? `https://eth-mainnet.gateway.pokt.network/v1/lb/e82b7a00898269c1b047c2e8`
-        : chain == allChains.optimism
-        ? `https://optimism-mainnet.gateway.pokt.network/v1/lb/e82b7a00898269c1b047c2e8`
-        : '',
-  }),
-});
-
 const { chains, provider } = configureChains(
-  [chain.optimismGoerli],
+  [chain.arbitrumGoerli],
   [
-    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY }),
-    coinbaseProvider,
-    poktProvider,
+    jsonRpcProvider({
+      rpc: () => ({
+        http: 'https://rough-neat-crater.arbitrum-goerli.discover.quiknode.pro/73721a90cdd5340c3d3622b93bb42d7d522f159b/',
+      }),
+    }),
+    // alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY }),
     publicProvider(),
   ]
 );
 
 const { connectors } = getDefaultWallets({
   chains,
-  appName: 'Gates',
+  appName: 'ArbiGates',
 });
 
 const wagmiClient = createClient({

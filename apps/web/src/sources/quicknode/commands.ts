@@ -29,20 +29,17 @@ export const hasMinTokenBalance = async (
     ENDPOINTS.QUICKNODE_MAINNET
   );
 
-  console.log({
-    wallet: ctx.wallet,
-    contracts: [args.contractAddress],
-  });
   const tokens = await provider.send('qn_getWalletTokenBalance', {
     wallet: ctx.wallet,
     contracts: [args.contractAddress],
   });
-
   if (tokens.assets.length == 0) {
     return false;
   }
 
+  const decimals = tokens.assets[0].decimals;
+
   return BigNumber.from(tokens.assets[0].amount).gte(
-    ethers.utils.parseEther(args.minAmount + '')
+    ethers.utils.parseUnits(args.minAmount + '', decimals)
   );
 };

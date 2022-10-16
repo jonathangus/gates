@@ -43,22 +43,19 @@ const handler: NextApiHandler = async (req, res) => {
     return res.status(500).send('invalid wallet address');
   }
 
-  const provider = new ethers.providers.JsonRpcBatchProvider(
-    `https://opt-goerli.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
-  );
-
-  const contract = Gates__factory.connect(
-    getAddress(chain.optimismGoerli.id, 'Gates'),
-    provider
-  );
-  console.log({ gateId });
-  const data = await contract.conditions(gateId);
-
-  const conditions = JSON.parse(ethers.utils.toUtf8String(data));
-  console.log(conditions);
-  const verifier = new ConditionVerifier({ address, conditions });
-
   try {
+    const provider = new ethers.providers.JsonRpcBatchProvider(
+      `https://arb-goerli.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`
+    );
+
+    const contract = Gates__factory.connect(
+      getAddress(chain.arbitrumGoerli.id, 'Gates'),
+      provider
+    );
+    const data = await contract.conditions(gateId);
+    const conditions = JSON.parse(ethers.utils.toUtf8String(data));
+    const verifier = new ConditionVerifier({ address, conditions });
+
     const userData = (await readPersonalData(address)) as UserData;
     const success = await verifier.verify({
       wallet: address,

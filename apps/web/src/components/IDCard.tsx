@@ -85,13 +85,10 @@ const IDCard = (props) => {
     staleTime: 20000,
   });
 
-  console.log(error);
-
   const { data: avatar } = useEnsAvatar({
     addressOrName: account.address,
     chainId: 1,
   });
-  console.log('avanatar:', avatar);
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -126,23 +123,27 @@ const IDCard = (props) => {
       >
         <div style={{ padding: 30 }}>
           <Text style={{ display: 'flex', alignItems: 'center' }}>
-            {avatar && (
+            {avatar && mounted && (
               <img
                 style={{ width: 40, marginRight: 5, borderRadius: '50%' }}
                 src={avatar}
               />
             )}
-            {isLoading
-              ? ''
-              : data
-              ? data
-              : account.address
-              ? formatAddressToShort(account.address)
-              : ''}
+            {mounted && (
+              <div>
+                {isLoading
+                  ? ''
+                  : data
+                  ? data
+                  : account.address
+                  ? formatAddressToShort(account.address)
+                  : ''}
+              </div>
+            )}
           </Text>
         </div>
 
-        {account && account.address ? (
+        {account && mounted && account.address ? (
           <div style={{ padding: 30 }}>
             {credentials.map((item) => (
               <div

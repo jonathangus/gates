@@ -1,9 +1,8 @@
 import { Input, Space } from '@mantine/core';
 import { Gated } from 'gates.wtf';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { Button } from 'ui';
 import GatedDemoContent from '../components/GatedDemoContent';
+import LivepeerDemo from '../components/LivepeerDemo';
 
 const Demo = () => {
   const router = useRouter();
@@ -16,21 +15,17 @@ const Demo = () => {
           value={router?.query?.id || ''}
           onChange={(e) => {
             if (e.target.value == '') {
-              router.push(`/demo?id=`);
+              router.push(`/livepeer-demo?id=`);
             }
 
             if (!isNaN(e.target.value)) {
-              router.push(`/demo?id=${e.target.value}`);
+              router.push(`/livepeer-demo?id=${e.target.value}`);
             }
           }}
         />
       </div>
       <Space h={30} />
-      {demoId && (
-        <Gated gateId={demoId as string}>
-          <GatedDemoContent demoId={demoId as string} />
-        </Gated>
-      )}
+      {demoId && <LivepeerDemo gateId={demoId as string} />}
     </div>
   );
 };

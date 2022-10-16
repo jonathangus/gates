@@ -4,8 +4,10 @@ pragma solidity ^0.8.14;
 contract Gates {
     uint256 count = 0;
     mapping(uint256 => bytes) public conditions;
+    mapping(bytes32 => address[]) public gates;
 
     event Created(uint256 gateId, address creator);
+    event SnapshotCreated(bytes32 snapshotId, uint256 gateId, address creator);
 
     function add(bytes calldata _conditions) public {
         conditions[count] = _conditions;
@@ -13,77 +15,26 @@ contract Gates {
         count++;
     }
 
-    function getMessageHash(uint256 gateId) public pure returns (bytes32) {
-        return keccak256(abi.encodePacked(gateId));
-    }
-
-    function getEthSignedMessageHash(bytes32 _messageHash)
-        internal
-        pure
-        returns (bytes32)
+    function verify(address user, bytes32 snapshotId)
+        public
+        view
+        returns (bool)
     {
-        /*
-        Signature is produced by signing a keccak256 hash with the following format:
-        "\x19Ethereum Signed Message\n" + len(msg) + msg
-        */
-        return
-            keccak256(
-                abi.encodePacked(
-                    '\x19Ethereum Signed Message:\n32',
-                    _messageHash
-                )
-            );
-    }
-
-    function verify(
-        address _signer,
-        uint256 gateId,
-        bytes memory signature
-    ) external pure returns (bool) {
-        bytes32 messageHash = getMessageHash(gateId);
-        bytes32 ethSignedMessageHash = getEthSignedMessageHash(messageHash);
-
-        return recoverSigner(ethSignedMessageHash, signature) == _signer;
-    }
-
-    function recoverSigner(
-        bytes32 _ethSignedMessageHash,
-        bytes memory _signature
-    ) internal pure returns (address) {
-        (bytes32 r, bytes32 s, uint8 v) = splitSignature(_signature);
-
-        return ecrecover(_ethSignedMessageHash, v, r, s);
-    }
-
-    function splitSignature(bytes memory sig)
-        internal
-        pure
-        returns (
-            bytes32 r,
-            bytes32 s,
-            uint8 v
-        )
-    {
-        require(sig.length == 65, 'invalid signature length');
-
-        assembly {
-            /*
-            First 32 bytes stores the length of the signature
-
-            add(sig, 32) = pointer of sig + 32
-            effectively, skips first 32 bytes of signature
-
-            mload(p) loads next 32 bytes starting at the memory address p into memory
-            */
-
-            // first 32 bytes, after the length prefix
-            r := mload(add(sig, 32))
-            // second 32 bytes
-            s := mload(add(sig, 64))
-            // final byte (first byte of the next 32 bytes)
-            v := byte(0, mload(add(sig, 96)))
+        // TODO create merkle tree or zkproof
+        for (uint256 i = 0; i < gates[snapshotId].length; i++) {
+            if (gates[snapshotId][i] == user) {
+                return true;
+            }
         }
 
-        // implicitly return (r, s, v)
+        return false;
+    }
+
+    function createSnapShot(uint256 gateId, address[] calldata addresses)
+        public
+    {
+        bytes32 id = keccak256(abi.encodePacked(gateId, msg.sender));
+        gates[id] = addresses;
+        emit SnapshotCreated(id, gateId, msg.sender);
     }
 }

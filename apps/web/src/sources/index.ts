@@ -6,9 +6,13 @@ import { source as githubSource } from './github';
 import { source as poapSource } from './poap';
 import { source as worldcoinSource } from './worldcoin';
 import { source as spotifySource } from './spotify';
+import { source as treasureSource } from './treasure';
+import { source as arbiQuestSource } from './arbitrum-quests';
 
 export const sources = {
+  [treasureSource.id]: treasureSource,
   [quickNodeSource.id]: quickNodeSource,
+  [arbiQuestSource.id]: arbiQuestSource,
   [githubSource.id]: githubSource,
   [poapSource.id]: poapSource,
   [theGraphSource.id]: theGraphSource,

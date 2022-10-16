@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { useAccount } from 'wagmi';
 import { useContractWrite } from 'wagmi-lfg';
 import { Gates__factory } from 'web3-config';
+import useCorrectChain from '../hooks/useCorrectChain';
 import useEvent from '../hooks/useEvent';
 import { hasMinTokenBalance } from '../sources/quicknode/commands';
 import { useFieldStore } from '../stores/useFieldStore';
@@ -26,9 +27,9 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
   });
 
   const { address } = useAccount();
-
+  const { isSupported } = useCorrectChain();
   const [gateId, setGateId] = useState<BigNumber>();
-  const events = useEvent(Gates__factory, 'Created', {
+  useEvent(Gates__factory, 'Created', {
     // args: [null, address],
     onChange: (data) => {
       if (data[1] == address) {
@@ -37,7 +38,6 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
     },
   });
 
-  console.log(itemz);
   const items = JSON.stringify(itemz);
   // const items = JSON.stringify([
   //   // `api:get:${JSON.stringify(apiData)}`,
@@ -72,7 +72,6 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
 
   const create = () => {
     console.log(itemz);
-    console.log('GOOGO');
     write({ args: [condition] });
   };
 
@@ -103,10 +102,7 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
           <Text size="sm" style={{ display: 'flex' }}>
             <div style={{ paddingTop: 1 }}>
               <CopyButton
-                value={
-                  'https://gates.wtf/api/verify?address=${address}&gateId=' +
-                  gateId.toString()
-                }
+                value={`https://gates.wtf/api/verify?address=${address}&gateId=${gateId.toString()}`}
               >
                 {({ copied, copy }) => (
                   <UnstyledButton onClick={copy}>
@@ -118,17 +114,16 @@ const CreateConditionsButton = ({ gatedConditions = [] }: Props) => {
             <Space w={10} />
             <Text style={{ color: 'white' }}>GET </Text>
             <Space w={5} />
-            {'https://gates.wtf/api/verify?address=${address}&gateId=' +
-              gateId.toString()}
+            {`https://gates.wtf/api/verify?address=${address}&gateId=${gateId.toString()}`}
           </Text>
         </Popover.Dropdown>
       </Popover>
     );
   }
+
   return (
     <Button
-      disabled={!address}
-      // disabled={itemz.length == 0}
+      disabled={!address || !isSupported}
       loading={isLoading}
       onClick={create}
       style={{

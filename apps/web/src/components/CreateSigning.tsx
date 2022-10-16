@@ -14,8 +14,7 @@ const CreateSigning = (props) => {
 
   const githubToken = useUserStore((state) => state.githubToken);
   const worldcoinJwt = useUserStore((state) => state.worldcoinJwt);
-  console.log('githubToken', githubToken);
-  console.log('worldcoinJwt', worldcoinJwt);
+
   const uploadData = (did: string) => {
     axios.post('/api/save-data', {
       wallet: address,
@@ -26,8 +25,6 @@ const CreateSigning = (props) => {
       },
     });
   };
-
-  console.log(githubToken);
 
   const [loading, setLoading] = useState(true);
   const signData = async () => {
