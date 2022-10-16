@@ -7,7 +7,7 @@ import '@openzeppelin/contracts/utils/Counters.sol';
 import './Autogates.sol';
 import '@openzeppelin/contracts/access/AccessControl.sol';
 
-contract Arbigates is ERC721, AccessControl, Autogates {
+contract ArbiGates is ERC721, AccessControl, Autogates {
     string private baseTokenURI;
     uint256 public MAX_TOKENS = 24;
 

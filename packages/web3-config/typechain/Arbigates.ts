@@ -17,8 +17,8 @@ import { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
 import { Listener, Provider } from "@ethersproject/providers";
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
 
-export interface ArbigatesInterface extends utils.Interface {
-  contractName: "Arbigates";
+export interface ArbiGatesInterface extends utils.Interface {
+  contractName: "ArbiGates";
   functions: {
     "DEFAULT_ADMIN_ROLE()": FunctionFragment;
     "MAX_TOKENS()": FunctionFragment;
@@ -428,13 +428,13 @@ export type TransferEvent = TypedEvent<
 
 export type TransferEventFilter = TypedEventFilter<TransferEvent>;
 
-export interface Arbigates extends BaseContract {
-  contractName: "Arbigates";
+export interface ArbiGates extends BaseContract {
+  contractName: "ArbiGates";
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: ArbigatesInterface;
+  interface: ArbiGatesInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
