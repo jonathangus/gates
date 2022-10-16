@@ -19,16 +19,17 @@ const NFTs = () => {
     {
       reckless: true,
       onSuccess: () => {
-        // set localstorage
-        // set state
+        localStorage.setItem('minted', "true")
+        setMinted(true)
+        setIsSignedUp(false)
       },
     }
   );
 
-  const { data: balanceOf } = useContractRead(Arbigates__factory, 'balanceOf', {
-    args: [address],
-    enabled: Boolean(address),
-  });
+  // const { data: balanceOf } = useContractRead(Arbigates__factory, 'balanceOf', {
+  //   args: [address],
+  //   enabled: Boolean(address),
+  // });
 
   const { data: match } = useContractRead(
     Arbigates__factory,
@@ -53,29 +54,34 @@ const NFTs = () => {
   return (
     <Box style={{ display: 'flex', flexDirection: 'column' }}>
       {alreadySignedUp
-        ? "You're already signed up!"
+        ? "You've already minted!"
         : 'Sign up to mint the NFT'}
       <Space h={30} />
 
-      {balanceOf && <div>you own {balanceOf.toString()}</div>}
+      {/* {balanceOf && <div>you own {balanceOf.toString()}</div>} */}
 
       {eligible && isSignedUp && (
         <div>User is eligible. You should receive an NFT. Wait a minute...</div>
       )}
       <Button
-        disabled={isSignedUp}
         style={{ width: '100px' }}
         loading={isLoading}
+        disabled={alreadySignedUp}
         onClick={(e) => {
+          if(localStorage.getItem("minted")) {
+            setAlreadySignedUp(true)
+            return;
+          }
           write({
             args: [address],
           });
+          setIsSignedUp(true)
         }}
       >
         Sign up
       </Button>
       <Space h={30} />
-      {eligible && isSignedUp && (
+      {minted && (
         <>
           <Text>Token Id: 1337</Text>
 
