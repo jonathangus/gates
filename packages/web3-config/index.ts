@@ -5,7 +5,7 @@ import gatesgoerliDeployment from './deployments/goerli/Gates.json';
 export * from './typechain';
 import * as _typechain from './typechain';
 import { chain } from 'wagmi';
-import { Arbigates__factory } from './typechain/factories/Arbigates__factory';
+import { ArbiGates__factory } from './typechain/factories/ArbiGates__factory';
 
 import { Gates__factory } from './typechain';
 
@@ -14,7 +14,8 @@ export type AvailableContracts = any;
 type AddressObj = Record<AvailableContracts, string>;
 
 const _gates = new Gates__factory();
-const _arbiGates = new Arbigates__factory();
+const _arbiGates = new ArbiGates__factory();
+export const Arbigates__factory = ArbiGates__factory;
 
 export const Address: Record<number, AddressObj> = {
   [chain.arbitrumGoerli.id]: {
