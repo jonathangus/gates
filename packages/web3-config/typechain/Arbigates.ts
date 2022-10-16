@@ -29,8 +29,8 @@ export interface ArbiGatesInterface extends utils.Interface {
     "approved()": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "batchVerify()": FunctionFragment;
-    "buildUrl(address,uint256)": FunctionFragment;
     "checkUpkeep(bytes)": FunctionFragment;
+    "clearAddresses()": FunctionFragment;
     "counter()": FunctionFragment;
     "fulfill(bytes32,bool)": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
@@ -53,13 +53,14 @@ export interface ArbiGatesInterface extends utils.Interface {
     "setApprovalForAll(address,bool)": FunctionFragment;
     "setBaseURI(string)": FunctionFragment;
     "setGate(uint256)": FunctionFragment;
-    "setMintingContract(address)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "symbol()": FunctionFragment;
     "tokenURI(uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "uintToString(uint256)": FunctionFragment;
+    "updateChainlinkOracle(address)": FunctionFragment;
+    "updateChainlinkToken(address)": FunctionFragment;
     "volume()": FunctionFragment;
     "withdrawAll()": FunctionFragment;
     "withdrawLink()": FunctionFragment;
@@ -93,12 +94,12 @@ export interface ArbiGatesInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "buildUrl",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
     functionFragment: "checkUpkeep",
     values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "clearAddresses",
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "counter", values?: undefined): string;
   encodeFunctionData(
@@ -171,10 +172,6 @@ export interface ArbiGatesInterface extends utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "setMintingContract",
-    values: [string]
-  ): string;
-  encodeFunctionData(
     functionFragment: "supportsInterface",
     values: [BytesLike]
   ): string;
@@ -194,6 +191,14 @@ export interface ArbiGatesInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "uintToString",
     values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateChainlinkOracle",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateChainlinkToken",
+    values: [string]
   ): string;
   encodeFunctionData(functionFragment: "volume", values?: undefined): string;
   encodeFunctionData(
@@ -226,9 +231,12 @@ export interface ArbiGatesInterface extends utils.Interface {
     functionFragment: "batchVerify",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "buildUrl", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "checkUpkeep",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "clearAddresses",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "counter", data: BytesLike): Result;
@@ -284,10 +292,6 @@ export interface ArbiGatesInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "setBaseURI", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setGate", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "setMintingContract",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "supportsInterface",
     data: BytesLike
   ): Result;
@@ -303,6 +307,14 @@ export interface ArbiGatesInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "uintToString",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateChainlinkOracle",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateChainlinkToken",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "volume", data: BytesLike): Result;
@@ -520,18 +532,6 @@ export interface ArbiGates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    buildUrl(
-      _wallet: string,
-      _gateId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
-    "buildUrl(address,uint256)"(
-      _wallet: string,
-      _gateId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
     checkUpkeep(
       arg0: BytesLike,
       overrides?: CallOverrides
@@ -541,6 +541,14 @@ export interface ArbiGates extends BaseContract {
       arg0: BytesLike,
       overrides?: CallOverrides
     ): Promise<[boolean, string] & { upkeepNeeded: boolean }>;
+
+    clearAddresses(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "clearAddresses()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     counter(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -744,16 +752,6 @@ export interface ArbiGates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setMintingContract(
-      _newContract: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "setMintingContract(address)"(
-      _newContract: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     supportsInterface(
       interfaceId: BytesLike,
       overrides?: CallOverrides
@@ -811,6 +809,26 @@ export interface ArbiGates extends BaseContract {
       _value: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[string]>;
+
+    updateChainlinkOracle(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "updateChainlinkOracle(address)"(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    updateChainlinkToken(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "updateChainlinkToken(address)"(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     volume(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -900,18 +918,6 @@ export interface ArbiGates extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  buildUrl(
-    _wallet: string,
-    _gateId: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
-  "buildUrl(address,uint256)"(
-    _wallet: string,
-    _gateId: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
   checkUpkeep(
     arg0: BytesLike,
     overrides?: CallOverrides
@@ -921,6 +927,14 @@ export interface ArbiGates extends BaseContract {
     arg0: BytesLike,
     overrides?: CallOverrides
   ): Promise<[boolean, string] & { upkeepNeeded: boolean }>;
+
+  clearAddresses(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "clearAddresses()"(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   counter(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1121,16 +1135,6 @@ export interface ArbiGates extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setMintingContract(
-    _newContract: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  "setMintingContract(address)"(
-    _newContract: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   supportsInterface(
     interfaceId: BytesLike,
     overrides?: CallOverrides
@@ -1185,6 +1189,26 @@ export interface ArbiGates extends BaseContract {
     _value: BigNumberish,
     overrides?: CallOverrides
   ): Promise<string>;
+
+  updateChainlinkOracle(
+    _tokenAddress: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "updateChainlinkOracle(address)"(
+    _tokenAddress: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  updateChainlinkToken(
+    _tokenAddress: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "updateChainlinkToken(address)"(
+    _tokenAddress: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   volume(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1263,18 +1287,6 @@ export interface ArbiGates extends BaseContract {
 
     "batchVerify()"(overrides?: CallOverrides): Promise<void>;
 
-    buildUrl(
-      _wallet: string,
-      _gateId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    "buildUrl(address,uint256)"(
-      _wallet: string,
-      _gateId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
     checkUpkeep(
       arg0: BytesLike,
       overrides?: CallOverrides
@@ -1284,6 +1296,10 @@ export interface ArbiGates extends BaseContract {
       arg0: BytesLike,
       overrides?: CallOverrides
     ): Promise<[boolean, string] & { upkeepNeeded: boolean }>;
+
+    clearAddresses(overrides?: CallOverrides): Promise<void>;
+
+    "clearAddresses()"(overrides?: CallOverrides): Promise<void>;
 
     counter(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1469,16 +1485,6 @@ export interface ArbiGates extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setMintingContract(
-      _newContract: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "setMintingContract(address)"(
-      _newContract: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     supportsInterface(
       interfaceId: BytesLike,
       overrides?: CallOverrides
@@ -1530,6 +1536,26 @@ export interface ArbiGates extends BaseContract {
       _value: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
+
+    updateChainlinkOracle(
+      _tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "updateChainlinkOracle(address)"(
+      _tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    updateChainlinkToken(
+      _tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "updateChainlinkToken(address)"(
+      _tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     volume(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1724,23 +1750,19 @@ export interface ArbiGates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    buildUrl(
-      _wallet: string,
-      _gateId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "buildUrl(address,uint256)"(
-      _wallet: string,
-      _gateId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     checkUpkeep(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
     "checkUpkeep(bytes)"(
       arg0: BytesLike,
       overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    clearAddresses(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "clearAddresses()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     counter(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1948,16 +1970,6 @@ export interface ArbiGates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setMintingContract(
-      _newContract: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "setMintingContract(address)"(
-      _newContract: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     supportsInterface(
       interfaceId: BytesLike,
       overrides?: CallOverrides
@@ -2014,6 +2026,26 @@ export interface ArbiGates extends BaseContract {
     "uintToString(uint256)"(
       _value: BigNumberish,
       overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    updateChainlinkOracle(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "updateChainlinkOracle(address)"(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    updateChainlinkToken(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "updateChainlinkToken(address)"(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     volume(overrides?: CallOverrides): Promise<BigNumber>;
@@ -2112,18 +2144,6 @@ export interface ArbiGates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    buildUrl(
-      _wallet: string,
-      _gateId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "buildUrl(address,uint256)"(
-      _wallet: string,
-      _gateId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     checkUpkeep(
       arg0: BytesLike,
       overrides?: CallOverrides
@@ -2132,6 +2152,14 @@ export interface ArbiGates extends BaseContract {
     "checkUpkeep(bytes)"(
       arg0: BytesLike,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    clearAddresses(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "clearAddresses()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     counter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2339,16 +2367,6 @@ export interface ArbiGates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    setMintingContract(
-      _newContract: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "setMintingContract(address)"(
-      _newContract: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
     supportsInterface(
       interfaceId: BytesLike,
       overrides?: CallOverrides
@@ -2405,6 +2423,26 @@ export interface ArbiGates extends BaseContract {
     "uintToString(uint256)"(
       _value: BigNumberish,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    updateChainlinkOracle(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "updateChainlinkOracle(address)"(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    updateChainlinkToken(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "updateChainlinkToken(address)"(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     volume(overrides?: CallOverrides): Promise<PopulatedTransaction>;
