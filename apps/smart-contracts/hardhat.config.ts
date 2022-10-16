@@ -37,7 +37,10 @@ const config: HardhatUserConfig = {
         interval: 5000,
       },
     },
-
+    goerli: {
+      url: `https://eth-goerli.g.alchemy.com/v2/${GOERLI_ALCHEMY_KEY}`,
+      accounts: [`${PRIVATE_KEY}`],
+    },
     arbitrumGoerli: {
       chainId: 421613,
       url: `https://arb-goerli.g.alchemy.com/v2/${ALCHEMY_KEY}`,
