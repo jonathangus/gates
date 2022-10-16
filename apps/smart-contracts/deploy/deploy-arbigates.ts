@@ -28,11 +28,11 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   )} --network 
    `);
 
-  await hre.run('verify', {
-    address: deployment.address,
+  // await hre.run('verify', {
+  //   address: deployment.address,
 
-    constructorArgs: args,
-  });
+  //   constructorArgs: args,
+  // });
   deployments.log(`Contract ${name} deployed at ${deployment.address}`);
 };
 

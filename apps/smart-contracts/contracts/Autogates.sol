@@ -15,8 +15,8 @@ contract Autogates is
 
     uint256 public volume;
     bytes32 private jobId;
-    uint256 private fee;
     uint256 private gateID;
+    uint256 private fee;
     bool public approved;
 
     event RequestVolume(
