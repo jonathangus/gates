@@ -6,11 +6,10 @@ export * from './typechain';
 import * as _typechain from './typechain';
 import { chain } from 'wagmi';
 
-import { Gates__factory, Arbigates__factory } from './typechain';
+import { Gates__factory } from './typechain';
 
-export type AvailableContracts =
-  | Gates__factory['contractName']
-  | Arbigates__factory['contractName'];
+const Arbigates__factory = (_typechain as any)['Arbigates__factory'];
+export type AvailableContracts = any;
 
 type AddressObj = Record<AvailableContracts, string>;
 
