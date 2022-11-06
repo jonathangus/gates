@@ -14,6 +14,7 @@ import { sources } from '../sources';
 import { useFieldStore } from '../stores/useFieldStore';
 import CreateConditionsButton from './CreateConditionsButton';
 import CreateConditions from './CreateConditionsButton';
+import Fields from './Fields';
 import { CondiditonFrame } from './Icons/ConditionFrame';
 import { MinusIcon, PlusIcon } from './IDCard';
 
@@ -29,8 +30,8 @@ const ConditionCriteriaCard = (props) => {
 
   const fields = useFieldStore((state) => state.fields);
   const setField = useFieldStore((state) => state.setField);
-  const [expanded, setExpanded] = useState(false);
 
+  const [expanded, setExpanded] = useState(false);
   function updateCondition(element, fieldID, value, field) {
     const condition = element.fields?.forEach((fld) => {
       if (fld.fieldID === fieldID) {
@@ -127,7 +128,6 @@ const ConditionCriteriaCard = (props) => {
     }
   }
 
-  console.log(condition);
   return (
     <>
       <div
@@ -217,20 +217,11 @@ const ConditionCriteriaCard = (props) => {
                 {condition.fields.map((item, i) => {
                   return (
                     <>
-                      <Text style={{ fontSize: 14 }}>
-                        {item.title && item.title.length > 2
-                          ? item.title
-                          : item.name}
-                      </Text>
-                      <Input
-                        onChange={(event) =>
-                          addOrEdit(
-                            item,
-                            event.currentTarget.value,
-                            'field_id_' + i,
-                            condition
-                          )
-                        }
+                      <Fields
+                        item={item}
+                        addOrEdit={addOrEdit}
+                        condition={condition}
+                        i={i}
                       />
                       <Space h={5} />
                     </>
@@ -299,7 +290,11 @@ export const ConditionPreview = (props) => {
                   <div style={{ paddingBottom: 8 }}>
                     {cond.fields.map((item) => (
                       <Text size="xs" style={glowStylesWhite}>
-                        {item.title || item.name}: {item.value}
+                        {item.value === 'true'
+                          ? `${item.name}: ✅`
+                          : item.value === 'false'
+                          ? `${item.name}: ❌`
+                          : `${item.name}: ${item.value}`}{' '}
                       </Text>
                     ))}
                   </div>
@@ -318,7 +313,11 @@ export const ConditionPreview = (props) => {
                   <div style={{ paddingBottom: 8 }}>
                     {cond.fields.map((item) => (
                       <Text size="xs" style={glowStylesGreen}>
-                        {item.title}:{item.value}
+                        {item.value === 'true'
+                          ? `${item.title}:✅`
+                          : item.value === 'false'
+                          ? `${item.title}:❌`
+                          : `${item.title}: ${item.value}`}
                       </Text>
                     ))}
                   </div>
@@ -422,7 +421,6 @@ const Source = (props) => {
 const CreateNewCondition = (props) => {
   const { admin, setCreateNew } = props;
   const [gatedConditions, setGatedConditions] = useState([]);
-
   const sourcesList = Object.values(sources);
 
   //   const gated = {

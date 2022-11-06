@@ -5,7 +5,7 @@ export type SourceMetadata = {
 };
 
 export type Field = {
-  type: 'string' | 'int';
+  type: 'string' | 'int' | 'boolean';
   name: string;
   description?: string;
   title?: string;
