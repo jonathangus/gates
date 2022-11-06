@@ -1,21 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.14;
 
-// AutomationCompatible.sol imports the functions from both ./AutomationBase.sol and
-// ./interfaces/AutomationCompatibleInterface.sol
 import '@chainlink/contracts/src/v0.8/AutomationCompatible.sol';
 import '@chainlink/contracts/src/v0.8/ChainlinkClient.sol';
 import '@chainlink/contracts/src/v0.8/ConfirmedOwner.sol';
 import '@openzeppelin/contracts/utils/Strings.sol';
-
-/**
- * THIS IS AN EXAMPLE CONTRACT THAT USES HARDCODED VALUES FOR CLARITY.
- * THIS IS AN EXAMPLE CONTRACT THAT USES UN-AUDITED CODE.
- * DO NOT USE THIS CODE IN PRODUCTION.
- */
-interface IMintngContractInterface {
-    function safeMint(address to, string memory uri) external;
-}
 
 contract Autogates is
     AutomationCompatibleInterface,
@@ -26,8 +15,8 @@ contract Autogates is
 
     uint256 public volume;
     bytes32 private jobId;
-    uint256 private fee;
     uint256 private gateID;
+    uint256 private fee;
     bool public approved;
 
     event RequestVolume(
@@ -35,8 +24,7 @@ contract Autogates is
         bool approved,
         string lastChecked
     );
-    address private MintingContractAddress =
-        0x5cB675e6e9e947A1c40b3F83b673c6A8f803f3B7;
+
     uint256 public counter;
 
     /**
@@ -49,17 +37,28 @@ contract Autogates is
 
     mapping(bytes32 => address) private responseID;
 
-    constructor(uint256 _gateId, uint256 updateInterval)
-        ConfirmedOwner(msg.sender)
-    {
-        setChainlinkToken(0x326C977E6efc84E512bB9C30f76E30c160eD06FB);
-        setChainlinkOracle(0xCC79157eb46F5624204f47AB42b3906cAA40eaB7);
+    constructor(
+        uint256 _gateId,
+        uint256 updateInterval,
+        address chainLinkToken,
+        address chainLinkOracle
+    ) ConfirmedOwner(msg.sender) {
+        setChainlinkToken(chainLinkToken);
+        setChainlinkOracle(chainLinkOracle);
         jobId = 'c1c5e92880894eb6b27d3cae19670aa3';
         fee = (1 * LINK_DIVISIBILITY) / 10; // 0,1 * 10**18 (Varies by network and job)
         interval = updateInterval;
         lastTimeStamp = block.timestamp;
         gateID = _gateId;
         counter = 0;
+    }
+
+    function updateChainlinkToken(address _tokenAddress) external onlyOwner {
+        setChainlinkToken(_tokenAddress);
+    }
+
+    function updateChainlinkOracle(address _tokenAddress) external onlyOwner {
+        setChainlinkOracle(_tokenAddress);
     }
 
     function checkUpkeep(
@@ -85,8 +84,8 @@ contract Autogates is
         gateID = _gateId;
     }
 
-    function setMintingContract(address _newContract) public onlyOwner {
-        MintingContractAddress = _newContract;
+    function clearAddresses() public onlyOwner {
+        delete addressesToVerify;
     }
 
     function performUpkeep(
@@ -142,8 +141,8 @@ contract Autogates is
     }
 
     function buildUrl(address _wallet, uint256 _gateId)
-        public
-        view
+        internal
+        pure
         returns (string memory)
     {
         return
@@ -186,16 +185,7 @@ contract Autogates is
         emit RequestVolume(_requestId, _approved, lastChecked);
     }
 
-    function execute(address mintTo) internal virtual {
-        gainAccess(mintTo);
-    }
-
-    function gainAccess(address _newMemb) public {
-        IMintngContractInterface(MintingContractAddress).safeMint(
-            _newMemb,
-            'https://media.istockphoto.com/photos/yellow-rubber-duck-for-bath-time-picture-id185590965?k=20&m=185590965&s=612x612&w=0&h=tXDiN77vzdvGyCuIN3tD8I6kUjA2fNq-dKaVmodXuTA='
-        );
-    }
+    function execute(address mintTo) internal virtual {}
 
     /**
      * Allow withdraw of Link tokens from the contract

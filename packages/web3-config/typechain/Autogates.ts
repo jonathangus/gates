@@ -25,11 +25,10 @@ export interface AutogatesInterface extends utils.Interface {
     "addressesToVerify(uint256)": FunctionFragment;
     "approved()": FunctionFragment;
     "batchVerify()": FunctionFragment;
-    "buildUrl(address,uint256)": FunctionFragment;
     "checkUpkeep(bytes)": FunctionFragment;
+    "clearAddresses()": FunctionFragment;
     "counter()": FunctionFragment;
     "fulfill(bytes32,bool)": FunctionFragment;
-    "gainAccess(address)": FunctionFragment;
     "interval()": FunctionFragment;
     "lastChecked()": FunctionFragment;
     "lastTimeStamp()": FunctionFragment;
@@ -37,9 +36,10 @@ export interface AutogatesInterface extends utils.Interface {
     "performUpkeep(bytes)": FunctionFragment;
     "requestVolumeData(address,uint256)": FunctionFragment;
     "setGate(uint256)": FunctionFragment;
-    "setMintingContract(address)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "uintToString(uint256)": FunctionFragment;
+    "updateChainlinkOracle(address)": FunctionFragment;
+    "updateChainlinkToken(address)": FunctionFragment;
     "volume()": FunctionFragment;
     "withdrawLink()": FunctionFragment;
   };
@@ -59,19 +59,18 @@ export interface AutogatesInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "buildUrl",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
     functionFragment: "checkUpkeep",
     values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "clearAddresses",
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "counter", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "fulfill",
     values: [BytesLike, boolean]
   ): string;
-  encodeFunctionData(functionFragment: "gainAccess", values: [string]): string;
   encodeFunctionData(functionFragment: "interval", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "lastChecked",
@@ -95,16 +94,20 @@ export interface AutogatesInterface extends utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "setMintingContract",
-    values: [string]
-  ): string;
-  encodeFunctionData(
     functionFragment: "transferOwnership",
     values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "uintToString",
     values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateChainlinkOracle",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateChainlinkToken",
+    values: [string]
   ): string;
   encodeFunctionData(functionFragment: "volume", values?: undefined): string;
   encodeFunctionData(
@@ -126,14 +129,16 @@ export interface AutogatesInterface extends utils.Interface {
     functionFragment: "batchVerify",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "buildUrl", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "checkUpkeep",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "clearAddresses",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "counter", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "fulfill", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "gainAccess", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "interval", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "lastChecked",
@@ -154,15 +159,19 @@ export interface AutogatesInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "setGate", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "setMintingContract",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "uintToString",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateChainlinkOracle",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateChainlinkToken",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "volume", data: BytesLike): Result;
@@ -294,18 +303,6 @@ export interface Autogates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    buildUrl(
-      _wallet: string,
-      _gateId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
-    "buildUrl(address,uint256)"(
-      _wallet: string,
-      _gateId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
     checkUpkeep(
       arg0: BytesLike,
       overrides?: CallOverrides
@@ -315,6 +312,14 @@ export interface Autogates extends BaseContract {
       arg0: BytesLike,
       overrides?: CallOverrides
     ): Promise<[boolean, string] & { upkeepNeeded: boolean }>;
+
+    clearAddresses(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "clearAddresses()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     counter(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -329,16 +334,6 @@ export interface Autogates extends BaseContract {
     "fulfill(bytes32,bool)"(
       _requestId: BytesLike,
       _approved: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    gainAccess(
-      _newMemb: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "gainAccess(address)"(
-      _newMemb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -390,16 +385,6 @@ export interface Autogates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    setMintingContract(
-      _newContract: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "setMintingContract(address)"(
-      _newContract: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
     transferOwnership(
       to: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -419,6 +404,26 @@ export interface Autogates extends BaseContract {
       _value: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[string]>;
+
+    updateChainlinkOracle(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "updateChainlinkOracle(address)"(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    updateChainlinkToken(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "updateChainlinkToken(address)"(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     volume(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -473,18 +478,6 @@ export interface Autogates extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  buildUrl(
-    _wallet: string,
-    _gateId: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
-  "buildUrl(address,uint256)"(
-    _wallet: string,
-    _gateId: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
   checkUpkeep(
     arg0: BytesLike,
     overrides?: CallOverrides
@@ -494,6 +487,14 @@ export interface Autogates extends BaseContract {
     arg0: BytesLike,
     overrides?: CallOverrides
   ): Promise<[boolean, string] & { upkeepNeeded: boolean }>;
+
+  clearAddresses(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "clearAddresses()"(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   counter(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -508,16 +509,6 @@ export interface Autogates extends BaseContract {
   "fulfill(bytes32,bool)"(
     _requestId: BytesLike,
     _approved: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  gainAccess(
-    _newMemb: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  "gainAccess(address)"(
-    _newMemb: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -569,16 +560,6 @@ export interface Autogates extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  setMintingContract(
-    _newContract: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  "setMintingContract(address)"(
-    _newContract: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   transferOwnership(
     to: string,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -598,6 +579,26 @@ export interface Autogates extends BaseContract {
     _value: BigNumberish,
     overrides?: CallOverrides
   ): Promise<string>;
+
+  updateChainlinkOracle(
+    _tokenAddress: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "updateChainlinkOracle(address)"(
+    _tokenAddress: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  updateChainlinkToken(
+    _tokenAddress: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "updateChainlinkToken(address)"(
+    _tokenAddress: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
 
   volume(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -641,18 +642,6 @@ export interface Autogates extends BaseContract {
 
     "batchVerify()"(overrides?: CallOverrides): Promise<void>;
 
-    buildUrl(
-      _wallet: string,
-      _gateId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
-    "buildUrl(address,uint256)"(
-      _wallet: string,
-      _gateId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
     checkUpkeep(
       arg0: BytesLike,
       overrides?: CallOverrides
@@ -662,6 +651,10 @@ export interface Autogates extends BaseContract {
       arg0: BytesLike,
       overrides?: CallOverrides
     ): Promise<[boolean, string] & { upkeepNeeded: boolean }>;
+
+    clearAddresses(overrides?: CallOverrides): Promise<void>;
+
+    "clearAddresses()"(overrides?: CallOverrides): Promise<void>;
 
     counter(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -676,13 +669,6 @@ export interface Autogates extends BaseContract {
     "fulfill(bytes32,bool)"(
       _requestId: BytesLike,
       _approved: boolean,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    gainAccess(_newMemb: string, overrides?: CallOverrides): Promise<void>;
-
-    "gainAccess(address)"(
-      _newMemb: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -728,16 +714,6 @@ export interface Autogates extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setMintingContract(
-      _newContract: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "setMintingContract(address)"(
-      _newContract: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     transferOwnership(to: string, overrides?: CallOverrides): Promise<void>;
 
     "transferOwnership(address)"(
@@ -754,6 +730,26 @@ export interface Autogates extends BaseContract {
       _value: BigNumberish,
       overrides?: CallOverrides
     ): Promise<string>;
+
+    updateChainlinkOracle(
+      _tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "updateChainlinkOracle(address)"(
+      _tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    updateChainlinkToken(
+      _tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "updateChainlinkToken(address)"(
+      _tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     volume(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -851,23 +847,19 @@ export interface Autogates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    buildUrl(
-      _wallet: string,
-      _gateId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
-    "buildUrl(address,uint256)"(
-      _wallet: string,
-      _gateId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     checkUpkeep(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
     "checkUpkeep(bytes)"(
       arg0: BytesLike,
       overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    clearAddresses(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "clearAddresses()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     counter(overrides?: CallOverrides): Promise<BigNumber>;
@@ -883,16 +875,6 @@ export interface Autogates extends BaseContract {
     "fulfill(bytes32,bool)"(
       _requestId: BytesLike,
       _approved: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    gainAccess(
-      _newMemb: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "gainAccess(address)"(
-      _newMemb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -944,16 +926,6 @@ export interface Autogates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    setMintingContract(
-      _newContract: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "setMintingContract(address)"(
-      _newContract: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
     transferOwnership(
       to: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -972,6 +944,26 @@ export interface Autogates extends BaseContract {
     "uintToString(uint256)"(
       _value: BigNumberish,
       overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    updateChainlinkOracle(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "updateChainlinkOracle(address)"(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    updateChainlinkToken(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "updateChainlinkToken(address)"(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     volume(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1028,18 +1020,6 @@ export interface Autogates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    buildUrl(
-      _wallet: string,
-      _gateId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "buildUrl(address,uint256)"(
-      _wallet: string,
-      _gateId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     checkUpkeep(
       arg0: BytesLike,
       overrides?: CallOverrides
@@ -1048,6 +1028,14 @@ export interface Autogates extends BaseContract {
     "checkUpkeep(bytes)"(
       arg0: BytesLike,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    clearAddresses(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "clearAddresses()"(
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     counter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1063,16 +1051,6 @@ export interface Autogates extends BaseContract {
     "fulfill(bytes32,bool)"(
       _requestId: BytesLike,
       _approved: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    gainAccess(
-      _newMemb: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "gainAccess(address)"(
-      _newMemb: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1124,16 +1102,6 @@ export interface Autogates extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    setMintingContract(
-      _newContract: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "setMintingContract(address)"(
-      _newContract: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
     transferOwnership(
       to: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -1152,6 +1120,26 @@ export interface Autogates extends BaseContract {
     "uintToString(uint256)"(
       _value: BigNumberish,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    updateChainlinkOracle(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "updateChainlinkOracle(address)"(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    updateChainlinkToken(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "updateChainlinkToken(address)"(
+      _tokenAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     volume(overrides?: CallOverrides): Promise<PopulatedTransaction>;

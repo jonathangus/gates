@@ -40,6 +40,10 @@ const config: HardhatUserConfig = {
         interval: 5000,
       },
     },
+    arbitrum: {
+      url: `https://arb-mainnet.g.alchemy.com/v2/QSbautzyEXXlmdo7LPpY4A0btktHukG0`,
+      accounts: [`0x${PRIVATE_KEY}`],
+    },
     goerli: {
       url: `https://eth-goerli.g.alchemy.com/v2/QSbautzyEXXlmdo7LPpY4A0btktHukG0`,
       accounts: [`0x${PRIVATE_KEY}`],

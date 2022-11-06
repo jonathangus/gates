@@ -10,6 +10,16 @@
         "internalType": "uint256",
         "name": "updateInterval",
         "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "chainLinkToken",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "chainLinkOracle",
+        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -179,30 +189,6 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_wallet",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_gateId",
-        "type": "uint256"
-      }
-    ],
-    "name": "buildUrl",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "bytes",
         "name": "",
         "type": "bytes"
@@ -222,6 +208,13 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "clearAddresses",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -251,19 +244,6 @@
       }
     ],
     "name": "fulfill",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_newMemb",
-        "type": "address"
-      }
-    ],
-    "name": "gainAccess",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -374,19 +354,6 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_newContract",
-        "type": "address"
-      }
-    ],
-    "name": "setMintingContract",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
         "name": "to",
         "type": "address"
       }
@@ -413,6 +380,32 @@
       }
     ],
     "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_tokenAddress",
+        "type": "address"
+      }
+    ],
+    "name": "updateChainlinkOracle",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_tokenAddress",
+        "type": "address"
+      }
+    ],
+    "name": "updateChainlinkToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
